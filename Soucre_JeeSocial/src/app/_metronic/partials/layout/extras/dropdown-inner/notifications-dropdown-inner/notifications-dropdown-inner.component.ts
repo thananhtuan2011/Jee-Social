@@ -18,6 +18,7 @@ export class NotificationsDropdownInnerComponent implements OnInit {
     this.extrasNotificationsDropdownStyle = this.layout.getProp(
       'extras.notifications.dropdown.style'
     );
+    this.setActiveTabId('topbar_notifications_events');
   }
 
   setActiveTabId(tabId) {

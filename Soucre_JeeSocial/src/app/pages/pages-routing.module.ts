@@ -7,10 +7,15 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
+      // {
+      //   path: 'dashboard',
+      //   loadChildren: () =>
+      //     import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      // },
       {
-        path: 'dashboard',
+        path: 'Home',
         loadChildren: () =>
-          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+          import('./../Jee_Social_module/page-home/page-home.module').then((m) => m.PageHomeModule),
       },
       {
         path: 'builder',
@@ -61,7 +66,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'Home',
         pathMatch: 'full',
       },
       {

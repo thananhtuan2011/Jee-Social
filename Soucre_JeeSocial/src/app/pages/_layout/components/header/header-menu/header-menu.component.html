@@ -1,8 +1,9 @@
+
 <!-- begin::Header Nav -->
 <ul class="menu-nav" [ngClass]="ulCSSClasses">
   <!-- begin::1 Level -->
   <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
-    <a class="menu-link" routerLink="/dashboard" routerLinkActive="active">
+    <a class="menu-link" routerLink="/Home" routerLinkActive="active">
       <span class="menu-text" translate="MENU.DASHBOARD"></span>
       <ng-container *ngIf="rootArrowEnabled">
         <i class="menu-arrow"></i>
@@ -13,12 +14,14 @@
 
   <!-- begin::1 Level -->
   <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
-    <a class="menu-link" routerLink="/builder" routerLinkActive="active">
-      <span class="menu-text">Builder</span>
+    <a class="menu-link " routerLink="/builder" routerLinkActive="active">
+      <span  class="menu-text ">Công Ty</span>
+      <i style="padding:5px; font-size:12px" class="la la-angle-down"></i>
       <ng-container *ngIf="rootArrowEnabled">
         <i class="menu-arrow"></i>
       </ng-container>
     </a>
+    
   </li>
   <!-- end::1 Level -->
 
@@ -31,7 +34,8 @@
     routerLinkActive="menu-item-active"
   >
     <a class="menu-link menu-toggle" href="/material" routerLinkActive="active">
-      <span class="menu-text">Material UI</span>
+      <span class="menu-text">test</span>
+   
       <i class="menu-arrow"></i>
     </a>
     <div class="menu-submenu menu-submenu-classic menu-submenu-left">
@@ -54,7 +58,7 @@
               cacheSVG="true"
               class="svg-icon menu-icon"
             ></span>
-            <span class="menu-text">Form Controls</span>
+            <span class="menu-text">Form test</span>
             <i class="menu-arrow"></i>
           </a>
           <div class="menu-submenu menu-submenu-classic menu-submenu-right">
