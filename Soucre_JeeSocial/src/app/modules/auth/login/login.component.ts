@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   //   password: '',
   // };
   defaultAuth: any = {
-    email: 'admin@demo.com',
-    password: 'demo',
+    email:'tuan@gmail.com',
+    password: '121212',
   };
   loginForm: FormGroup;
   hasError: boolean;
@@ -35,11 +35,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.isLoading$ = this.authService.isLoading$;
-    // redirect to home if already logged in
-    if (this.authService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+    // debugger
+    // this.isLoading$ = this.authService.isLoading$;
+    // // redirect to home if already logged in
+    // if (this.authService.currentUserValue) {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   ngOnInit(): void {
@@ -77,18 +78,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.hasError = false;
-    const loginSubscr = this.authService
-      .login(this.f.email.value, this.f.password.value)
-      .pipe(first())
-      .subscribe((user: UserModel) => {
-        if (user) {
-          this.router.navigate([this.  returnUrl]);
-        } else {
-          this.hasError = true;
-        }
-      });
-    this.unsubscribe.push(loginSubscr);
+    // debugger
+    // this.hasError = false;
+    // const loginSubscr = this.authService
+    //   .login(this.f.email.value, this.f.password.value)
+     
+    //   .subscribe(res => {
+    //     console.log('res data logoin',res);
+    //     if (res&& res.status == 1) {
+    //       this.router.navigate([this.  returnUrl]);
+    //     } else {
+    //       this.hasError = true;
+    //     }
+    //   });
+    // this.unsubscribe.push(loginSubscr);
   }
 
   ngOnDestroy() {

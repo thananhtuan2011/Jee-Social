@@ -1,9 +1,10 @@
+import { AuthModel } from './../../../../modules/auth/_models/auth.model';
 // tslint:disable:variable-name
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { PaginatorState } from '../models/paginator.model';
-import { ITableState, TableResponseModel } from '../models/table.model';
+import { ITableState, QueryParamsModelNewLazy, QueryResultsModel, TableResponseModel } from '../models/table.model';
 import { BaseModel } from '../models/base.model';
 import { SortState } from '../models/sort.model';
 import { GroupingState } from '../models/grouping.model';
@@ -26,8 +27,14 @@ export abstract class TableService<T> {
   private _tableState$ = new BehaviorSubject<ITableState>(DEFAULT_STATE);
   private _errorMessage = new BehaviorSubject<string>('');
   private _subscriptions: Subscription[] = [];
+  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
 
+
+  API_LOAD_PAGE = `${environment.apiUrl_Social}`;
+  API_IDENTITY = `${environment.ApiIdentity}`;
   // Getters
+
+
   get items$() {
     return this._items$.asObservable();
   }
@@ -67,6 +74,83 @@ export abstract class TableService<T> {
     this.http = http;
   }
 
+  private getAuthFromLocalStorage(): AuthModel {
+    debugger
+    try {
+      const authData = JSON.parse(
+        localStorage.getItem(this.authLocalStorageToken)
+      );
+      return authData;
+    } catch (error) {
+      console.error(error);
+      return undefined;
+    }
+  }
+  getHttpHeaders() {
+    const auth = this.getAuthFromLocalStorage();
+    var p = new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${auth.accessToken}`
+    });
+    return p;
+  }
+
+  getDataUser_PageHome(routeFind: string = '', sso_token:string = ''): Observable<BaseModel>  {
+    const url = this.API_IDENTITY + routeFind;
+    const httpHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Authorization": sso_token 
+    }); 
+    return this.http.get<BaseModel>(url, { headers: httpHeader })
+    .pipe(
+      tap((res) => {localStorage.setItem(this.authLocalStorageToken, JSON.stringify(res));
+      }),
+      catchError(err => {
+        this._errorMessage.next(err);
+        console.error('lỗi lấy data', err);
+        return of({ id: undefined });
+      })
+     
+    );
+  }
+
+  getFindHTTPParams(queryParams): HttpParams {
+		let params = new HttpParams()
+			//.set('filter',  queryParams.filter )
+			.set('sortOrder', queryParams.sortOrder)
+			.set('sortField', queryParams.sortField)
+			.set('page', (queryParams.pageNumber + 1).toString())
+			.set('record', queryParams.pageSize.toString());
+		let keys = [], values = [];
+		if (queryParams.more) {
+			params = params.append('more', 'true');
+		}
+		Object.keys(queryParams.filter).forEach(function (key) {
+			if (typeof queryParams.filter[key] !== 'string' || queryParams.filter[key] !== '') {
+				keys.push(key);
+				values.push(queryParams.filter[key]);
+			}
+		});
+		if (keys.length > 0) {
+			params = params.append('filter.keys', keys.join('|'))
+				.append('filter.vals', values.join('|'));
+		}
+		return params;
+	}
+    //begin load page-home 
+	getlistBaiDang(queryParams:QueryParamsModelNewLazy , routeFind: string = ''): Observable<QueryResultsModel> {
+    const url = this.API_LOAD_PAGE + routeFind;
+    const httpHeader = this.getHttpHeaders();
+    const httpParams = this.getFindHTTPParams(queryParams);
+		return this.http.get<any>(url,{ headers: httpHeader,});
+		
+	}
+
+// 
+
+
+
+	
   // CREATE
   // server should return the object with ID
   create(item: BaseModel): Observable<BaseModel> {
@@ -230,4 +314,5 @@ export abstract class TableService<T> {
     const newState = Object.assign(this._tableState$.value, patch);
     this._tableState$.next(newState);
   }
+ 
 }

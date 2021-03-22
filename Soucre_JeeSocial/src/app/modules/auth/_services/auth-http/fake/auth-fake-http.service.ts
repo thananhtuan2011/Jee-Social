@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -8,8 +8,9 @@ import { AuthModel } from '../../../_models/auth.model';
 import { UsersTable } from '../../../../../_fake/fake-db/users.table';
 import { environment } from '../../../../../../environments/environment';
 
-const API_USERS_URL = `${environment.apiUrl}/users`;
-
+// const API_USERS_URL = `${environment.apiUrl}/users`;
+const API_USERS_URL = `${environment.apiUrl_Social}/user`;
+const API_USERS_URL_endity = `https://identityserver.jee.vn`;
 @Injectable({
   providedIn: 'root',
 })
@@ -23,33 +24,29 @@ export class AuthHTTPService {
       return of(notFoundError);
     }
 
-    return this.getAllUsers().pipe(
-      map((result: UserModel[]) => {
-        if (result.length <= 0) {
-          return notFoundError;
-        }
+    return this.getUserLogin(email,password).pipe(
+      map((result: any) => {
+        if (result.status == 1) {
+          if (!result.data) {
+            return notFoundError;
+          }
+       
 
-        const user = result.find((u) => {
-          return (
-            u.email.toLowerCase() === email.toLowerCase() &&
-            u.password === password
-          );
-        });
-        if (!user) {
-          return notFoundError;
-        }
-
-        const auth = new AuthModel();
-        auth.accessToken = user.accessToken;
-        auth.refreshToken = user.refreshToken;
-        auth.expiresIn = new Date(Date.now() + 100 * 24 * 60 * 60 * 1000);
-        return auth;
-      })
+          // const auth = new AuthModel();
+          // auth.accessToken = result.data.accessToken;
+          // auth.refreshToken = "";
+          // auth.expiresIn = new Date(Date.now() + 100 * 24 * 60 * 60 * 1000);
+          return result;
+      }
+      else {
+        return notFoundError;
+      }
+    })
     );
   }
 
   createUser(user: UserModel): Observable<any> {
-    user.roles = [2]; // Manager
+    // user.roles = [2]; // Manager
     user.accessToken = 'access-token-' + Math.random();
     user.refreshToken = 'access-token-' + Math.random();
     user.expiresIn = new Date(Date.now() + 100 * 24 * 60 * 60 * 1000);
@@ -68,6 +65,19 @@ export class AuthHTTPService {
       })
     );
   }
+  getUserByToken__Social(token: string): Observable<any> {
+    debugger
+    var p = new HttpHeaders({
+     'Content-Type': 'application/json',
+      // "Authorization": `Bearer ${token}`,
+      "Authorization": `Bearer ${token}`
+     
+    });
+    // 'Authorization': 'Bearer <token>'
+    return this.http.get<any>(API_USERS_URL_endity+"/user/me",{ headers: p });    
+  }
+
+  
 
   getUserByToken(token: string): Observable<UserModel> {
     const user = UsersTable.users.find((u) => {
@@ -83,5 +93,10 @@ export class AuthHTTPService {
 
   getAllUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(API_USERS_URL);
+  }
+
+  getUserLogin(user:string,pass:string): Observable<any> 
+  {
+    return this.http.post<any>(API_USERS_URL+`/Login?Email=${user}&pass=${pass}`,null);
   }
 }

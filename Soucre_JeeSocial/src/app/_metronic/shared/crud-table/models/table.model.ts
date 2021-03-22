@@ -10,6 +10,49 @@ export interface ITableState {
   grouping: GroupingState;
   entityId: number | undefined;
 }
+export class QueryParamsModelNewLazy {
+  // fields
+  filter: any;
+  sortOrder: string; // asc || desc
+  sortField: string;
+  pageNumber: number;
+  pageSize: number;
+  more: boolean;
+
+  // constructor overrides
+  constructor(_filter: any,
+    _sortOrder: string = 'asc',
+    _sortField: string = '',
+    _pageNumber: number,
+    _pageSize: number,
+    _more: boolean = false) {
+    this.filter = _filter;
+    this.sortOrder = _sortOrder;
+    this.sortField = _sortField;
+    this.pageNumber = _pageNumber;
+    this.pageSize = _pageSize;
+    this.more = _more;
+  }
+}
+
+export class QueryResultsModel {
+	// fields
+	// items: any[];
+	// totalCount: number;
+	// errorMessage: string;
+	data: any[];
+	page: any;
+	items: any[];
+	totalCount: number;
+	errorMessage: string;
+	status: number;
+	Visible:boolean;
+
+	constructor(_items: any[] = [], _totalCount: number = 0, _errorMessage: string = '') {
+		this.items = _items;
+		this.totalCount = _totalCount;
+	}
+}
 
 export interface TableResponseModel<T> {
   items: T[];

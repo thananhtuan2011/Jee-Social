@@ -18,7 +18,7 @@ import { KTUtil } from '../../../../../assets/js/components/util';
   styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit, AfterViewInit {
-  user$: Observable<UserModel>;
+  user$: Observable<any>;
   // tobbar extras
   extraSearchDisplay: boolean;
   extrasSearchLayout: 'offcanvas' | 'dropdown';
@@ -34,6 +34,7 @@ export class TopbarComponent implements OnInit, AfterViewInit {
   extrasUserLayout: 'offcanvas' | 'dropdown';
 
   constructor(private layout: LayoutService, private auth: AuthService) {
+    debugger
     this.user$ = this.auth.currentUserSubject.asObservable();
   }
 

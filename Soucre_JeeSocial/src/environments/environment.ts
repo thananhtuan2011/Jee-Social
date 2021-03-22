@@ -4,10 +4,13 @@
 
 export const environment = {
   production: false,
-  appVersion: 'v717demo2',
+  appVersion: 'Token',
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
-  apiUrl: 'api'
+  apiUrl: 'api',
+  apiUrl_Social: 'https://localhost:44365/api',
+  ApiIdentity: 'https://identityserver.jee.vn',
+  redirectUrl:'https://portal.jee.vn/?redirectUrl='
 };
 
 /*

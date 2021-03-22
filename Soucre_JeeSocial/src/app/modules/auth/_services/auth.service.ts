@@ -1,90 +1,172 @@
+import { BaseModel } from './../../../_metronic/shared/crud-table/models/base.model';
+import { environment } from './../../../../environments/environment';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
-import { map, catchError, switchMap, finalize } from 'rxjs/operators';
+import { map, catchError, switchMap, finalize, tap } from 'rxjs/operators';
 import { UserModel } from '../_models/user.model';
 import { AuthModel } from '../_models/auth.model';
 import { AuthHTTPService } from './auth-http';
-import { environment } from 'src/environments/environment';
+
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
   // private fields
+  API_IDENTITY = `${environment.ApiIdentity}`;
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
   private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
-
+  private _errorMessage = new BehaviorSubject<string>('');
   // public fields
   currentUser$: Observable<UserModel>;
   isLoading$: Observable<boolean>;
-  currentUserSubject: BehaviorSubject<UserModel>;
+  currentUserSubject: BehaviorSubject<any>;
   isLoadingSubject: BehaviorSubject<boolean>;
+  public ldp_loadDataUser: string = '/user/me';
+  public ldp_logOutUser: string = '/user/logout';
 
-
-  get currentUserValue(): UserModel {
+  get currentUserValue(): any {
     return this.currentUserSubject.value;
   }
 
-  set currentUserValue(user: UserModel) {
+  set currentUserValue(user: any) {
     this.currentUserSubject.next(user);
   }
 
   constructor(
     private authHttpService: AuthHTTPService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
-    this.currentUserSubject = new BehaviorSubject<UserModel>(undefined);
+    this.currentUserSubject = new BehaviorSubject<any>(undefined);
     this.currentUser$ = this.currentUserSubject.asObservable();
     this.isLoading$ = this.isLoadingSubject.asObservable();
+    
     const subscr = this.getUserByToken().subscribe();
     this.unsubscribe.push(subscr);
   }
 
+
+  loginsyn()
+
+  {
+
+  }
+
   // public methods
-  login(email: string, password: string): Observable<UserModel> {
+  login(email: string, password: string): Observable<any> {
+    // debugger
+    // var resultLogin;
+    // this.isLoadingSubject.next(true);
+  
+    // return this.authHttpService.login(email, password).pipe(
+    //   map((auth: any) => {
+    //     debugger
+    //     const result = this.setAuthFromLocalStorage(auth);
+    //     resultLogin = auth.data;
+    //     console.log('data',auth);
+    //     // localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth.data.accessToken));
+    //     // localStorage.setItem('User',JSON.stringify(resultLogin));
+    //     // console.log('TT',resultLogin)
+    //     // this.getUserByToken(resultLogin);
+    //     // this.getUserByToken(resultLogin);
+    //     this.getUserByToken(resultLogin);
+    //     return auth;
+     
+    //   }),
+    //   //  switchMap(() => this.getUserByToken(resultLogin)),
+    //   catchError((err) => {
+    //     console.error('err', err);
+    //     return of(undefined);
+    //   }),
+    //   finalize(() => this.isLoadingSubject.next(false))
+    // );
+    return ;
+  }
+  
+  getUserByToken(): Observable<any> {
+    debugger
+    const auth = this.getAuthFromLocalStorage();
+    if (!auth || !auth.access_token) {
+      return of(undefined);
+    }
+    debugger
     this.isLoadingSubject.next(true);
-    return this.authHttpService.login(email, password).pipe(
-      map((auth: AuthModel) => {
-        const result = this.setAuthFromLocalStorage(auth);
-        return result;
-      }),
-      switchMap(() => this.getUserByToken()),
-      catchError((err) => {
-        console.error('err', err);
-        return of(undefined);
+    return this.authHttpService.getUserByToken__Social(auth.access_token).pipe(
+      map((res: any) => {
+        if (res) {
+          this.currentUserSubject = new BehaviorSubject<any>(res.user.customData);
+          console.log('currentUserSubject',res.user.customData)
+        } else {
+          this.logout();
+        }
+        return res.user.customData;
       }),
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
+  // getUserByToken(): Observable<any> {
+  //   debugger
+  //    const auth = this.getAuthFromLocalStorage();
+  //   // console.log('getUserByToken',item);
+    
+  //   if (!auth || !auth.accessToken) {
+  //      return of(undefined);
+     
+  //   }
+  //   // var p=localStorage.getItem('User');
+  //   var p=auth.user.customData;
+  //   // this.currentUserSubject = new BehaviorSubject<any>(auth.user.customData);
+  //   this.isLoadingSubject.next(true);
+ 
+  //   if (p) {
+  //     debugger
+  //     this.currentUserSubject = new BehaviorSubject<any>(p);
+    
+  //   } else {
+  //     this.logout();   
+  //   }
+  // }
+
+  getHttpHeaders(){
+    const auth = this.getAuthFromLocalStorage();
+    var p = new HttpHeaders({
+      'Content-Type': 'application/json',
+       "Authorization": `Bearer ${auth.accessToken}`
+     });
+     return p;
+  }
+
 
   logout() {
     localStorage.removeItem(this.authLocalStorageToken);
-    this.router.navigate(['/auth/login'], {
+    // this.router.navigate(['/auth/login'], {
+    //   queryParams: {},
+    // });
+
+      this.router.navigate(['https://portal.jee.vn/?redirectUrl='], {
       queryParams: {},
     });
   }
 
-  getUserByToken(): Observable<UserModel> {
-    const auth = this.getAuthFromLocalStorage();
-    if (!auth || !auth.accessToken) {
-      return of(undefined);
-    }
-
-    this.isLoadingSubject.next(true);
-    return this.authHttpService.getUserByToken(auth.accessToken).pipe(
-      map((user: UserModel) => {
-        if (user) {
-          this.currentUserSubject = new BehaviorSubject<UserModel>(user);
-        } else {
-          this.logout();
-        }
-        return user;
-      }),
-      finalize(() => this.isLoadingSubject.next(false))
-    );
-  }
+ 
+  //  return auth;
+    // this.isLoadingSubject.next(true);
+    // return this.authHttpService.getUserByToken(auth.accessToken).pipe(
+    //   map((user: any) => {
+    //     if (user) {
+    //       this.currentUserSubject = new BehaviorSubject<any>(user);
+    //     } else {
+    //       this.logout();
+    //     }
+    //     return user;
+    //   }),
+    //   finalize(() => this.isLoadingSubject.next(false))
+    // );
+  //}
 
   // need create new user then login
   registration(user: UserModel): Observable<any> {
@@ -93,7 +175,7 @@ export class AuthService implements OnDestroy {
       map(() => {
         this.isLoadingSubject.next(false);
       }),
-      switchMap(() => this.login(user.email, user.password)),
+      switchMap(() => this.login(user.email, user.pass)),
       catchError((err) => {
         console.error('err', err);
         return of(undefined);
@@ -110,16 +192,52 @@ export class AuthService implements OnDestroy {
   }
 
   // private methods
-  private setAuthFromLocalStorage(auth: AuthModel): boolean {
+  private setAuthFromLocalStorage(auth: any): boolean {
+    debugger
+    console.log("SetAuth", auth);
     // store auth accessToken/refreshToken/epiresIn in local storage to keep user logged in between page refreshes
-    if (auth && auth.accessToken) {
-      localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth));
+    if (auth.data && auth.data.accessToken) {      
+      localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth.data.accessToken));
+      var q = JSON.stringify(auth);
+
+      setTimeout(()=>{
+        window.localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth.data.accessToken));
+        console.log("SetAuth", localStorage, this.authLocalStorageToken);
+      });
+      // localStorage.setItem(this.authLocalStorageToken, q);      
+      // setTimeout(()=>{
+      //   window.localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth.data.accessToken));
+      //   console.log("SetAuth", localStorage, this.authLocalStorageToken);
+      // });
       return true;
     }
     return false;
   }
 
-  private getAuthFromLocalStorage(): AuthModel {
+  
+  getDataUser_PageHome(routeFind: string = '', sso_token:string = ''): Observable<BaseModel>  {
+    
+    const url = this.API_IDENTITY + routeFind;
+    const httpHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Authorization": sso_token 
+    }); 
+    return this.http.get<BaseModel>(url, { headers: httpHeader })
+    .pipe(
+      tap((res) => {localStorage.setItem(this.authLocalStorageToken, JSON.stringify(res));
+      }),
+    
+      catchError(err => {
+        this._errorMessage.next(err);
+        console.error('lỗi lấy data', err);
+        return of({ id: undefined });
+      })
+     
+    );
+  }
+
+  public getAuthFromLocalStorage(): any {
+    
     try {
       const authData = JSON.parse(
         localStorage.getItem(this.authLocalStorageToken)
