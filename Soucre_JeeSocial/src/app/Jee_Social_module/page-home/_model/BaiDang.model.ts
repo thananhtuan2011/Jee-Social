@@ -1,6 +1,6 @@
-import { BaseModel } from './../../../../_metronic/shared/crud-table';
+import { BaseModel } from './../../../_metronic/shared/crud-table';
 
-export interface BaiDangModel extends BaseModel {
+export class BaiDangModel extends BaseModel {
 	Id_BaiDang: number;
 	id_loaibaidang: number;
 	Id_Group:number;

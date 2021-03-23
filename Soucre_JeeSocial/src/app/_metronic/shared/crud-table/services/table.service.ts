@@ -27,12 +27,140 @@ export abstract class TableService<T> {
   private _tableState$ = new BehaviorSubject<ITableState>(DEFAULT_STATE);
   private _errorMessage = new BehaviorSubject<string>('');
   private _subscriptions: Subscription[] = [];
-  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
+  public currentUserSubject = new BehaviorSubject<any>(undefined);
+  currentUser$: Observable<any>;
+  // isLoading$: Observable<boolean>;
+  public authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
 
 
-  API_LOAD_PAGE = `${environment.apiUrl_Social}`;
+
+  API_Social = `${environment.apiUrl_Social}`;
   API_IDENTITY = `${environment.ApiIdentity}`;
+  API_USERS_URL=`${environment.apiUrl_Social}`+'/user';
+ API_USERS_URL_PB_NV =`${environment.apiUrl_Social}`+'phongban_nv' ;//  đường dẫn api
+  // InsertComnent(item:CommentModel):Observable<any>{
+  //   const httpHeaders = this.httpUtils.getHTTPHeaders();
+  //   return this.http.post<any>(API + '/addComment', item, { headers: httpHeaders });
+  // }
+  getAllNhanvien():any {
+        
+    return this.http.get<any>(this.API_USERS_URL_PB_NV+'/GetDSNhanVien');
+}
+  Insert(item:any,routePost:string)
+  {
+    const url = this.API_Social + routePost;
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.post<any>(url, item, { headers: httpHeaders });
+  }
+  getPhanLoaiBaiDang():any {
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+`/PhanQuyen_Loai/PhanQuyenLoaiBaiDang`,{ headers: httpHeaders });
+}
+
+InsertBaiDang_KT(item:any): Observable<any> {
+	const httpHeaders = this.getHttpHeaders();
+	return this.http.post<any>(this.API_Social + '/baidang/addBaiDang_KT', item, { headers: httpHeaders });
+}
+//begin media
+
+  getlistMedia():any {
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+'/media/GetDSMedia',{ headers: httpHeaders });
+    
+    
+  }
+  getlistIDMedia():any {
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+'/GetIDMedia',{ headers: httpHeaders });
+    
+  }
+//  UpdateMedia(item:MediaModel):any {
+//     const httpHeaders = this.getHttpHeaders();
+//     return this.http.post<any>(this.API_LOAD_PAGE+`/updateMedia`,item,{ headers: httpHeaders });
+    
+    
+//   }
+
+getProFileUsers_change():any {
+  const httpHeaders = this.getHttpHeaders();
+  return this.http.get<any>(this.API_USERS_URL+`/GetDSUser_profile_change`,{ headers: httpHeaders });
+}
+
+  getlistMyMedia(id_user:number):any {
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+`/GetDS_MyMedia?id_usser=${id_user}`,{ headers: httpHeaders });
+    
+    
+  }
+  // DeleteMedia(id_media:number):any {
+   
+  //   const httpHeaders = this.getHttpHeaders();
+  //   return this.http.delete<any>(this.API_LOAD_PAGE+`/deleteMedia?id_media=${id_media}`,{ headers: httpHeaders });
+    
+    
+  // }
+  getlistMyMediaDetail(id_media:number):any {
+    //getDSBaiDang?id_user=6
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+`/GetDetailMedia?_idmedia=${id_media}`,{ headers: httpHeaders });
+    
+    
+  }
+  like_cmt(id:number, type:number): Observable<any> {
+    const httpHeaders = this.getHttpHeaders();
+    //const url = API_baidang + '/like?id=' + id + '&type=' + type;
+    const url = this.API_Social + `/Comment/Comment_like?id=${id}&type=${type}`;
+  
+    return this.http.post<any>(url,null,{ headers: httpHeaders });
+  }
+  like_cmt_child(id:number, type:number): Observable<any> {
+    const httpHeaders = this.getHttpHeaders();
+    //const url = API_baidang + '/like?id=' + id + '&type=' + type;
+    const url = this.API_Social  + `/Comment/CommentChild_like?id=${id}&type=${type}`;
+  
+    return this.http.post<any>(url,null,{ headers: httpHeaders });
+  }
+  // like bài đăng
+  like(id:number, type:number,router:string): Observable<any> {
+
+	
+    const httpHeaders = this.getHttpHeaders();
+    //const url = API_baidang + '/like?id=' + id + '&type=' + type;
+  //	const url = API_baidang + `/Baidang_like?id=${id}&type=${type}`;
+  
+    //return this.http.post<any>(url);
+  
+    return this.http.post<any>(this.API_Social+router+ `/Baidang_like?id=${id}&type=${type}`,null,{headers: httpHeaders });	
+  }
+  getlist_like():any {
+		return this.http.get<any>(this.API_Social+'/like/getDSLike');
+		
+  }
+
+  public getUserData(): Observable<any> {
+		const user: any = <any>localStorage.getItem('currentUser');
+		return of(JSON.parse(user));
+	}
+
+  //end media
   // Getters
+  updateSocial(item: any, routePost: string = ''): Observable<any> {
+    this._isLoading$.next(true);
+    this._errorMessage.next('');
+    const httpHeader = this.getHttpHeaders();
+    const url = this.API_Social + routePost;
+    return this.http.post<any>(url, item, { headers: httpHeader })
+  }
+
+  // DELETE
+  deleteSocial(id: number, routePost: string = ''): Observable<any> {
+    this._isLoading$.next(true);
+    this._errorMessage.next('');
+    const httpHeader = this.getHttpHeaders();
+    const url = this.API_Social + routePost;
+    return this.http.delete<any>(url,{ headers: httpHeader })
+    
+  }
 
 
   get items$() {
@@ -74,12 +202,17 @@ export abstract class TableService<T> {
     this.http = http;
   }
 
-  private getAuthFromLocalStorage(): AuthModel {
-    debugger
+  public getAuthFromLocalStorage(): any {
     try {
+      
       const authData = JSON.parse(
         localStorage.getItem(this.authLocalStorageToken)
       );
+      if(authData)
+      {
+        this.currentUserSubject = new BehaviorSubject<any>(authData.user.customData);
+      }
+  
       return authData;
     } catch (error) {
       console.error(error);
@@ -87,15 +220,25 @@ export abstract class TableService<T> {
     }
   }
   getHttpHeaders() {
+    
+    // const auth = this.getAuthFromLocalStorage();
+    // var p = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   "Authorization": `Bearer ${auth!=null?auth.access_token:''}`
+    // });
+    // return p;
     const auth = this.getAuthFromLocalStorage();
-    var p = new HttpHeaders({
+    // console.log('auth.token',auth.access_token)
+    let result = new HttpHeaders({
       'Content-Type': 'application/json',
-      "Authorization": `Bearer ${auth.accessToken}`
+      'Authorization':auth.access_token,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type'
     });
-    return p;
+    return result;
   }
-
-  getDataUser_PageHome(routeFind: string = '', sso_token:string = ''): Observable<BaseModel>  {
+  getDataUser_LandingPage(routeFind: string = '', sso_token:string = ''): Observable<BaseModel>  {
+    
     const url = this.API_IDENTITY + routeFind;
     const httpHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -103,7 +246,28 @@ export abstract class TableService<T> {
     }); 
     return this.http.get<BaseModel>(url, { headers: httpHeader })
     .pipe(
+      tap((res) => {
+      }),
+      catchError(err => {
+        this._errorMessage.next(err);
+        console.error('lỗi lấy data', err);
+        return of({ id: undefined });
+      })
+     
+    );
+  }
+  getDataUser_PageHome(routeFind: string = '', sso_token:string = ''): Observable<any>  {
+    debugger
+    const url = this.API_IDENTITY + routeFind;
+    const httpHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Authorization": sso_token 
+    }); 
+    return this.http.get<any>(url, { headers: httpHeader })
+    .pipe(
       tap((res) => {localStorage.setItem(this.authLocalStorageToken, JSON.stringify(res));
+        console.log('data',res)
+        // this.currentUserSubject = new BehaviorSubject<any>(res.dât);
       }),
       catchError(err => {
         this._errorMessage.next(err);
@@ -139,13 +303,33 @@ export abstract class TableService<T> {
 	}
     //begin load page-home 
 	getlistBaiDang(queryParams:QueryParamsModelNewLazy , routeFind: string = ''): Observable<QueryResultsModel> {
-    const url = this.API_LOAD_PAGE + routeFind;
+    const url = this.API_Social + routeFind;
     const httpHeader = this.getHttpHeaders();
     const httpParams = this.getFindHTTPParams(queryParams);
-		return this.http.get<any>(url,{ headers: httpHeader,});
+		return this.http.get<any>(url,{ headers: httpHeader,params:  httpParams });
 		
 	}
-
+  logOutUser_PageHome(routeFind: string = ''): Observable<any>  {
+    debugger
+    const url = this.API_IDENTITY + routeFind;
+    // const httpHeader = this.getHttpHeaders(); 
+    const auth = this.getAuthFromLocalStorage();
+    console.log('logou',auth.access_token);
+    const httpHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      "Authorization": auth.access_token 
+    }); 
+    return this.http.post<any>(url,null, { headers: httpHeader });
+    // .pipe(
+    //   tap((res) => { debugger }),
+    //   catchError(err => {
+    //     this._errorMessage.next(err);
+    //     console.error('lỗi logout', err);
+    //     return of({ id: undefined });
+    //   })
+     
+   // );
+  }
 // 
 
 

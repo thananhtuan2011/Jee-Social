@@ -10,7 +10,8 @@ export const environment = {
   apiUrl: 'api',
   apiUrl_Social: 'https://localhost:44365/api',
   ApiIdentity: 'https://identityserver.jee.vn',
-  redirectUrl:'https://portal.jee.vn/?redirectUrl='
+  redirectUrl:'https://portal.jee.vn/?redirectUrl=',
+  sso:'sso_token'
 };
 
 /*

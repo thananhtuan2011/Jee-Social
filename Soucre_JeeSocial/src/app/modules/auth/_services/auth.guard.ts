@@ -1,48 +1,91 @@
-import { environment } from './../../../../environments/environment';
-import { Injectable } from '@angular/core';
+// import { User } from './../../material/formcontrols/autocomplete/autocomplete.component';
+import { Inject, Injectable } from "@angular/core";
 import {
   Router,
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-} from '@angular/router';
-import { AuthService } from './auth.service';
-import { HttpParams } from '@angular/common/http';
-const redirectUrl = environment.redirectUrl;
-@Injectable({ providedIn: 'root' })
+  ActivatedRoute,
+} from "@angular/router";
+import { AuthService } from "./auth.service";
+import { environment } from "./../../../../environments/environment";
+import { catchError, delay, first } from "rxjs/operators";
+import { BehaviorSubject, Observable, of, Subscription } from "rxjs";
+import jwt_decode from "jwt-decode";
+import { HttpParams } from "@angular/common/http";
+import { DOCUMENT } from "@angular/common";
+const sso_token = environment.sso;
+
+@Injectable({ providedIn: "root" })
 export class AuthGuard implements CanActivate {
   sso_token: any;
-  constructor(private authService: AuthService) {}
-  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  private subscriptions: Subscription[] = [];
+  currentUserSubject: BehaviorSubject<any>;
+  decoded: any;
+
+  constructor(
+    private authService: AuthService,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this.sso_token = this.getParamValueQueryString(sso_token);
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|Promise<any> {
+    return this.kiemTraDangNhap() 
+    
+  }
+  async kiemTraDangNhap(){ 
     debugger
-    this.sso_token = this.getParamValueQueryString("sso_token");
-    // const currentUser = this.authService.getAuthFromLocalStorage();
-     const currentUser = this.authService.currentUserValue;
-    if (currentUser) {
-      // logged in so return true
+    const currentUser = this.authService.getAuthFromLocalStorage();
+    if (currentUser && this.isTokenExpired()) {
       return true;
-      
     }
-    if (!this.sso_token) {
-      this.authService.logout();
-      return false;
-    } else {
-      this.authService.getDataUser_PageHome(this.authService.ldp_loadDataUser,this.sso_token)
-      .subscribe((resData: any) => {
-        if (resData && resData.access_token) {
-          // window.location.reload() //tạm thời, cần fix bug
-          
-          return true;
-        } else {
-          this.authService.logout();
-          return false;
+    else{ 
+      if (!this.sso_token) {
+        this.authService.logout();
+        return false;
+      } else { 
+        return new Promise(res => {
+          this.authService.getDataUser_PageHome(this.authService.ldp_loadDataUser,this.sso_token)
+          .subscribe(
+              (resData: any) => {
+          if (resData && resData.access_token) {
+            localStorage.setItem(this.authService.authLocalStorageToken, JSON.stringify(resData)); 
+            this.authService.getcurrentUserSubject(resData.user.customData);
+            res(true);
+          } else { 
+            this.authService.logout();
+            res(false);
+          }
         }
-      });
+      );
+      }) 
+      }
     }
-    // not logged in so redirect to login page with the return url
- 
-    return true;
+    
+  }
+
+  isTokenExpired(token?: string): boolean {
+    const auth = this.authService.getAuthFromLocalStorage();
+    if (auth === null) return false;
+
+    if (!token) token = auth.access_token;
+    if (!token) return false;
+
+    const date = this.getTokenExpirationDate(token);
+    if (date === undefined) return false;
+    return date.valueOf() > new Date().valueOf();
+  }
+
+  getTokenExpirationDate(token: string): Date {
+    // token = atob(token);
+    this.decoded = jwt_decode(token);
+
+    if (this.decoded.exp === undefined) return null;
+
+    const date = new Date(0);
+    date.setUTCSeconds(this.decoded.exp);
+    return date;
   }
 
   getParamValueQueryString(paramName) {

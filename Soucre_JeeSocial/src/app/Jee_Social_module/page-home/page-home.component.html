@@ -5,21 +5,21 @@
        fxLayout.xs="column" 
        fxFlexFill >
        
-      <div fxFlex="15" class="sec1" fxFlex.xs="55">
-          first-section
+      <div fxFlex="20" class="sec1" fxFlex.xs="55">
+<app-content-left></app-content-left>
       </div>
       <!-- begin content-home -->
-      <div fxFlex="110" class="sec2" >
+      <div fxFlex="45" class="sec2" >
         <router-outlet ></router-outlet>
         <!-- ccc -->
       </div>
        <!-- begin content-home -->
       <div fxFlex="55" class="sec3" fxFlex.xs="15">
-          third-section
+         <app-thong-diep></app-thong-diep>
       </div>
       
       <div fxFlex="55" class="sec4" fxFlex.xs="15">
-       four-section
+     <app-user-right></app-user-right>
     </div>
   </div>
   

@@ -1,3 +1,6 @@
+import { LayoutUtilsService } from './../../_metronic/core/utils/layout-utils.service';
+import { DeleteEntityDialogComponent } from './../../_metronic/partials/content/crud/delete-entity-dialog/delete-entity-dialog.component';
+import { AlertComponent } from './../../_metronic/partials/content/crud/alert/alert.component';
 import { PopoverModule } from 'ngx-smart-popover';
 
 
@@ -34,11 +37,28 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { LoadPageHomeComponent } from './load-page-home/load-page-home.component';
-
+import { TypePostComponent } from './load-page-home/type-post/type-post.component';
+import { TinNhanhComponent } from './load-page-home/type-post/Template_LoaiBaiDang/tin-nhanh/tin-nhanh.component';
+import { KhenThuongComponent } from './load-page-home/type-post/Template_LoaiBaiDang/khen-thuong/khen-thuong.component';
+import { TinTucNoiBoComponent } from './load-page-home/type-post/Template_LoaiBaiDang/tin-tuc-noi-bo/tin-tuc-noi-bo.component';
+import { ChaoDonThanhVienMoiComponent } from './load-page-home/type-post/Template_LoaiBaiDang/chao-don-thanh-vien-moi/chao-don-thanh-vien-moi.component';
+import { ThongBaoComponent } from './load-page-home/type-post/Template_LoaiBaiDang/thong-bao/thong-bao.component';
+import { BaidangEditComponent } from './load-page-home/_component/home-edit/baidang-edit/baidang-edit.component';
+import { CommentEditDialogComponent } from './load-page-home/_component/comment-edit-dialog/comment-edit-dialog.component';
+import { TinNhanhEditComponent } from './load-page-home/_component/home-edit/tin-nhanh-edit/tin-nhanh-edit.component';
+import { ChaoDonThanhvienEditComponent } from './load-page-home/_component/home-edit/chao-don-thanhvien-edit/chao-don-thanhvien-edit.component';
+import { KhenThuongEditComponent } from './load-page-home/_component/home-edit/khen-thuong-edit/khen-thuong-edit.component';
+import { DeXuatComponent } from './load-page-home/type-post/Template_LoaiBaiDang/de-xuat/de-xuat.component';
+import { DeXuatEditComponent } from './load-page-home/_component/home-edit/de-xuat-edit/de-xuat-edit.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { RouterModule } from '@angular/router';
+import { ContentLeftComponent } from './content-left/content-left.component';
+import { ThongDiepComponent } from './thong-diep/thong-diep.component';
+import { UserRightComponent } from './user-right/user-right.component';
 
 
 const MY_FORMATS_EDIT: any = {
@@ -56,16 +76,58 @@ const MY_FORMATS_EDIT: any = {
 
 @NgModule({
   declarations: [
+    DeleteEntityDialogComponent,
+    AlertComponent,
     PageHomeComponent,
     LoadPagePersonalComponent,
-    LoadPageHomeComponent
+    LoadPageHomeComponent,
+    TinTucNoiBoComponent,
+    ChaoDonThanhVienMoiComponent, ThongBaoComponent,
+    BaidangEditComponent,
+    CommentEditDialogComponent,
+    TinNhanhEditComponent,
+    ChaoDonThanhvienEditComponent,
+    KhenThuongEditComponent,
+    DeXuatComponent,
+    DeXuatEditComponent,
+    TypePostComponent, TinNhanhComponent, KhenThuongComponent, TinTucNoiBoComponent, ChaoDonThanhVienMoiComponent, ThongBaoComponent, ContentLeftComponent, ThongDiepComponent, UserRightComponent,
+  ],
+  entryComponents: [TypePostComponent,  TinNhanhComponent, KhenThuongComponent,
+    // MediaComponent,
+    // EditTieusuComponent,
+    // UpdateAvtarComponent,
+    // MediaTinvanbanComponent,
+    TinTucNoiBoComponent,
+    ChaoDonThanhVienMoiComponent, ThongBaoComponent,
+    BaidangEditComponent,
+    CommentEditDialogComponent,
+    TinNhanhEditComponent,
+    ChaoDonThanhvienEditComponent,
+    KhenThuongEditComponent,
+    DeXuatComponent,
+    DeXuatEditComponent,
+  //   EditGroupComponent,
+  //   EditQuyenComponent,
+  //   InsertThanhvienComponent,
+  //   VaiTroGroupComponent,
+  //   MediaDetailComponent,
+  //   EditChatUserComponent,
+  // DeleteChatUserComponent
+    // ChatboxComponent
+    // DeletechatComponent,
+    // EditMessComponent
+  
+  
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'vi' },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    { provide: MAT_DATE_FORMATS, useValue:MY_FORMATS_EDIT}
+    { provide: MAT_DATE_FORMATS, useValue:MY_FORMATS_EDIT},
+    LayoutUtilsService 
   ],
   imports: [
+
+  
     CommonModule,
     PageHomeRoutingModule,
     FlexLayoutModule,
@@ -74,19 +136,18 @@ const MY_FORMATS_EDIT: any = {
     NgbModule,
     // MdePopoverModule,
     // PickerModule,
-    // NgxMatSelectSearchModule,
+   NgxMatSelectSearchModule,
     MatChipsModule,
     MatSelectModule,
      PopoverModule,
       CommonModule,
-    
+   
       MatCardModule,
       MatIconModule,
     MatButtonModule,
     CKEditorModule,
     HttpClientModule,
       MatMenuModule,
-      MatSelectModule,
       MatInputModule,
       MatTableModule,
       MatAutocompleteModule,
@@ -113,6 +174,7 @@ const MY_FORMATS_EDIT: any = {
     NgbTooltipModule,
     FormsModule,
     MatFormFieldModule,
+    ReactiveFormsModule 
     // PortletModule,
     // PickerModule,
   
