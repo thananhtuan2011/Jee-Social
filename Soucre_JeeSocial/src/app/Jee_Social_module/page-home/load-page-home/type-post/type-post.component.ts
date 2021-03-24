@@ -45,7 +45,6 @@ id:any;
 
     LoadData() {
       // this.layIdUser()
-      debugger
       this.authService.getPhanLoaiBaiDang().subscribe(res=>{
         this.listLoaiBai = res.data;
         this.changeDetectorRefs.detectChanges();

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TableService } from '../../../_metronic/shared/crud-table/services/table.service';
 import { DOCUMENT } from '@angular/common';
+import jwt_decode from "jwt-decode";
 const redirectUrl = environment.redirectUrl
 @Injectable({
   providedIn: 'root',
@@ -82,10 +83,10 @@ export class AuthService  extends TableService<any> implements OnDestroy {
     return ;
   }
 
-  public setUserData(data: any): any {
-		localStorage.setItem('currentUser', JSON.stringify(data));
-		return this;
-	}
+  // public setUserData(data: any): any {
+	// 	localStorage.setItem('currentUser', JSON.stringify(data));
+	// 	return this;
+	// }
   // getUserByToken(): Observable<any> {
   //   debugger
   //   const auth = this.getAuthFromLocalStorage();
@@ -114,7 +115,6 @@ export class AuthService  extends TableService<any> implements OnDestroy {
     return this.currentUserSubject = new BehaviorSubject<any>(item);
   }
   getUserByToken(): Observable<any> {
-    debugger
      const auth = this.getAuthFromLocalStorage();
     // console.log('getUserByToken',item);
     
@@ -128,7 +128,6 @@ export class AuthService  extends TableService<any> implements OnDestroy {
     this.isLoadingSubject.next(true);
  
     if (p) {
-      debugger
       this.currentUserSubject = new BehaviorSubject<any>(p);
     
     } else {
@@ -157,17 +156,58 @@ export class AuthService  extends TableService<any> implements OnDestroy {
   //     queryParams: {},
   //   });
   // }
-  logout() { 
-  debugger
-   this.logOutUser_PageHome(this.ldp_logOutUser).subscribe(res=>{
-   })
-    localStorage.removeItem(this.authLocalStorageToken); 
+  decoded: any;
+  isTokenExpired(token?: string): boolean {
+    const auth = this.getAuthFromLocalStorage();
+    if (auth === null) return false;
 
-    // Chuyển hướng người dùng đến Single Sign On
+    if (!token) token = auth.access_token;
+    if (!token) return false;
+
+    const date = this.getTokenExpirationDate(token);
+    if (date === undefined) return false;
+    return date.valueOf() > new Date().valueOf();
+  }
+
+  getTokenExpirationDate(token: string): Date {
+    // token = atob(token);
+    this.decoded = jwt_decode(token);
+
+    if (this.decoded.exp === undefined) return null;
+
+    const date = new Date(0);
+    date.setUTCSeconds(this.decoded.exp);
+    return date;
+  }
+  logout() { 
+    const currentUser = this.getAuthFromLocalStorage();
+    if(currentUser &&this.isTokenExpired())
+    {
+
+  
+   this.logOutUser_PageHome(this.ldp_logOutUser).subscribe(res=>{
+
+   
+      localStorage.removeItem(this.authLocalStorageToken); 
+
+      // Chuyển hướng người dùng đến Single Sign On
+      this.document.location.href = redirectUrl 
+      + document.location.protocol +'//'
+      + document.location.hostname + ':' 
+      + document.location.port;
+   
+     
+   })
+  }
+
+  else
+  {
     this.document.location.href = redirectUrl 
     + document.location.protocol +'//'
     + document.location.hostname + ':' 
     + document.location.port;
+  }
+  
   }
 
  

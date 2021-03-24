@@ -35,7 +35,6 @@ export class AuthGuard implements CanActivate {
     
   }
   async kiemTraDangNhap(){ 
-    debugger
     const currentUser = this.authService.getAuthFromLocalStorage();
     if (currentUser && this.isTokenExpired()) {
       return true;
@@ -52,6 +51,7 @@ export class AuthGuard implements CanActivate {
           if (resData && resData.access_token) {
             localStorage.setItem(this.authService.authLocalStorageToken, JSON.stringify(resData)); 
             this.authService.getcurrentUserSubject(resData.user.customData);
+            this.authService.setUserData(resData.user.customData);
             res(true);
           } else { 
             this.authService.logout();

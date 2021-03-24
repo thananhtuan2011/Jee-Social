@@ -1,3 +1,4 @@
+import { ThongdiepService } from './thong-diep/_service_TD/thongdiep.service';
 import { LayoutUtilsService } from './../../_metronic/core/utils/layout-utils.service';
 import { DeleteEntityDialogComponent } from './../../_metronic/partials/content/crud/delete-entity-dialog/delete-entity-dialog.component';
 import { AlertComponent } from './../../_metronic/partials/content/crud/alert/alert.component';
@@ -59,8 +60,11 @@ import { RouterModule } from '@angular/router';
 import { ContentLeftComponent } from './content-left/content-left.component';
 import { ThongDiepComponent } from './thong-diep/thong-diep.component';
 import { UserRightComponent } from './user-right/user-right.component';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 
-
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+};
 const MY_FORMATS_EDIT: any = {
 	parse: {
 		dateInput: 'D/MM/YYYY'
@@ -123,15 +127,16 @@ const MY_FORMATS_EDIT: any = {
     { provide: MAT_DATE_LOCALE, useValue: 'vi' },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_DATE_FORMATS, useValue:MY_FORMATS_EDIT},
-    LayoutUtilsService 
+    LayoutUtilsService ,
+    ThongdiepService 
+    // {provide: PERFECT_SCROLLBAR_CONFIG},
+    //  {useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG},
   ],
   imports: [
-
-  
     CommonModule,
     PageHomeRoutingModule,
     FlexLayoutModule,
-  
+    PerfectScrollbarModule,
      InfiniteScrollModule,
     NgbModule,
     // MdePopoverModule,

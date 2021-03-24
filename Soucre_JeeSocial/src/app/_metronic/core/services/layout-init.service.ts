@@ -73,11 +73,13 @@ export class LayoutInitService {
 
   // init header and subheader menu
   private initHeader() {
+    
     // Fixed header
     const headerSelfFixedDesktop = this.layout.getProp(
       'header.self.fixed.desktop'
     );
     if (headerSelfFixedDesktop) {
+      
       document.body.classList.add('header-fixed');
       this.layout.setCSSClass('header', 'header-fixed');
     } else {

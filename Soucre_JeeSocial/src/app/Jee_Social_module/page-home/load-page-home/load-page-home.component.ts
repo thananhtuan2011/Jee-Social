@@ -1,10 +1,11 @@
+import { LayoutService } from './../../../_metronic/core/services/layout.service';
 import { TinNhanhEditComponent } from './_component/home-edit/tin-nhanh-edit/tin-nhanh-edit.component';
 import { CommentEditDialogComponent } from './_component/comment-edit-dialog/comment-edit-dialog.component';
 import { TypePostComponent } from './type-post/type-post.component';
 import { MediaService } from '../_services/media.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LayoutUtilsService, MessageType } from './../../../_metronic/core/utils/layout-utils.service';
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { QueryParamsModelNewLazy } from '../../../_metronic/shared/crud-table';
 import { PageHomeService } from '../_services/page-home.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,6 +22,7 @@ import { BaidangEditComponent } from './_component/home-edit/baidang-edit/baidan
 import { DeXuatEditComponent } from './_component/home-edit/de-xuat-edit/de-xuat-edit.component';
 import { ChaoDonThanhvienEditComponent } from './_component/home-edit/chao-don-thanhvien-edit/chao-don-thanhvien-edit.component';
 import { KhenThuongEditComponent } from './_component/home-edit/khen-thuong-edit/khen-thuong-edit.component';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-load-page-home',
@@ -137,6 +139,8 @@ export class LoadPageHomeComponent implements OnInit {
 	// private auth:AuthService,
 	 private _services_media:MediaService,
 	private http: HttpClient,
+	// private layout:LayoutService,
+	@Inject(DOCUMENT) private dcmt: Document
 	// private _services_canhan:TrangCaNhanService,
   ) { }
 
@@ -224,7 +228,8 @@ TaoTin() {
           
         //	Popup thêm mới, chỉnh sửa
         addLeave() {
-         
+            // this.dcmt.body.classList.add('header-fixed');
+			
           const dialogRef = this.dialog.open(TypePostComponent,{
 		
 			data:{  },
@@ -1093,7 +1098,7 @@ creaFormDelete(id_baidang:number)
 		// more: boolean;
 		
 	);
-	this._services.getlistBaiDang(queryParams1).subscribe((res) => {
+	this._services.getlistBaiDang(queryParams1,this._services.rt_loadbaidang).subscribe((res) => {
 	
 			this.data= res.data;
 			console.log('Page',this.pageSize);
@@ -1121,7 +1126,7 @@ creaFormDelete(id_baidang:number)
 		// more: boolean;
 		
 	);
-	this._services.getlistBaiDang(queryParams1).subscribe((res) => {
+	this._services.getlistBaiDang(queryParams1,this._services.rt_loadbaidang).subscribe((res) => {
 			//this.data.push(res.data);
 			if(res.data!=null){
 				for(let i = 0; i < res.data.length; i++)
@@ -1148,14 +1153,14 @@ creaFormDelete(id_baidang:number)
 
 
   
-// GetCurrentUser() {
-// 	// debugger
-// 	this._services.getUserData().subscribe(res =>{
-// 	//   this.item= res;
-// 	  this.id_user=res.ID_user;
-// 	});
+GetCurrentUser() {
+	// debugger
+	this._services.getUserData().subscribe(res =>{
+	//   this.item= res;
+	  this.id_user=res.Id;
+	});
    
-//   }
+  }
   // bài đăng loại 2 
   ListKhenThuong()
   {
@@ -1203,11 +1208,11 @@ creaFormDelete(id_baidang:number)
 //   }
 
   ngOnInit() {
-	// this.GetCurrentUser();
+	 this.GetCurrentUser();
     // this.LoadData();
     // this.dataSource = new BaiDangDataSource (this._services);
    //get list bài đăng
-	//  this.loadDataList();
+ this.loadDataList();
 	 
    //get user current
   

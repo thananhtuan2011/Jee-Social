@@ -72,6 +72,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.footerCSSClasses = this.layout.getStringCSSClasses('footer');
     this.footerLayout = this.layout.getProp('footer.layout');
     // Header view
+    
     this.headerCSSClasses = this.layout.getStringCSSClasses('header');
     this.headerHTMLAttributes = this.layout.getHTMLAttributes('header');
     // offcanvases

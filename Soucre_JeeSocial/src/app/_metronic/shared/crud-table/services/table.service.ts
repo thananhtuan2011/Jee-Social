@@ -42,6 +42,14 @@ export abstract class TableService<T> {
   //   const httpHeaders = this.httpUtils.getHTTPHeaders();
   //   return this.http.post<any>(API + '/addComment', item, { headers: httpHeaders });
   // }
+ 
+  Get_Social(routePost:string):Observable<any> {
+    const url = this.API_Social + routePost;
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(url,{ headers: httpHeaders });
+  }
+
+
   getAllNhanvien():any {
         
     return this.http.get<any>(this.API_USERS_URL_PB_NV+'/GetDSNhanVien');
@@ -219,6 +227,11 @@ getProFileUsers_change():any {
       return undefined;
     }
   }
+
+  getAllUsers():any {
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+'/user/GetDSUser',{ headers: httpHeaders});
+}
   getHttpHeaders() {
     
     // const auth = this.getAuthFromLocalStorage();
@@ -256,8 +269,12 @@ getProFileUsers_change():any {
      
     );
   }
+
+  public setUserData(data: any): any {
+		localStorage.setItem('currentUser', JSON.stringify(data));
+		return this;
+	}
   getDataUser_PageHome(routeFind: string = '', sso_token:string = ''): Observable<any>  {
-    debugger
     const url = this.API_IDENTITY + routeFind;
     const httpHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -266,6 +283,7 @@ getProFileUsers_change():any {
     return this.http.get<any>(url, { headers: httpHeader })
     .pipe(
       tap((res) => {localStorage.setItem(this.authLocalStorageToken, JSON.stringify(res));
+     
         console.log('data',res)
         // this.currentUserSubject = new BehaviorSubject<any>(res.dât);
       }),
@@ -310,7 +328,6 @@ getProFileUsers_change():any {
 		
 	}
   logOutUser_PageHome(routeFind: string = ''): Observable<any>  {
-    debugger
     const url = this.API_IDENTITY + routeFind;
     // const httpHeader = this.getHttpHeaders(); 
     const auth = this.getAuthFromLocalStorage();

@@ -66,7 +66,6 @@ export class AuthHTTPService {
     );
   }
   getUserByToken__Social(token: string): Observable<any> {
-    debugger
     var p = new HttpHeaders({
      'Content-Type': 'application/json',
       // "Authorization": `Bearer ${token}`,
