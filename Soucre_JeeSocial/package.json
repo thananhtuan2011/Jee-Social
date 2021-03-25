@@ -28,6 +28,7 @@
     "@ckeditor/ckeditor5-angular": "^2.0.1",
     "@ckeditor/ckeditor5-build-classic": "^26.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "@kolkov/angular-editor": "^1.1.4",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "@ngx-translate/core": "^13.0.0",
     "angular-in-memory-web-api": "^0.11.0",

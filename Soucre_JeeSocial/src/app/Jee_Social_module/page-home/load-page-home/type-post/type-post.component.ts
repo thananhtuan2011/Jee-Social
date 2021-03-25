@@ -71,8 +71,8 @@ id:any;
       if(id_loaibaidang===1)
       {
         const dialogRef = this.dialog.open(TinTucNoiBoComponent, {
-          width: '500px',
-          height:'500px',
+          width: '550px',
+          height:'510px',
           position: {
             
           },
@@ -99,14 +99,14 @@ id:any;
       }
       else if(id_loaibaidang===2){
         const dialogRef = this.dialog.open(KhenThuongComponent, {
-          width: '600px',
+          width: '650px',
           height:'500px',
           data: {id_loaibaidang}
         });
       }
       else if(id_loaibaidang===3){
         const dialogRef = this.dialog.open(ThongBaoComponent, {
-          width: '500px',
+          width: '550px',
           data: {id_loaibaidang}
         });
       }
@@ -120,7 +120,7 @@ id:any;
       else if(id_loaibaidang===7){
     
         const dialogRef = this.dialog.open(DeXuatComponent, {
-          width: '500px',
+          width: '550px',
           height:'500px',
           data: {id_loaibaidang}
         });
@@ -129,7 +129,7 @@ id:any;
       else
       {
         const dialogRef = this.dialog.open(TinNhanhComponent, {
-          width: '500px',
+          width: '550px',
           data: {id_loaibaidang}
         });
       }

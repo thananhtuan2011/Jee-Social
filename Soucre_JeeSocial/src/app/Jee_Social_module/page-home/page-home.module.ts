@@ -61,6 +61,14 @@ import { ContentLeftComponent } from './content-left/content-left.component';
 import { ThongDiepComponent } from './thong-diep/thong-diep.component';
 import { UserRightComponent } from './user-right/user-right.component';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MediaComponent } from './load-page-home/media/media.component';
+import { MediaTinvanbanComponent } from './load-page-home/media/media-tinvanban/media-tinvanban.component';
+import { MediaDetailComponent } from './load-page-home/media/media-detail/media-detail.component';
+import { ColorPickerComponent } from './load-page-home/media/color-picker/color-picker.component';
+import { ClickColorDirective } from './load-page-home/type-post/Template_LoaiBaiDang/khen-thuong/click-color.directive';
+
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -76,10 +84,11 @@ const MY_FORMATS_EDIT: any = {
 		monthYearA11yLabel: 'MMMM Y'
 	}
 }
-
-
 @NgModule({
   declarations: [
+    ClickColorDirective,
+    ColorPickerComponent,
+    MediaComponent,
     DeleteEntityDialogComponent,
     AlertComponent,
     PageHomeComponent,
@@ -94,10 +103,12 @@ const MY_FORMATS_EDIT: any = {
     KhenThuongEditComponent,
     DeXuatComponent,
     DeXuatEditComponent,
-    TypePostComponent, TinNhanhComponent, KhenThuongComponent, TinTucNoiBoComponent, ChaoDonThanhVienMoiComponent, ThongBaoComponent, ContentLeftComponent, ThongDiepComponent, UserRightComponent,
+    TypePostComponent, TinNhanhComponent, KhenThuongComponent, TinTucNoiBoComponent, ChaoDonThanhVienMoiComponent, ThongBaoComponent, ContentLeftComponent, ThongDiepComponent, UserRightComponent, MediaTinvanbanComponent, MediaDetailComponent,
   ],
-  entryComponents: [TypePostComponent,  TinNhanhComponent, KhenThuongComponent,
-    // MediaComponent,
+  entryComponents: [TypePostComponent,  TinNhanhComponent, KhenThuongComponent,MediaComponent,MediaTinvanbanComponent,
+    // ColorPickerComponent,
+    // MediaDetailComponent,
+    // MediaTinvanbanComponent,
     // EditTieusuComponent,
     // UpdateAvtarComponent,
     // MediaTinvanbanComponent,
@@ -171,7 +182,7 @@ const MY_FORMATS_EDIT: any = {
       MatTooltipModule,
       MatDialogModule,
       MatCardModule,
-      //  MatBadgeModule,
+      MatBadgeModule,
       // EditorModule,
       // ng-bootstrap modules
       NgbDropdownModule,

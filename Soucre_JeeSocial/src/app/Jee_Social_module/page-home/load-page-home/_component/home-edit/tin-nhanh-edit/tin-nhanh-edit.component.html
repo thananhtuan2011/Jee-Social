@@ -26,11 +26,9 @@
             <div class="__dialogcontent simple-form">
                 <div id="post-status" class="__apdialog" title="" style="width: 500px;">
                     <div class="title">
-                        <button mat-icon-button style="float: right;padding-bottom: 15px;">
-
-                       
-                        <mat-icon class="close" style="float: right; padding: 3px;" (click)="closeDia()">close</mat-icon>
-                    </button>
+                        <button  style="float: right;" (click)="closeDilog()" mat-button mat-icon-button>
+                            <i style="font-size: 15px;"  class="flaticon2-cancel-music"></i>
+                          </button>
                        <span style="font-size:20px;text-align:center;">Cập nhật tin </span>
                         <div class="-close -wrap inside-popup-form__button inside-popup-form__button--close"
                             onclick="AP.closeDialog(this);"></div>
@@ -60,7 +58,7 @@
                                   
                                     </ng-template>
                                     
-                                    <mat-form-field class="mat-form-field-fluid" style="width:100%" style="width:100%;height:60px ;top:20px;margin-left: 60px;">
+                                    <mat-form-field class="mat-form-field-fluid"style="width:90%;height:60px ;top:20px;margin-left: 60px;">
                                         <!-- <textarea matInput placeholder="Leave a comment"></textarea>
                                      -->
                                     <textarea name="content"
@@ -117,7 +115,7 @@
                                 <ng-template #c1>
                                     <span *ngIf="image;then k1;else k2 "></span>
                                     <ng-template #k1>
-                                        <img style="width:480px;height: 250px;margin: 10px;" [src]="image" >
+                                        <img style="width:480px;height: 250px;margin: 10px;"  [src]="image" >
                                     </ng-template>
                                     <ng-template #k2>
                                         <img style="width:480px;height: 250px;margin: 10px;" src="{{tinnhanh.image}}">
@@ -128,7 +126,7 @@
                                     <span *ngIf="image;then s1;else s2 "></span>
                                     <ng-template #s1>
                                         <div >
-                                            <img style="width:480px;height: 250px;margin: 10px;" [src]="image" >
+                                            <img style="width:480px;height: 250px;margin: 10px;"  [src]="image" >
                                     </div>
                                     </ng-template>
                                     <ng-template #s2>

@@ -22,6 +22,7 @@ export class TinNhanhEditComponent implements OnInit {
   id_user:number;
   viewLoading:boolean=false;
   listTT_user:any[]=[];
+  
   constructor(
     public dialogRef: MatDialogRef<TinNhanhEditComponent>,
     private changeDetectorRefs: ChangeDetectorRef,
@@ -32,21 +33,27 @@ export class TinNhanhEditComponent implements OnInit {
 
   ) { }
 
-  closeDia(data = undefined)
+  closeDilog(data = undefined)
 {
     this.dialogRef.close(data);
 }
+
 onSubmit() {
  // debugger
+ this.insert_file();
+      
+ setTimeout(() => {
   this._service.updateSocial(this.tinnhanh,this._service.rt_update_baidang).subscribe(res => {
    
     if (res && res.status == 1) {
-    
-      this.closeDia(res.data);
+      
+      this.closeDilog(res.data);
       
     }
   });
-  this.insert_file();
+ }, 500);
+ 
+ 
   this.changeDetectorRefs.detectChanges();
 }
 getCurrentUser() 
@@ -54,7 +61,7 @@ getCurrentUser()
   this._service.getUserData().subscribe(res =>{
    
       this.item= res;
-      this.id_user=res.ID_user;
+      this.id_user=res.Id;
  
 
   });
@@ -111,6 +118,7 @@ onSelectFile_PDF(event) {
 
          {
           item.name=this.nameimg;
+          // this.tinnhanh.image=item.name
          }
         
     
@@ -119,13 +127,15 @@ onSelectFile_PDF(event) {
   }
   insert_file()
   {
+
+
     let hinh=this.Item_hinh();
  
-    
-    //  this._service_file.UpdateWithFile(this.tinnhanh.Id_BaiDang,hinh).subscribe((res) => {
+  
+     this._service.UpdateWithFile(this.tinnhanh.Id_BaiDang,hinh,this._service.rt_update_file_image).subscribe((res) => {
       
 
-    // });
+    });
     this.changeDetectorRefs.detectChanges();
   }
   ngOnInit() {

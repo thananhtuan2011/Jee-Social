@@ -1,3 +1,4 @@
+import { GroupService } from './../../../../_services/group.service';
 import { ImageModel } from './../../../../_model/Img.model';
 
 import { BaiDangModel } from './../../../../_model/BaiDang.model';
@@ -42,7 +43,7 @@ export class DeXuatComponent implements OnInit {
     // private  sharedService: SharedService,
     private layoutUtilsService: LayoutUtilsService,
     //  private dataSource:BaiDangDataSource,
-    // private _service_gr:GroupService,
+    private _service_gr:GroupService,
     // private _service_file:UploadfileService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -101,12 +102,12 @@ export class DeXuatComponent implements OnInit {
       insert_file()
       {
       
-        // let hinh=this.Item_hinh();
+        let hinh=this.Item_hinh();
      
       
-        //  this._dbservices.postWithFile(hinh).subscribe((res) => {
+         this._services.postWithFile(hinh,this._services.rt_file_image).subscribe((res) => {
 
-			  // });
+			  });
       }
 
 
@@ -224,9 +225,9 @@ submit()
 
 
 LoadListGroup(){
-  // this._service_gr.getlistgroup().subscribe(res =>{
-  //       this.list_group=res.data;
-  // })
+  this._service_gr.Get_Social(this._service_gr.rt_getlist_group).subscribe(res =>{
+        this.list_group=res.data;
+  })
 }
 
 

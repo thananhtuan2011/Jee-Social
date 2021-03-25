@@ -30,16 +30,68 @@
     </div>
   </ng-container>
 </ng-container>
-
+<!-- begin chat -->
 <ng-container *ngIf="extrasNotificationsDisplay">
   <ng-container *ngIf="extrasNotificationsLayout === 'offcanvas'">
-    <!--begin::Notifications-->
     <div class="topbar-item">
       <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1 pulse pulse-primary"
         id="kt_quick_notifications_toggle">
-        <span [inlineSVG]="'./assets/media/svg/icons/Code/Compiling.svg'" cacheSVG="true"
-          class="svg-icon svg-icon-xl"></span>
-        <span class="pulse-ring"></span>
+        <span matBadge="4" matBadgeOverlap="false">
+          <i class="flaticon-chat"></i>
+        </span>
+      
+        <!-- <span [inlineSVG]="'./assets/media/svg/icons/Communication/Chat-check.svg'" cacheSVG="true"
+          class="svg-icon svg-icon-xl"></span> -->
+        <!-- <span class="pulse-ring"></span> -->
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="extrasNotificationsLayout === 'dropdown'">
+    <!--begin::Notifications-->
+    <div class="dropdown" ngbDropdown placement="bottom">
+      <!--begin::Toggle-->
+      <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
+        <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1 pulse pulse-primary">
+          <span matBadge="4" matBadgeOverlap="false">
+            <i class="flaticon-chat"></i>
+          </span>
+          <!-- <span [inlineSVG]="'./assets/media/svg/icons/Communication/Chat-check.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-xl"></span> -->
+          <!-- <span class="pulse-ring"></span> -->
+        </div>
+      </div>
+      <!--end::Toggle-->
+     
+      <!-- <kt-messenger [bgImage]="'./assets/media/misc/bg-2.jpg'" ngbTooltip="Messenger" [skin]="'dark'" [icon]="'./assets/media/icons/svg/Communication/Chat-check.svg'" [useSVG]="true"
+      [pulse]="true"
+      [pulseLight]="true"
+      
+      ></kt-messenger> -->
+      <!--begin::Dropdown-->
+      <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg">
+        <form>
+       
+        </form>
+      </div>
+      <!--end::Dropdown-->
+    </div>
+    <!--end::Notifications-->
+  </ng-container>
+</ng-container>
+<!-- end chat -->
+<ng-container *ngIf="extrasNotificationsDisplay">
+  <ng-container *ngIf="extrasNotificationsLayout === 'offcanvas'">
+    <!--begin::Notifications-->
+    <div  class="topbar-item">
+      <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1 pulse pulse-primary"
+        id="kt_quick_notifications_toggle">
+        <!-- <span class="kt-header__topbar-icon" matBadge="{{count}}" matBadgeColor="warn"></span> -->
+        <!-- <span [inlineSVG]="'./assets/media/svg/icons/General/Notifications1.svg'" cacheSVG="true"
+          class="svg-icon svg-icon-xl"></span> -->
+       
+        <span   class="pulse-ring"></span>
+        <mat-icon matBadge="5" matBadgeColor="warn">notifications</mat-icon>
       </div>
     </div>
     <!--end::Notifications-->
@@ -51,13 +103,19 @@
       <!--begin::Toggle-->
       <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
         <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1 pulse pulse-primary">
-          <span [inlineSVG]="'./assets/media/svg/icons/Code/Compiling.svg'" cacheSVG="true"
-            class="svg-icon svg-icon-xl"></span>
+          <!-- <span [inlineSVG]="'./assets/media/svg/icons/General/Notifications1.svg'" cacheSVG="true"
+            class="svg-icon svg-icon-xl"></span> -->
           <span class="pulse-ring"></span>
+          <mat-icon matBadge="5" matBadgeColor="warn">notifications</mat-icon>
         </div>
       </div>
       <!--end::Toggle-->
-
+     
+      <!-- <kt-messenger [bgImage]="'./assets/media/misc/bg-2.jpg'" ngbTooltip="Messenger" [skin]="'dark'" [icon]="'./assets/media/icons/svg/Communication/Chat-check.svg'" [useSVG]="true"
+      [pulse]="true"
+      [pulseLight]="true"
+      
+      ></kt-messenger> -->
       <!--begin::Dropdown-->
       <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg">
         <form>
@@ -70,82 +128,11 @@
   </ng-container>
 </ng-container>
 
-<ng-container *ngIf="extrasQuickActionsDisplay">
-  <ng-container *ngIf="extrasQuickActionsLayout === 'offcanvas'">
-    <!--begin::Quick Actions-->
-    <div class="topbar-item">
-      <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1" id="kt_quick_actions_toggle">
-        <span [inlineSVG]="'./assets/media/svg/icons/Media/Equalizer.svg'" cacheSVG="true"
-          class="svg-icon svg-icon-xl"></span>
-      </div>
-    </div>
-    <!--end::Quick Actions-->
-  </ng-container>
-  <ng-container *ngIf="extrasQuickActionsLayout === 'dropdown'">
-    <!--begin::Quick Actions-->
-    <div class="dropdown" ngbDropdown placement="bottom">
-      <!--begin::Toggle-->
-      <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
-        <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1">
-          <span [inlineSVG]="'./assets/media/svg/icons/Media/Equalizer.svg'" cacheSVG="true"
-            class="svg-icon svg-icon-xl"></span>
-        </div>
-      </div>
-      <!--end::Toggle-->
-      <!--begin::Dropdown-->
-      <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-lg" ngbDropdownMenu>
-        <app-quick-actions-dropdown-inner></app-quick-actions-dropdown-inner>
-      </div>
-      <!--end::Dropdown-->
-    </div>
-    <!--end::Quick Actions-->
-  </ng-container>
-</ng-container>
 
-<ng-container *ngIf="extrasCartDisplay">
-  <ng-container *ngIf="extrasCartLayout === 'offcanvas'">
-    <!--begin::Cart-->
-    <div class="topbar-item">
-      <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1" id="kt_quick_cart_toggle">
-        <span [inlineSVG]="'./assets/media/svg/icons/Shopping/Cart3.svg'" cacheSVG="true"
-          class="svg-icon svg-icon-xl"></span>
-      </div>
-    </div>
-    <!--end::Cart-->
-  </ng-container>
-  <ng-container *ngIf="extrasCartLayout === 'dropdown'">
-    <!--begin::Cart-->
-    <div class="dropdown" ngbDropdown placement="bottom">
-      <!--begin::Toggle-->
-      <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
-        <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1">
-          <span [inlineSVG]="'./assets/media/svg/icons/Shopping/Cart3.svg'" cacheSVG="true"
-            class="svg-icon svg-icon-xl"></span>
-        </div>
-      </div>
-      <!--end::Toggle-->
-      <!--begin::Dropdown-->
-      <div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-xl dropdown-menu-anim-up">
-        <form>
-          <app-cart-dropdown-inner></app-cart-dropdown-inner>
-        </form>
-      </div>
-      <!--end::Dropdown-->
-    </div>
-    <!--end::Cart-->
-  </ng-container>
-</ng-container>
 
-<ng-container *ngIf="extrasQuickPanelDisplay">
-  <!--begin::Quick panel-->
-  <div class="topbar-item">
-    <div class="btn btn-icon btn-hover-transparent-white btn-lg mr-1" id="kt_quick_panel_toggle">
-      <span [inlineSVG]="'./assets/media/svg/icons/Layout/Layout-4-blocks.svg'" cacheSVG="true"
-        class="svg-icon svg-icon-xl"></span>
-    </div>
-  </div>
-  <!--end::Quick panel-->
-</ng-container>
+
+
+
 
 <ng-container *ngIf="extrasLanguagesDisplay">
   <app-language-selector style="margin-top: 20px"></app-language-selector>

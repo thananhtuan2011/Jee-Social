@@ -9,7 +9,7 @@ export class CommentService extends TableService<MediaModel> implements OnDestro
   API_URL = `/Comment`;
   public rt_insert_cmt: string = this.API_URL + '/addComment';
   public rt_insert_cmt_child: string = this.API_URL + '/addComment_chill';
-  public rt_delete_cmt: string = this.API_URL + '/deleteComment';
+  public rt_delete_cmt: string = this.API_URL;
   public rt_Update: string = this.API_URL + '/UpdateComment';
   constructor(@Inject(HttpClient) http) {
     super(http);

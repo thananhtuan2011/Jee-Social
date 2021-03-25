@@ -1,3 +1,4 @@
+import { GroupService } from './../../../../_services/group.service';
 import { ClassicEditor } from '@ckeditor/ckeditor5-build-classic';
 import { BaiDangModel } from './../../../../_model/BaiDang.model';
 import { PageHomeService } from './../../../../_services/page-home.service';
@@ -41,7 +42,7 @@ export class ThongBaoComponent implements OnInit {
     private layoutUtilsService: LayoutUtilsService,
     //  private dataSource:BaiDangDataSource,
     // public _services:BaiDangService ,
-    // private _service_gr:GroupService,
+    private _service_gr:GroupService,
     // private _service_thongbao:ThongbaoService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -171,11 +172,10 @@ submit()
 }
 
 LoadListGroup(){
-  // this._service_gr.getlistgroup().subscribe(res =>{
-  //       this.list_group=res.data;
-  // })
+  this._service_gr.Get_Social(this._service_gr.rt_getlist_group).subscribe(res =>{
+        this.list_group=res.data;
+  })
 }
-
 getDataShare(){
 //  this.sharedService.id_group.subscribe(sharedata => this.tam = sharedata)
 

@@ -23,6 +23,10 @@ import { DeXuatEditComponent } from './_component/home-edit/de-xuat-edit/de-xuat
 import { ChaoDonThanhvienEditComponent } from './_component/home-edit/chao-don-thanhvien-edit/chao-don-thanhvien-edit.component';
 import { KhenThuongEditComponent } from './_component/home-edit/khen-thuong-edit/khen-thuong-edit.component';
 import { DOCUMENT } from '@angular/common';
+import { MediaComponent } from './media/media.component';
+import { MediaDetailComponent } from './media/media-detail/media-detail.component';
+// import { MediaComponent } from '../media/media.component';
+// import { MediaComponent } from './media/media.component';
 
 @Component({
   selector: 'app-load-page-home',
@@ -172,46 +176,46 @@ LoadMedia()
 ViewDetail(item)
  {	
 	var data = Object.assign({}, item);
-//   const dialogRef = this.dialog.open(MediaDetailComponent, {
+  const dialogRef = this.dialog.open(MediaDetailComponent, {
 
-// 	width: '700px' ,
-// 	height: '500px',
-// 	data:data});
-//   dialogRef.afterClosed().subscribe(res => {
-// 	if (res) {
-// 		item.media = res.media
-// 		this.loadDataList();
-// 	 // this.changeDetectorRefs.detectChanges();
-// 	}
-// 	else
-// 	{
-// 		this.loadDataList();
-// 	// this.changeDetectorRefs.detectChanges();
-// 	}
-//   });
+	width: '700px' ,
+	height: '500px',
+	data:data});
+  dialogRef.afterClosed().subscribe(res => {
+	if (res) {
+		item.media = res.media
+		this.loadDataList();
+	 // this.changeDetectorRefs.detectChanges();
+	}
+	else
+	{
+		this.loadDataList();
+	// this.changeDetectorRefs.detectChanges();
+	}
+  });
 }
 
 TaoTin() {
 
 	// var data = Object.assign({}, item);
-	// const dialogRef = this.dialog.open(MediaComponent, {
+	const dialogRef = this.dialog.open(MediaComponent, {
 		
-	// 	width: '700px' ,
-	// 	height: '500px'});
-	// dialogRef.afterClosed().subscribe(res => {
-	// 	if (res) {
+		width: '700px' ,
+		height: '500px'});
+	dialogRef.afterClosed().subscribe(res => {
+		if (res) {
 		
-	// 		this.loadDataList();
+			this.loadDataList();
 			
-	// 		this.changeDetectorRefs.detectChanges();
-	// 	}
-	// 	else
-	// 	{
+			this.changeDetectorRefs.detectChanges();
+		}
+		else
+		{
 			
-	// 		this.loadDataList();
-	// 		this.changeDetectorRefs.detectChanges();
-	// 	}
-	// });
+			this.loadDataList();
+			this.changeDetectorRefs.detectChanges();
+		}
+	});
 }
 	
 
@@ -440,7 +444,7 @@ AddComment_Child(item:CommentModel,withBack:boolean){
 					this.changeDetectorRefs.detectChanges();
 					let vitribd;
 					let vitricmt;
-				this._service_cmt.deleteSocial(id,this._service_cmt.rt_delete_cmt).subscribe(res => {
+				this._service_cmt.DeleteComnent(id,this._service_cmt.rt_delete_cmt).subscribe(res => {
 					for(let j=0;j<this.list_baidang.length;j++)
 					{
 						
@@ -470,7 +474,7 @@ AddComment_Child(item:CommentModel,withBack:boolean){
 					this.changeDetectorRefs.detectChanges();
 					let vitribd;
 					let vitricmt;
-          this._service_cmt.deleteSocial(id,this._service_cmt.rt_delete_cmt).subscribe(res => {
+          this._service_cmt.DeleteComnent(id,this._service_cmt.rt_delete_cmt).subscribe(res => {
 					for(let j=0;j<this.list_baidang.length;j++)
 					{
 						for(let i = 0; i<this.list_baidang[j].Coment.length; i++)
@@ -804,14 +808,14 @@ creaFormDelete(id_baidang:number)
 		// //xóa like  trong bài đăng
 		
 		// this.delete_like_BaiDang(id_baidang)
-				this._services.deleteSocial(id_baidang,this._services.rt_deletebaidang).subscribe(res => {
+				this._services.DeleteBaidang(id_baidang,this._services.rt_deletebaidang).subscribe(res => {
 				//	this.loadDataList();
 				let vi=this.list_baidang.findIndex(x=>x.Id_BaiDang==id_baidang);
 				this.list_baidang.splice(vi, 1);
 				this.changeDetectorRefs.detectChanges();
 
 						
-					this.layoutUtilsService.OffWaitingDiv();
+					// this.layoutUtilsService.OffWaitingDiv();
 					if (res && res.status === 1) {
 						this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete, 4000, true, false, 3000, 'top');
 					}
@@ -852,8 +856,8 @@ creaFormDelete(id_baidang:number)
 			// const _saveMessage = this.translate.instant(saveMessageTranslateParam);
 			// const _messageType = _item.id_row > 0 ? MessageType.Update : MessageType.Create;
 			const dialogRef = this.dialog.open(BaidangEditComponent, {
-				width: '500px',
-				height:'500px',
+				width: '550px',
+				height:'510px',
 				data: {_item} })
 			
 			dialogRef.afterClosed().subscribe(res => {
@@ -883,12 +887,13 @@ creaFormDelete(id_baidang:number)
 					// var data = Object.assign({}, item);
 					const dialogRef = this.dialog.open(TinNhanhEditComponent, { data:data,
 						
-						width: '500px' });
+						width: '550px',});
 					dialogRef.afterClosed().subscribe(res => {
 						if (res) {
 							item.tinnhanh = res.tinnhanh
 							// this.loadDataList();
 							var tam=Object.assign(res[0]);
+							console.log('data tra ve',tam);
 							// let vi=this.list_baidang.findIndex(x=>x.Id_BaiDang==item.Id_BaiDang);
 							this.list_baidang.splice(index, 1,tam);
 							this.changeDetectorRefs.detectChanges();
@@ -910,7 +915,8 @@ creaFormDelete(id_baidang:number)
 						// var data = Object.assign({}, item);
 						const dialogRef = this.dialog.open(DeXuatEditComponent, { data:data,
 							
-							width: '500px' });
+							width: '550px',
+							height:'500px', });
 						dialogRef.afterClosed().subscribe(res => {
 							if (res) {
 								var tam=Object.assign(res[0]);
@@ -940,7 +946,7 @@ creaFormDelete(id_baidang:number)
 				  
 				   const dialogRef = this.dialog.open(ChaoDonThanhvienEditComponent, {
 					   width: '500px',
-					   height:'400px',
+					   height:'500px',
 					   data: {_item} })
 				   
 				   dialogRef.afterClosed().subscribe(res => {
@@ -978,7 +984,7 @@ creaFormDelete(id_baidang:number)
 					// const _saveMessage = this.translate.instant(saveMessageTranslateParam);
 					// const _messageType = _item.id_row > 0 ? MessageType.Update : MessageType.Create;
 					const dialogRef = this.dialog.open(KhenThuongEditComponent, {
-						width: '700px',
+						width: '650px',
 						height:'500px',
 						data: {_item} })
 					

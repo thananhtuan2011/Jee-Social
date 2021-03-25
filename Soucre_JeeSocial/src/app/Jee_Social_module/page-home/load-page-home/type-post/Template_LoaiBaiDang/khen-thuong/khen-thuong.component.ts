@@ -1,3 +1,4 @@
+import { GroupService } from './../../../../_services/group.service';
 import { AuthService } from './../../../../../../modules/auth/_services/auth.service';
 import { PageHomeService } from './../../../../_services/page-home.service';
 import { BaiDangModel } from './../../../../_model/BaiDang.model';
@@ -61,7 +62,7 @@ list_group:any[]=[];
     private changeDetectorRefs: ChangeDetectorRef,
     // private  sharedService: SharedService,
     private layoutUtilsService: LayoutUtilsService,
-    // private _service_gr:GroupService,
+    private _service_gr:GroupService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
 
@@ -212,12 +213,12 @@ selected(event: MatAutocompleteSelectedEvent): void {
 
 
   loadListKhenThuong(){
-  // this.bdservices.GetDSKhenThuong().subscribe(res=>{
-  //     this.listkt=res.data;
-  //     console.log(res.Data);
-  // }
+  this._services.GetDSKhenThuong(this._services.rt_load_idKhenThuong).subscribe(res=>{
+      this.listkt=res.data;
+      console.log('khen thuong',res.Data);
+  }
   
-  // )
+  )
 
   }
   getID_KT(id_:number)
@@ -331,9 +332,9 @@ selected(event: MatAutocompleteSelectedEvent): void {
   }
 
   LoadListGroup(){
-    // this._service_gr.getlistgroup().subscribe(res =>{
-    //       this.list_group=res.data;
-    // })
+    this._service_gr.Get_Social(this._service_gr.rt_getlist_group).subscribe(res =>{
+          this.list_group=res.data;
+    })
   }
   
 getDataShare(){

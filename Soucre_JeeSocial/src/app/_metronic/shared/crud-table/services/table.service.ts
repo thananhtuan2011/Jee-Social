@@ -1,3 +1,6 @@
+import { ImageModel } from './../../../../Jee_Social_module/page-home/_model/Img.model';
+import { routes } from './../../../../app-routing.module';
+import { MediaModel } from './../../../../Jee_Social_module/page-home/_model/media.model';
 import { AuthModel } from './../../../../modules/auth/_models/auth.model';
 // tslint:disable:variable-name
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -42,6 +45,41 @@ export abstract class TableService<T> {
   //   const httpHeaders = this.httpUtils.getHTTPHeaders();
   //   return this.http.post<any>(API + '/addComment', item, { headers: httpHeaders });
   // }
+
+  getlistMyMedia(id_user:number):any {
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+`/media/GetDS_MyMedia?id_usser=${id_user}`,{ headers: httpHeaders });
+    
+    
+  }
+
+ UpdateMedia(item:MediaModel):any {
+  const httpHeaders = this.getHttpHeaders();
+    return this.http.post<any>(this.API_Social+`/media/updateMedia`,item,{ headers: httpHeaders });
+    
+    
+  }
+
+  getlistMedia():any {
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+'/media/GetDSMedia',{ headers: httpHeaders });
+    
+    
+  }
+  getlistIDMedia():any {
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.get<any>(this.API_Social+'/media/GetIDMedia',{ headers: httpHeaders });
+    
+  }
+ 
+  DeleteMedia(id_media:number):any {
+   
+    const httpHeaders = this.getHttpHeaders();
+    return this.http.delete<any>(this.API_Social+`/media/deleteMedia?id_media=${id_media}`,{ headers: httpHeaders });
+    
+    
+  }
+
  
   Get_Social(routePost:string):Observable<any> {
     const url = this.API_Social + routePost;
@@ -71,35 +109,24 @@ InsertBaiDang_KT(item:any): Observable<any> {
 }
 //begin media
 
-  getlistMedia():any {
-    const httpHeaders = this.getHttpHeaders();
-    return this.http.get<any>(this.API_Social+'/media/GetDSMedia',{ headers: httpHeaders });
-    
-    
-  }
-  getlistIDMedia():any {
-    const httpHeaders = this.getHttpHeaders();
-    return this.http.get<any>(this.API_Social+'/GetIDMedia',{ headers: httpHeaders });
-    
-  }
 //  UpdateMedia(item:MediaModel):any {
 //     const httpHeaders = this.getHttpHeaders();
 //     return this.http.post<any>(this.API_LOAD_PAGE+`/updateMedia`,item,{ headers: httpHeaders });
     
     
 //   }
+GetDSKhenThuong(routes:string):any {
+  const url=this.API_Social+routes;
+  return this.http.get<any>(url);
+
+}
 
 getProFileUsers_change():any {
   const httpHeaders = this.getHttpHeaders();
   return this.http.get<any>(this.API_USERS_URL+`/GetDSUser_profile_change`,{ headers: httpHeaders });
 }
 
-  getlistMyMedia(id_user:number):any {
-    const httpHeaders = this.getHttpHeaders();
-    return this.http.get<any>(this.API_Social+`/GetDS_MyMedia?id_usser=${id_user}`,{ headers: httpHeaders });
-    
-    
-  }
+
   // DeleteMedia(id_media:number):any {
    
   //   const httpHeaders = this.getHttpHeaders();
@@ -110,7 +137,7 @@ getProFileUsers_change():any {
   getlistMyMediaDetail(id_media:number):any {
     //getDSBaiDang?id_user=6
     const httpHeaders = this.getHttpHeaders();
-    return this.http.get<any>(this.API_Social+`/GetDetailMedia?_idmedia=${id_media}`,{ headers: httpHeaders });
+    return this.http.get<any>(this.API_Social+`/media/GetDetailMedia?_idmedia=${id_media}`,{ headers: httpHeaders });
     
     
   }
@@ -169,6 +196,32 @@ getProFileUsers_change():any {
     return this.http.delete<any>(url,{ headers: httpHeader })
     
   }
+  DeleteComnent(id_cmt:number,routerpst:string):Observable<any>{
+    const httpHeader = this.getHttpHeaders();
+    const url = this.API_Social+routerpst;
+	return this.http.delete<any>(url + `/deleteComment?id_cmt=${id_cmt}`,
+	{ headers: httpHeader });
+  }
+  postWithFile(_item: ImageModel,routerpst:string): Observable<boolean> {
+    const httpHeader = this.getHttpHeaders();
+    const url = this.API_Social+routerpst;
+    return this.http.post<any>(url,_item,{ headers: httpHeader });
+      
+}
+UpdateWithFile(id_:number,_item: ImageModel,routerpst:string): Observable<boolean> {
+  const httpHeader = this.getHttpHeaders();
+  const url = this.API_Social+routerpst;
+  return this.http.post<any>(url+`/File_Updatebaidang?id_baidang=${id_}`, _item,{ headers: httpHeader });
+    
+}
+
+
+	DeleteBaidang(id_bd:number,routerpst:string):any{
+    const httpHeader = this.getHttpHeaders();
+    const url = this.API_Social+routerpst;
+	return this.http.delete<any>(url + `/deleteBaiDang?id_baidang=${id_bd}`, 
+	{ headers: httpHeader });
+	}
 
 
   get items$() {
@@ -244,7 +297,7 @@ getProFileUsers_change():any {
     // console.log('auth.token',auth.access_token)
     let result = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization':auth.access_token,
+      'Authorization':'Bearer '+auth.access_token,
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type'
     });

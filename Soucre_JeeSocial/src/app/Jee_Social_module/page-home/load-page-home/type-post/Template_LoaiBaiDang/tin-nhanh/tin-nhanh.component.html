@@ -17,7 +17,7 @@
 
     }
 </style>
-<div class="__dialogwrapper" style="left: 433px;top: 131.5px;">
+<div class="__dialogwrapper">
     <div class="__dialogwrapper-inner">
         <div class="__dialogmain">
             <div class="__dialogtitle ap-xdot">
@@ -26,11 +26,11 @@
             <div class="__dialogcontent simple-form">
                 <div id="post-status" class="__apdialog" title="" style="width: 500px;">
                     <div class="title">
-                        <button mat-icon-button style="float: right;padding-bottom: 15px;">
 
-                       
-                        <mat-icon class="close" style="float: right; padding: 3px;" (click)="closeDilog()">close</mat-icon>
-                    </button>
+                        <button  style="float: right;" (click)="closeDilog()" mat-button mat-icon-button>
+                            <i style="font-size: 15px;"  class="flaticon2-cancel-music"></i>
+                          </button>
+                      
                        <span style="font-size:20px;text-align:center;">Cập nhật tin </span>
                         <div class="-close -wrap inside-popup-form__button inside-popup-form__button--close"
                             onclick="AP.closeDialog(this);"></div>
@@ -60,7 +60,7 @@
                                   
                                     </ng-template>
                                     
-                                    <mat-form-field class="mat-form-field-fluid" style="width:100%" style="width:100%;height:60px ;top:20px;margin-left: 60px;">
+                                    <mat-form-field class="mat-form-field-fluid"  style="width:90%;height:60px ;top:20px;margin-left: 60px;">
                                         <!-- <textarea matInput placeholder="Leave a comment"></textarea>
                                      -->
                                     <textarea name="content"

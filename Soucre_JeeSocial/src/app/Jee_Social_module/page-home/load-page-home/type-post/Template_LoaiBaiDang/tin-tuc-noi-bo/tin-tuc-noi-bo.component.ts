@@ -1,9 +1,10 @@
+import { GroupService } from './../../../../_services/group.service';
 import { BaiDangModel } from './../../../../_model/BaiDang.model';
 import { PageHomeService } from './../../../../_services/page-home.service';
 import { LayoutUtilsService, MessageType } from './../../../../../../_metronic/core/utils/layout-utils.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
-
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment'; 
 import { FormControl } from '@angular/forms';
@@ -44,7 +45,7 @@ export class TinTucNoiBoComponent implements OnInit {
     // private  sharedService: SharedService,
     private layoutUtilsService: LayoutUtilsService,
     //  private dataSource:BaiDangDataSource,
-    // private _service_gr:GroupService,
+     private _service_gr:GroupService,
     private route:ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any
     ) {   this.lastUpdated = this.getCurrentTime();}
@@ -70,7 +71,7 @@ export class TinTucNoiBoComponent implements OnInit {
   {
     this.dialogRef.close();
   }
-
+                
 
   
   f_convertDate(p_Val: any) {
@@ -88,7 +89,24 @@ export class TinTucNoiBoComponent implements OnInit {
 		const item = new BaiDangModel();
     
       // Users: Array<BaiDangUser> = [];	// user.ID_User = this.item.ID_User;
+      if(this.id_group.value=="Công Khai"||this.id_group.value==0)
+      {
+        var plainText = this.dulieu.value.replace(/<[^>]*>/g," ");
+        // let myDate=new Date(this.lastUpdated);
+        let dateString =this.lastUpdated;
+          let myDate=new Date('');
         
+          item.id_loaibaidang=this.id_loaibaidang;
+          item.title=this.tieude;
+          item.NoiDung=plainText;
+          // item.Id_Group=this.id_group.value;
+          item.typepost='';
+      }
+      else
+
+      {
+
+      
       var plainText = this.dulieu.value.replace(/<[^>]*>/g," ");
         // let myDate=new Date(this.lastUpdated);
         let dateString =this.lastUpdated;
@@ -103,6 +121,7 @@ export class TinTucNoiBoComponent implements OnInit {
          // item.CreatedBy=this.id_user;
         
           // item.UpdateDate=null;
+      }
        
         
 		this.changeDetectorRefs.detectChanges();
@@ -169,9 +188,9 @@ export class TinTucNoiBoComponent implements OnInit {
 
 
  LoadListGroup(){
-  // this._service_gr.getlistgroup().subscribe(res =>{
-  //       this.list_group=res.data;
-  // })
+  this._service_gr.Get_Social(this._service_gr.rt_getlist_group).subscribe(res =>{
+        this.list_group=res.data;
+  })
 }
 
 
@@ -204,37 +223,37 @@ getDataShare(){
 
 
 
-  // ttconfig: AngularEditorConfig = {
+  ttconfig: AngularEditorConfig = {
   
-  //   editable: true,
-  //   spellcheck: true,
-  //   height: '15rem',
-  //   minHeight: '5rem',
-  //   placeholder: 'Nhập Nội Dung...',
-  //   translate: 'no',
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Nhập Nội Dung...',
+    translate: 'no',
    
  
-  //   defaultParagraphSeparator: 'p',
-  //   defaultFontName: 'Arial',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
   
-  //   toolbarHiddenButtons: [
-  //     ['bold']
-  //     ],
-  //   customClasses: [
-  //     {
-  //       name: "quote",
-  //       class: "quote",
-  //     },
-  //     {
-  //       name: 'redText',
-  //       class: 'redText'
-  //     },
-  //     {
-  //       name: "titleText",
-  //       class: "titleText",
-  //       tag: "h1",
-  //     },
-  //   ]
-  // };
+    toolbarHiddenButtons: [
+      ['bold']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
 
 }

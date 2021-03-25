@@ -63,12 +63,14 @@
             <div class="box -hl js-mission">
                 <div class="hl">
                     <div class="subtitle ap-xdot">Khen thưởng</div>
+                  
                     <div class="rows js-awards" >
                         <div class="subtitle section-subtitle">Nhân viên</div>
                         <div class="inside-anniversary url" *ngFor="let item of listrd_khenthuong" >
                             <img src="{{item.icon}}"
                                 alt="" class="inside-anniversary-image">
                             <div class="info paddingDiv"[routerLink]="['/home/detail',item.id_baidang]" >
+                               
                                 <div class="inside-anniversary" style="font-weight: bold;">{{item.tieudebaidang}}</div>
                                 <div class="inside-anniversary">{{item.tieudekt}}</div>
                             </div>

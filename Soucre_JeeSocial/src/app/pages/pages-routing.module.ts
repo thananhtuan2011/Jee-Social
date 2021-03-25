@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from './_layout/layout.component';
-
+import { LayoutComponent } from './_layout/layout.component';``
 const routes: Routes = [
   {
     path: '',
@@ -22,6 +21,10 @@ const routes: Routes = [
         loadChildren: () =>
           import('./builder/builder.module').then((m) => m.BuilderModule),
       },
+      // {
+			// 	path: 'mynews',
+			// 	loadChildren: () => import('../Jee_Social_module/page-home/media/media.module').then(m => m.MediaModule)
+			// },
       // {
       //   path: 'ecommerce',
       //   loadChildren: () =>

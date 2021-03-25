@@ -1,3 +1,4 @@
+import { MatBadgeModule } from '@angular/material/badge';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InlineSVGModule } from 'ng-inline-svg';
@@ -21,6 +22,8 @@ import { CoreModule } from '../_metronic/core';
 import { SubheaderModule } from '../_metronic/partials/layout/subheader/subheader.module';
 import { AsideDynamicComponent } from './_layout/components/aside-dynamic/aside-dynamic.component';
 import { HeaderMenuDynamicComponent } from './_layout/components/header/header-menu-dynamic/header-menu-dynamic.component';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { HeaderMenuDynamicComponent } from './_layout/components/header/header-m
     AsideDynamicComponent,
     HeaderMenuDynamicComponent,
   ],
+
   imports: [
+    MatBadgeModule,
     CommonModule,
     PagesRoutingModule,
     TranslationModule,
@@ -46,6 +51,7 @@ import { HeaderMenuDynamicComponent } from './_layout/components/header/header-m
     NgbProgressbarModule,
     CoreModule,
     SubheaderModule,
+    MatIconModule
   ],
 })
 export class LayoutModule { }

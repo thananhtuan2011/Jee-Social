@@ -1,3 +1,4 @@
+import { GroupService } from './../../../../_services/group.service';
 import { ImageModel } from './../../../../_model/Img.model';
 import { BaiDangModel } from './../../../../_model/BaiDang.model';
 import { PageHomeService } from './../../../../_services/page-home.service';
@@ -25,7 +26,7 @@ export class TinNhanhComponent implements OnInit {
     private changeDetectorRefs: ChangeDetectorRef,
     private layoutUtilsService: LayoutUtilsService,
     // private  sharedService: SharedService,
-    // private _service_gr:GroupService,
+    private _service_gr:GroupService,
     // private _service_file:UploadfileService,
     // private auth:AuthService,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -192,25 +193,23 @@ export class TinNhanhComponent implements OnInit {
         let hinh=this.Item_hinh();
      
       
-        //  this._dbservices.postWithFile(hinh).subscribe((res) => {
+         this._services.postWithFile(hinh,this._services.rt_file_image).subscribe((res) => {
 
-			  // });
+			  });
       }
 
   submit()
   {
     let item=this.item_baidang();
       this.addTinNhanh(item,false);
-      this.changeDetectorRefs.detectChanges();
+     
 
       if(this.nameimg!=null ||this.nameimg!=" ")
       {
         this.insert_file();
       }
      
-   
-
-
+      this.changeDetectorRefs.detectChanges();
   }
 
   
@@ -225,9 +224,9 @@ export class TinNhanhComponent implements OnInit {
     this.isDisabled = !this.isDisabled;
   }
   LoadListGroup(){
-    // this._service_gr.getlistgroup().subscribe(res =>{
-    //       this.list_group=res.data;
-    // })
+    this._service_gr.Get_Social(this._service_gr.rt_getlist_group).subscribe(res =>{
+          this.list_group=res.data;
+    })
   }
   
 

@@ -10,10 +10,12 @@ export class PageHomeService extends TableService<BaiDangModel> implements OnDes
   API_URL = `/baidang`;
   public rt_loadbaidang: string = this.API_URL + '/getDSBaiDang';
   public rt_addbaidang: string = this.API_URL + '/addBaiDang'
-  public rt_deletebaidang: string = this.API_URL + '/deleteBaiDang';
+  public rt_deletebaidang: string = this.API_URL;
   public rt_like_baidang: string = this.API_URL;
   public rt_update_baidang: string = this.API_URL + '/UpdateBaiDang';
-
+  public rt_load_idKhenThuong: string ='/khenthuong/GetDSKhenThuong';
+  public rt_file_image: string = this.API_URL + '/File_baidang'
+  public rt_update_file_image: string = this.API_URL;
   constructor(@Inject(HttpClient) http) {
     super(http);
   }

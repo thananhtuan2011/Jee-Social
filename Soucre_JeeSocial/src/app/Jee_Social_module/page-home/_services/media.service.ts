@@ -11,6 +11,7 @@ export class MediaService extends TableService<MediaModel> implements OnDestroy 
   constructor(@Inject(HttpClient) http) {
     super(http);
   }
+  
 
   ngOnDestroy() {
     this.subscriptions.forEach(sb => sb.unsubscribe());
