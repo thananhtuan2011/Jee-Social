@@ -1,3 +1,5 @@
+import { GroupMemberModel } from './../../../../Jee_Social_module/page-home/_model/group_Member.model';
+import { GroupModel } from './../../../../Jee_Social_module/page-home/_model/group.model';
 import { ImageModel } from './../../../../Jee_Social_module/page-home/_model/Img.model';
 import { routes } from './../../../../app-routing.module';
 import { MediaModel } from './../../../../Jee_Social_module/page-home/_model/media.model';
@@ -7,7 +9,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { PaginatorState } from '../models/paginator.model';
-import { ITableState, QueryParamsModelNewLazy, QueryResultsModel, TableResponseModel } from '../models/table.model';
+import { ITableState, QueryParamsModelNew, QueryParamsModelNewLazy, QueryResultsModel, TableResponseModel } from '../models/table.model';
 import { BaseModel } from '../models/base.model';
 import { SortState } from '../models/sort.model';
 import { GroupingState } from '../models/grouping.model';
@@ -40,12 +42,80 @@ export abstract class TableService<T> {
   API_Social = `${environment.apiUrl_Social}`;
   API_IDENTITY = `${environment.ApiIdentity}`;
   API_USERS_URL=`${environment.apiUrl_Social}`+'/user';
- API_USERS_URL_PB_NV =`${environment.apiUrl_Social}`+'phongban_nv' ;//  đường dẫn api
+ API_USERS_URL_PB_NV =`${environment.apiUrl_Social}`+'/phongban_nv' ;//  đường dẫn api
   // InsertComnent(item:CommentModel):Observable<any>{
   //   const httpHeaders = this.httpUtils.getHTTPHeaders();
   //   return this.http.post<any>(API + '/addComment', item, { headers: httpHeaders });
   // }
+  getBaiDang_Group(id_group:number,queryParams: QueryParamsModelNewLazy,routespst:string):any {
+    const httpHeaders = this.getHttpHeaders();
+    const url = this.API_Social+routespst;
+		const httpParams = this.getFindHTTPParams(queryParams);
+		return this.http.get<any>(url+`/getDSBaiDang_In_Group?id_user&id_group=${id_group}`,{ headers: httpHeaders,params:  httpParams });
+		
+		
+	}
+  DeleteGroup(id_group:number,routespst:string):Observable<any>{
+    const httpHeaders = this.getHttpHeaders();
+    const url = this.API_Social+routespst;
+  return this.http.delete<any>(url + `/deleteGroup?id_group=${id_group}`,
+  { headers: httpHeaders });
+  }
+  getlist_Usergroup(id_:number,routespst:string):any {
+    //getDSBaiDang?id_user=6
+    const httpHeaders = this.getHttpHeaders();
+    const url = this.API_Social+routespst;
+    return this.http.get<any>(url+`/getDSUser_Group?id_group=${id_}`,{ headers: httpHeaders });
+    
+    
+  }
+  findData_BaiDangGroup(id_group:number,queryParams: QueryParamsModelNew,routespst:string): Observable<QueryResultsModel> {
+    const httpHeaders = this.getHttpHeaders();
+    const httpParams = this.getFindHTTPParams(queryParams);
+    const url = this.API_Social+routespst + `/BaidangGroup_Datasource?id_group=${id_group}`;
+    return this.http.get<QueryResultsModel>(url, {
+      headers: httpHeaders,
+      params: httpParams
+    });
+  }
+  public getPageSize(): Observable<string> {
+    const size: string = "10";
+    return of(size);
+  }
+  getList_User(id:number,queryParams: QueryParamsModelNew,routespst:string): Observable<QueryResultsModel>{
+    const httpHeaders = this.getHttpHeaders();
+    // const url=this.API_Social+routespst;
+    const httpParams = this.getFindHTTPParams(queryParams);
+        const url = this.API_Social+routespst+`/DataSource_Group?id_group=${id}`;
+        return this.http.get<any>(url, { headers: httpHeaders,
+          params: httpParams });
+      }
 
+  Update_quyen_Memmber(id_user:number,item:GroupMemberModel,routespst:string): Observable<any> {
+    const httpHeaders = this.getHttpHeaders();
+    const url=this.API_Social+routespst;
+    return this.http.post<any>(url + `/Update_quyen_Memmber?id_user=${id_user}`, item, { headers: httpHeaders });
+  }
+  UpdateGroup(item:GroupModel,routespst:string): Observable<any> {
+    const httpHeaders = this.getHttpHeaders();
+    const url=this.API_Social+routespst;
+    return this.http.post<any>(url + '/UpdateGroup', item, { headers: httpHeaders });
+  }
+  Delete_User_Group(id_gr:number,id_u:number,routespst:string): Observable<any> {
+    const httpHeaders = this.getHttpHeaders();
+    const url=this.API_Social+routespst;
+    return this.http.delete<any>(url + `/Delete_User?id_group=${id_gr}&id_user=${id_u}`, { headers: httpHeaders });
+  }
+  InsertUserGroup(id_group:number,id_user:number,item:GroupMemberModel,routespst:string): Observable<any> {
+    const httpHeaders = this.getHttpHeaders();
+    const url=this.API_Social+routespst;
+    return this.http.post<any>(url + `/addUserGroup?id_group=${id_group}&id_user=${id_user}`, item, { headers: httpHeaders });
+  }
+  InsertGroup(item:GroupModel,routespst:string): Observable<any> {
+    const httpHeaders = this.getHttpHeaders();
+    const url=this.API_Social+routespst;
+    return this.http.post<any>(url + '/addGroup', item, { headers: httpHeaders });
+  }
   getlistMyMedia(id_user:number):any {
     const httpHeaders = this.getHttpHeaders();
     return this.http.get<any>(this.API_Social+`/media/GetDS_MyMedia?id_usser=${id_user}`,{ headers: httpHeaders });
@@ -125,6 +195,40 @@ getProFileUsers_change():any {
   const httpHeaders = this.getHttpHeaders();
   return this.http.get<any>(this.API_USERS_URL+`/GetDSUser_profile_change`,{ headers: httpHeaders });
 }
+
+
+parseFilter(data){
+  var filter={
+    keys:'',
+    vals:''
+  }
+  let keys = [], values = [];
+  Object.keys(data).forEach(function (key) {
+    if (typeof data[key] !== 'string' || data[key] !== '') {
+      keys.push(key);
+      values.push(data[key]);
+    }
+  });
+  if (keys.length > 0) {
+    filter.keys= keys.join('|');
+    filter.vals= values.join('|');
+  }
+  return filter;
+}
+getAllUsser_filter_Group(id_gr:number,filter: any,routerpst:string): Observable<any> {
+  const httpHeaders = this.getHttpHeaders();
+let params = this.parseFilter(filter);
+ const url=this.API_Social+routerpst;
+return this.http.get<any>(url + `/GetDSUser_filter_InGroup?id_gr=${id_gr}`, { headers: httpHeaders, params: params });
+}
+
+getAllChooseUsser_In_Group(id_g:number,filter: any,routerpst:string): Observable<any> {
+  const httpHeaders = this.getHttpHeaders();
+let params = this.parseFilter(filter);
+const url=this.API_Social+routerpst;
+return this.http.get<any>(url + `/GetDSUser_In_Group?id_group=${id_g}`, { headers: httpHeaders, params: params });
+}
+
 
 
   // DeleteMedia(id_media:number):any {

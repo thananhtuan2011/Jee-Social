@@ -1,3 +1,4 @@
+import { PortletModule } from './../../_metronic/partials/content/general/portlet/portlet.module';
 import { ThongdiepService } from './thong-diep/_service_TD/thongdiep.service';
 import { LayoutUtilsService } from './../../_metronic/core/utils/layout-utils.service';
 import { DeleteEntityDialogComponent } from './../../_metronic/partials/content/crud/delete-entity-dialog/delete-entity-dialog.component';
@@ -67,6 +68,15 @@ import { MediaTinvanbanComponent } from './load-page-home/media/media-tinvanban/
 import { MediaDetailComponent } from './load-page-home/media/media-detail/media-detail.component';
 import { ColorPickerComponent } from './load-page-home/media/color-picker/color-picker.component';
 import { ClickColorDirective } from './load-page-home/type-post/Template_LoaiBaiDang/khen-thuong/click-color.directive';
+import { GroupViewComponent } from './Group/group-view/group-view.component';
+import { CreateGroupComponent } from './Group/create-group/create-group.component';
+import { EditGroupComponent } from './Group/edit-group/edit-group.component';
+import { ChooseUserComponent } from './Group/choose-user/choose-user.component';
+import { InsertThanhvienComponent } from './Group/insert-thanhvien/insert-thanhvien.component';
+import { VaiTroGroupComponent } from './Group/vai-tro-group/vai-tro-group.component';
+import { ChooseUserInGroupComponent } from './Group/choose-user-in-group/choose-user-in-group.component';
+import { QuanlygroupComponent } from './Group/quanlygroup/quanlygroup.component';
+import { EditQuyenComponent } from './Group/edit-quyen/edit-quyen.component';
 
 
 
@@ -86,6 +96,15 @@ const MY_FORMATS_EDIT: any = {
 }
 @NgModule({
   declarations: [
+    InsertThanhvienComponent,
+    VaiTroGroupComponent,
+    ChooseUserInGroupComponent,
+    QuanlygroupComponent,
+    EditQuyenComponent,
+    GroupViewComponent,
+	 CreateGroupComponent,
+	 EditGroupComponent,
+	 ChooseUserComponent,
     ClickColorDirective,
     ColorPickerComponent,
     MediaComponent,
@@ -106,12 +125,10 @@ const MY_FORMATS_EDIT: any = {
     TypePostComponent, TinNhanhComponent, KhenThuongComponent, TinTucNoiBoComponent, ChaoDonThanhVienMoiComponent, ThongBaoComponent, ContentLeftComponent, ThongDiepComponent, UserRightComponent, MediaTinvanbanComponent, MediaDetailComponent,
   ],
   entryComponents: [TypePostComponent,  TinNhanhComponent, KhenThuongComponent,MediaComponent,MediaTinvanbanComponent,
-    // ColorPickerComponent,
-    // MediaDetailComponent,
-    // MediaTinvanbanComponent,
-    // EditTieusuComponent,
-    // UpdateAvtarComponent,
-    // MediaTinvanbanComponent,
+    EditGroupComponent,
+    EditQuyenComponent,
+    InsertThanhvienComponent,
+    VaiTroGroupComponent,
     TinTucNoiBoComponent,
     ChaoDonThanhVienMoiComponent, ThongBaoComponent,
     BaidangEditComponent,
@@ -144,6 +161,7 @@ const MY_FORMATS_EDIT: any = {
     //  {useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG},
   ],
   imports: [
+    PortletModule,
     CommonModule,
     PageHomeRoutingModule,
     FlexLayoutModule,

@@ -1,5 +1,5 @@
 import { GroupService } from './../../../../_services/group.service';
-import { ClassicEditor } from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { BaiDangModel } from './../../../../_model/BaiDang.model';
 import { PageHomeService } from './../../../../_services/page-home.service';
 import { LayoutUtilsService, MessageType } from './../../../../../../_metronic/core/utils/layout-utils.service';
@@ -9,6 +9,7 @@ import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment'; 
 import { FormControl } from '@angular/forms';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class ThongBaoComponent implements OnInit {
   selected:number;
   dulieu = new FormControl('');
   id_group = new FormControl('');
-   editor = ClassicEditor;
+  dl: any = `Nhập nội dung`;
+   editor1 = ClassicEditor;
   public groupFilterCtrl: FormControl = new FormControl();
   constructor(
     private dialogRef:MatDialogRef<ThongBaoComponent>,
@@ -41,7 +43,7 @@ export class ThongBaoComponent implements OnInit {
     // private  sharedService: SharedService,
     private layoutUtilsService: LayoutUtilsService,
     //  private dataSource:BaiDangDataSource,
-    // public _services:BaiDangService ,
+   public _services_group:GroupService ,
     private _service_gr:GroupService,
     // private _service_thongbao:ThongbaoService,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -61,7 +63,7 @@ export class ThongBaoComponent implements OnInit {
     // debugger
     this._services.getUserData().subscribe(res =>{
       this.item= res;
-      this.id_user=res.ID_user;
+      this.id_user=res.Id;
     });
    
   }
@@ -93,8 +95,22 @@ ItemBaiDang(): BaiDangModel {
   const item = new BaiDangModel();
   
     // Users: Array<BaiDangUser> = [];	// user.ID_User = this.item.ID_User;
-
-    var plainText = this.dulieu.value.replace(/<[^>]*>/g," ");
+    if(this.id_group.value=="Công Khai"||this.id_group.value==0)
+    {
+      var plainText = this.dulieu.value.replace(/<[^>]*>/g," ");
+      // let myDate=new Date(this.lastUpdated);
+      let dateString =this.lastUpdated;
+        let myDate=new Date('');
+ 
+        item.id_loaibaidang=this.id_loaibaidang;
+        item.title=this.tieude;
+        item.NoiDung=plainText;
+        // item.Id_Group=this.id_group.value;
+        item.typepost='';
+    }
+    else
+    {
+      var plainText = this.dulieu.value.replace(/<[^>]*>/g," ");
       // let myDate=new Date(this.lastUpdated);
       let dateString =this.lastUpdated;
         let myDate=new Date('');
@@ -104,6 +120,8 @@ ItemBaiDang(): BaiDangModel {
         item.NoiDung=plainText;
         item.Id_Group=this.id_group.value;
         item.typepost='';
+    }
+   
         // item.CreatedDate=myDate;
         //item.CreatedBy=this.id_user;
     
@@ -177,9 +195,10 @@ LoadListGroup(){
   })
 }
 getDataShare(){
-//  this.sharedService.id_group.subscribe(sharedata => this.tam = sharedata)
 
-//  this.selected=Number(this.tam);
+    this._services_group.id_group$.subscribe(res=>{
+      this.selected=Number(res);
+    })
 
 }
  
@@ -196,39 +215,38 @@ getDataShare(){
 
 
 
+  ttconfig: AngularEditorConfig = {
   
-  // ttconfig: AngularEditorConfig = {
-  
-  //   editable: true,
-  //   spellcheck: true,
-  //   height: '15rem',
-  //   minHeight: '5rem',
-  //   placeholder: 'Nhập Nội Dung...',
-  //   translate: 'no',
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Nhập Nội Dung...',
+    translate: 'no',
    
  
-  //   defaultParagraphSeparator: 'p',
-  //   defaultFontName: 'Arial',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
   
-  //   toolbarHiddenButtons: [
-  //     ['bold']
-  //     ],
-  //   customClasses: [
-  //     {
-  //       name: "quote",
-  //       class: "quote",
-  //     },
-  //     {
-  //       name: 'redText',
-  //       class: 'redText'
-  //     },
-  //     {
-  //       name: "titleText",
-  //       class: "titleText",
-  //       tag: "h1",
-  //     },
-  //   ]
-  // };
+    toolbarHiddenButtons: [
+      ['bold']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
 
 
 }

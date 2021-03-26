@@ -112,7 +112,7 @@ id:any;
       }
       else if(id_loaibaidang===4){
         const dialogRef = this.dialog.open(ChaoDonThanhVienMoiComponent, {
-          width: '500px',
+          width: '550px',
           height:'500px',
           data: {id_loaibaidang}
         });

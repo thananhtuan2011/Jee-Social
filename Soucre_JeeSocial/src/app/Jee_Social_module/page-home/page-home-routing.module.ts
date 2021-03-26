@@ -2,6 +2,7 @@ import { PageHomeComponent } from './page-home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoadPageHomeComponent } from './load-page-home/load-page-home.component';
+import { GroupViewComponent } from './Group/group-view/group-view.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,11 @@ const routes: Routes = [
 				// 	},	
 				// ]
 				
+			},	
+			{
+				path: 'group/:id_group',
+				component: GroupViewComponent,
+
 			},	
 
 			// {

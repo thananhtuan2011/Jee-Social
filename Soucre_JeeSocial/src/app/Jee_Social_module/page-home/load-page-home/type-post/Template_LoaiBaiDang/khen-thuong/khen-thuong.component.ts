@@ -62,7 +62,8 @@ list_group:any[]=[];
     private changeDetectorRefs: ChangeDetectorRef,
     // private  sharedService: SharedService,
     private layoutUtilsService: LayoutUtilsService,
-    private _service_gr:GroupService,
+    private _service_group:GroupService,
+  
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
 
@@ -101,9 +102,8 @@ private _filterStates(value: string): any {
  
   //	const filterValue = value.toLowerCase();
   const filterValue = this._normalizeValue(value);
-  let tam=JSON.parse(this.data_user);
- this.test= this.data_user.filter(state => this._normalizeValue(state.hoten).includes(filterValue));
-  return this.data_user=this.test.slice();
+
+  return  this.data_user.filter(state => this._normalizeValue(state.hoten).includes(filterValue));
 }
 
 add(event: MatChipInputEvent): void {
@@ -151,7 +151,7 @@ removeuser(id: number): void {
       this.data_user= this.userCtrl.valueChanges
       .pipe(
         startWith(''),
-        // map(state => state ? this._filterStates(state) : this.listUser.slice())
+        map(state => state ? this._filterStates(state) : this.data_user.slice())
       );
     this.changeDetectorRefs.detectChanges();
     }
@@ -332,15 +332,16 @@ selected(event: MatAutocompleteSelectedEvent): void {
   }
 
   LoadListGroup(){
-    this._service_gr.Get_Social(this._service_gr.rt_getlist_group).subscribe(res =>{
+    this._service_group.Get_Social(this._service_group.rt_getlist_group).subscribe(res =>{
           this.list_group=res.data;
     })
   }
   
 getDataShare(){
-//  this.sharedService.id_group.subscribe(sharedata => this.tam = sharedata)
+  this._service_group.id_group$.subscribe(res=>{
+    this.selectedd=Number(res);
+  })
 
-//  this.selectedd=Number(this.tam);
 
 }
  

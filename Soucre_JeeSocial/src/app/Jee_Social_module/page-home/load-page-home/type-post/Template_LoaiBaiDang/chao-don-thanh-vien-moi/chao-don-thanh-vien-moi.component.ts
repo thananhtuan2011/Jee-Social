@@ -1,3 +1,4 @@
+import { GroupService } from './../../../../_services/group.service';
 import { PageHomeService } from './../../../../_services/page-home.service';
 import { BaiDangModel } from './../../../../_model/BaiDang.model';
 import { LayoutUtilsService, MessageType } from './../../../../../../_metronic/core/utils/layout-utils.service';
@@ -67,7 +68,7 @@ public groupFilterCtrl: FormControl = new FormControl();
     private layoutUtilsService: LayoutUtilsService,
     private dialogRef_all:MatDialogRef<TypePostComponent>,
     // private tokenStore:TokenStorage,
-    // private _service_gr:GroupService,
+  private _service_gr:GroupService,
     @Inject(MAT_DIALOG_DATA) public data: any
 
   ) { }
@@ -90,7 +91,6 @@ private _normalizeValue(value: string): string {
 }
 
 private _filterStates(value: string): any[] {
-  //debugger
   //	const filterValue = value.toLowerCase();
   const filterValue = this._normalizeValue(value);
   return this.data_user.filter(state => this._normalizeValue(state.hoten).includes(filterValue));
@@ -263,16 +263,15 @@ LoadData_current_user() {
   // });
 }
 LoadListGroup(){
-  // this._service_gr.getlistgroup().subscribe(res =>{
-  //       this.list_group=res.data;
-  // })
+  this._service_gr.Get_Social(this._service_gr.rt_getlist_group).subscribe(res =>{
+        this.list_group=res.data;
+  })
 }
 
 getDataShare(){
-//  this.sharedService.id_group.subscribe(sharedata => this.tam = sharedata)
-
-//  this.selectedd=Number(this.tam);
-
+  this._service_gr.id_group$.subscribe(res=>{
+    this.selectedd=Number(res);
+  })
 }
  
 

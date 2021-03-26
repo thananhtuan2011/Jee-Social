@@ -232,9 +232,10 @@ LoadListGroup(){
 
 
 getDataShare(){
-//  this.sharedService.id_group.subscribe(sharedata => this.tam = sharedata)
+  this._service_gr.id_group$.subscribe(res=>{
+    this.selected=Number(res);
+  })
 
-//  this.selected=Number(this.tam);
 
 }
  

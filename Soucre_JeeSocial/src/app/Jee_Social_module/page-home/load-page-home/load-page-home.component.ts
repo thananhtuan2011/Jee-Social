@@ -119,7 +119,6 @@ export class LoadPageHomeComponent implements OnInit {
   image: any;
 	ListMedia:any[]=[];
   dulieu_cmt_child:string=''
-  @Input() ID_QuyTrinh: any;
   listKhenThuong:any[] = [];
 
   listTT_user:any[] = [];

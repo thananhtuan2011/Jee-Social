@@ -1,3 +1,4 @@
+import { PageHomeService } from './../../../../Jee_Social_module/page-home/_services/page-home.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LayoutService } from '../../../../_metronic/core';
@@ -32,16 +33,34 @@ export class TopbarComponent implements OnInit, AfterViewInit {
   extrasLanguagesDisplay: boolean;
   extrasUserDisplay: boolean;
   extrasUserLayout: 'offcanvas' | 'dropdown';
-
-  constructor(private layout: LayoutService, private auth: AuthService) {
+  listTTUser:any[]=[];
+  constructor(private layout: LayoutService, private auth: AuthService,
+    private _services:PageHomeService
+    ) {
     var list;
+   
      this.user$ = this.auth.currentUserSubject.asObservable();
   //   list= this.auth.getAuthFromLocalStorage();
   //  this.user$ = list.user.customData;
   //   console.log('user', this.user$ )
   }
 
+
+
+  getDataUser()
+     {
+     
+       this.auth.getProFileUsers_change().subscribe(res=>{
+        this.listTTUser=res.data[0];
+        console.log('listTTUsser',res.data);
+       })
+     }
+
+
+
+
   ngOnInit(): void {
+    this.getDataUser();
     // topbar extras
     this.extraSearchDisplay = this.layout.getProp('extras.search.display');
     this.extrasSearchLayout = this.layout.getProp('extras.search.layout');

@@ -23,6 +23,7 @@ export class TinNhanhComponent implements OnInit {
     
     private dialogRef:MatDialogRef<TinNhanhComponent>,
     private _services:PageHomeService,
+    private _services_group:GroupService,
     private changeDetectorRefs: ChangeDetectorRef,
     private layoutUtilsService: LayoutUtilsService,
     // private  sharedService: SharedService,
@@ -233,9 +234,12 @@ export class TinNhanhComponent implements OnInit {
 
 
   getDataShare(){
+    this._services_group.id_group$.subscribe(res=>{
+      this.selected=Number(res);
+    })
   //  this.sharedService.id_group.subscribe(sharedata => this.tam = sharedata)
   
-  //  this.selected=Number(this.tam);
+
   
   }
    

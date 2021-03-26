@@ -169,7 +169,7 @@
     <div *ngFor="let item of list_group ">
 
      
-      <a href="#" class="navi-item">
+      <a [routerLink]="['/Home/group',item.ID_group]" class="navi-item">
         <div class="navi-link">
           <div class="navi-icon mr-2">
             <i class="la la-group text-success"></i> 

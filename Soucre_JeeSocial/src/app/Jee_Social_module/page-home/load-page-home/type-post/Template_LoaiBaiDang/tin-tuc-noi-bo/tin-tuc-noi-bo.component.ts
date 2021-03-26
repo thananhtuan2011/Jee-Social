@@ -35,14 +35,14 @@ export class TinTucNoiBoComponent implements OnInit {
   id_group = new FormControl('');
   congkhai='Công Khai';
    editor = ClassicEditor;
-  dl: any = `Tesst`;
+  dl: any = `Nhập nội dung`;
   selected:number;
   public groupFilterCtrl: FormControl = new FormControl();
   constructor(   private dialogRef:MatDialogRef<TinTucNoiBoComponent>,
     private dialogRef_all:MatDialogRef<TypePostComponent>,
     private _services:PageHomeService,
     private changeDetectorRefs: ChangeDetectorRef,
-    // private  sharedService: SharedService,
+   private  _services_group: GroupService,
     private layoutUtilsService: LayoutUtilsService,
     //  private dataSource:BaiDangDataSource,
      private _service_gr:GroupService,
@@ -57,7 +57,7 @@ export class TinTucNoiBoComponent implements OnInit {
       // debugger
       this._services.getUserData().subscribe(res =>{
         this.item= res;
-        this.id_user=res.ID_user;
+        this.id_user=res.Id;
       });
      
     }
@@ -195,9 +195,9 @@ export class TinTucNoiBoComponent implements OnInit {
 
 
 getDataShare(){
-//  this.sharedService.id_group.subscribe(sharedata => this.tam = sharedata)
-
-//  this.selected=Number(this.tam);
+  this._services_group.id_group$.subscribe(res=>{
+    this.selected=Number(res);
+  })
 
 }
  

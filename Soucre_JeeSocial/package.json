@@ -30,6 +30,7 @@
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@kolkov/angular-editor": "^1.1.4",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
+    "@ngx-loading-bar/core": "^5.1.1",
     "@ngx-translate/core": "^13.0.0",
     "angular-in-memory-web-api": "^0.11.0",
     "angular-line-awesome": "^1.2.1",
