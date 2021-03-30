@@ -2,8 +2,9 @@
   "name": "metronic-angular-demo2",
   "version": "7.1.7",
   "scripts": {
+    
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

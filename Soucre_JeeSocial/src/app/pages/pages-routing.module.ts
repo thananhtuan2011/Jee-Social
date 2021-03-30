@@ -6,21 +6,26 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      // {
-      //   path: 'dashboard',
-      //   loadChildren: () =>
-      //     import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-      // },
+      {
+        path: 'luutru',
+        loadChildren: () =>
+          import('./../Jee_Social_module/load-luu-tru/load-luu-tru.module').then((m) => m.LoadLuuTruModule),
+      },
       {
         path: 'Home',
         loadChildren: () =>
           import('./../Jee_Social_module/page-home/page-home.module').then((m) => m.PageHomeModule),
       },
       {
-        path: 'builder',
+        path: 'page_personal/:username/:id',
         loadChildren: () =>
-          import('./builder/builder.module').then((m) => m.BuilderModule),
+          import('./../Jee_Social_module/Flow-Trang-ca-nhan/flow-canhan.module').then((m) => m.FlowCanhanModule),
       },
+      // {
+      //   path: 'builder',
+      //   loadChildren: () =>
+      //     import('./builder/builder.module').then((m) => m.BuilderModule),
+      // },
       // {
 			// 	path: 'mynews',
 			// 	loadChildren: () => import('../Jee_Social_module/page-home/media/media.module').then(m => m.MediaModule)

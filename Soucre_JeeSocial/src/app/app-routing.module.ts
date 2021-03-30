@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './modules/auth/_services/auth.guard';
 
 export const routes: Routes = [
+  // aa
   {
     path: 'auth',
     loadChildren: () =>

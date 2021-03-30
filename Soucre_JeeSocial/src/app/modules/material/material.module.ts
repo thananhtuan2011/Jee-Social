@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialComponent } from './material.component';
-import { AutocompleteComponent } from './formcontrols/autocomplete/autocomplete.component';
 import { CheckboxComponent } from './formcontrols/checkbox/checkbox.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../../_metronic/core';
@@ -105,7 +104,7 @@ const routes: Routes = [
     children: [
       {
         path: 'form-controls/autocomplete',
-        component: AutocompleteComponent,
+        // component: AutocompleteComponent,
       },
       {
         path: 'form-controls/checkbox',
@@ -318,7 +317,7 @@ const routes: Routes = [
   ],
   declarations: [
     MaterialComponent,
-    AutocompleteComponent,
+    // AutocompleteComponent,
     CheckboxComponent,
     DatepickerComponent,
     FormfieldComponent,

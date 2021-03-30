@@ -21,7 +21,6 @@ const routes: Routes = [
 						
 				// 	},	
 				// ]
-				
 			},	
 			{
 				path: 'group/:id_group',
