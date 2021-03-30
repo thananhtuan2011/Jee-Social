@@ -99,10 +99,12 @@ export class VaiTroGroupComponent implements OnInit {
 	  
 		this._services_member.Update_quyen_Memmber(this.id_user,item,this._services_member.rt_Update_quyen_Memmber).subscribe(res=>{
 		  if (res && res.status === 1) {
-			
+			this.layoutUtilsService.showActionNotification('Thêm thành công !', MessageType.Read, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+			});
 			   }
 			   else {
-				 this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 999999999, true, false, 3000, 'top', );
+				this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+				});
 			   }
 		})
 	  }
@@ -131,7 +133,10 @@ export class VaiTroGroupComponent implements OnInit {
 
   getData(){
 			
-    // this.sharedService.id_group.subscribe(sharedata => this.id_g = sharedata)
+
+	this._services.id_group$.subscribe(res=>{
+		this.id_g=res;
+	})
 
 
   }

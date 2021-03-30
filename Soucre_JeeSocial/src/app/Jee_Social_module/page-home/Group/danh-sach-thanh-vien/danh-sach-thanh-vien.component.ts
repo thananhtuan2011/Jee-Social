@@ -186,48 +186,11 @@ export class DanhSachThanhVienComponent implements OnInit {
 
   }
   
-  creaFormDelete(id_group:number,id_user:number)
-		{
-      
-			const _title = this.translate.instant('Xóa User');
-			const _description = this.translate.instant('Bạn có muốn xóa không ?');
-			const _waitDesciption = this.translate.instant('Dữ liệu đang được xóa');
-			const _deleteMessage = this.translate.instant('Xóa thành công !');
-	
-			const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-			dialogRef.afterClosed().subscribe(res => {
-				if (!res) {
-					return;
-		}
-		//debugger
-	
-		
-	
-				this.service_group_member.Delete_User_Group(id_group,id_user,this.service_group_member.rt_delete_memberGroup).subscribe(res => {
-           
-          this.loadDataList();
-          this.changeDetectorRefs.detectChanges();
 
-						
-					this.layoutUtilsService.OffWaitingDiv();
-					if (res && res.status === 1) {
-						this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete, 4000, true, false, 3000, 'top');
-					}
-					else {
-						this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 9999999999, true, false, 3000, 'top' );
-					}
-				
-					
-				});
-			});
-		 }
 
 
   
-  Delete()
-  {
 
-  }
 	getHeight(): any {
 		let obj = window.location.href.split("/").find(x => x == "wework");
 		if (obj) {

@@ -734,9 +734,8 @@ creaFormDelete(id_baidang:number)
 					this.list_baidang.splice(vi, 1);
 					this.changeDetectorRefs.detectChanges();
 	
-							
 					
-					this.layoutUtilsService.OffWaitingDiv();
+					// this.layoutUtilsService.OffWaitingDiv();
 					if (res && res.status === 1) {
 						this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete, 4000, true, false, 3000, 'top');
 					}
@@ -777,8 +776,8 @@ creaFormDelete(id_baidang:number)
 			// const _saveMessage = this.translate.instant(saveMessageTranslateParam);
 			// const _messageType = _item.id_row > 0 ? MessageType.Update : MessageType.Create;
 			const dialogRef = this.dialog.open(BaidangEditComponent, {
-				width: '500px',
-				height:'500px',
+				width: '550px',
+				height:'510px',
 				data: {_item} })
 			
 			dialogRef.afterClosed().subscribe(res => {
@@ -808,7 +807,7 @@ creaFormDelete(id_baidang:number)
 					// var data = Object.assign({}, item);
 					const dialogRef = this.dialog.open(TinNhanhEditComponent, { data:data,
 						
-						width: '500px' });
+						width: '550px' });
 					dialogRef.afterClosed().subscribe(res => {
 						if (res) {
 							item.tinnhanh = res.tinnhanh
@@ -836,7 +835,8 @@ creaFormDelete(id_baidang:number)
 					// var data = Object.assign({}, item);
 					const dialogRef = this.dialog.open(DeXuatEditComponent, { data:data,
 						
-						width: '500px' });
+						width: '550px',
+							height:'500px', });
 					dialogRef.afterClosed().subscribe(res => {
 						if (res) {
 							var tam=Object.assign(res[0]);
@@ -865,8 +865,8 @@ creaFormDelete(id_baidang:number)
 				_item = this.item;
 			  
 			   const dialogRef = this.dialog.open(ChaoDonThanhvienEditComponent, {
-				   width: '500px',
-				   height:'400px',
+				width: '500px',
+				height:'500px',
 				   data: {_item} })
 			   
 			   dialogRef.afterClosed().subscribe(res => {
@@ -904,7 +904,7 @@ creaFormDelete(id_baidang:number)
 				// const _saveMessage = this.translate.instant(saveMessageTranslateParam);
 				// const _messageType = _item.id_row > 0 ? MessageType.Update : MessageType.Create;
 				const dialogRef = this.dialog.open(KhenThuongEditComponent, {
-					width: '700px',
+					width: '650px',
 					height:'500px',
 					data: {_item} })
 				

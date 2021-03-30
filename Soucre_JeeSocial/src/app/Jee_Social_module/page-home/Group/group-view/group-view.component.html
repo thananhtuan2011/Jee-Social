@@ -332,11 +332,14 @@
         </ng-template>
 
         <form>
-          <span>
-
-            <mat-icon class="btn-icon" (click)="addLeave()" style="float: right; padding-top: 10px; font-size: 15px;">
-              perm_media</mat-icon>
-          </span>
+          <a href="javascript:;">
+  
+            <span>
+  
+              <mat-icon class="btn-icon" (click)="addLeave()" style="float: right; padding-top: 10px; font-size: 15px;">
+                perm_media</mat-icon>
+            </span>
+          </a>
 
           <input (click)="addLeave()" style="margin-left: -30px;" class="on-your-mind" name="message" ngModel
             placeholder="{{items.Username}} Bạn đang nghĩ gì ?" type="text">
@@ -3657,7 +3660,6 @@
                 [formControl]="dulieu_cmt" (keydown.enter)="CommentInsert(item.Id_BaiDang)" rows="2" >
            </textarea>
             </mat-form-field>
-      
 
           </mat-card-actions>
         </mat-card>

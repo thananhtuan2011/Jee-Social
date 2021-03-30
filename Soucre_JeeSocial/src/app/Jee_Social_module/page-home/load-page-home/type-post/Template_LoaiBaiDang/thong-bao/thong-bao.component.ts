@@ -6,10 +6,8 @@ import { LayoutUtilsService, MessageType } from './../../../../../../_metronic/c
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
 
-import { DatePipe } from '@angular/common';
 import * as moment from 'moment'; 
 import { FormControl } from '@angular/forms';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 @Component({
@@ -215,38 +213,6 @@ getDataShare(){
 
 
 
-  ttconfig: AngularEditorConfig = {
-  
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: 'Nhập Nội Dung...',
-    translate: 'no',
-   
- 
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-  
-    toolbarHiddenButtons: [
-      ['bold']
-      ],
-    customClasses: [
-      {
-        name: "quote",
-        class: "quote",
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
-      },
-    ]
-  };
 
 
 }

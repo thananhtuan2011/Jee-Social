@@ -1,3 +1,4 @@
+import { PageHomeService } from './../../../../../Jee_Social_module/page-home/_services/page-home.service';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -21,6 +22,7 @@ export class HeaderMenuDynamicComponent implements OnInit, OnDestroy {
   constructor(
     private layout: LayoutService,
     private router: Router,
+    private _service:PageHomeService,
     private menu: DynamicHeaderMenuService,
     private cdr: ChangeDetectorRef) { }
 
@@ -42,9 +44,14 @@ export class HeaderMenuDynamicComponent implements OnInit, OnDestroy {
     this.subscriptions.push(routerSubscr);
 
     // menu load
-    const menuSubscr = this.menu.menuConfig$.subscribe(res => {
-      this.menuConfig = res;
-      console.log('menuconfig',res);
+    // const menuSubscr = this.menu.menuConfig$.subscribe(res => {
+    //   this.menuConfig = res;
+    //   console.log('menu load data',res.items);
+    //   this.cdr.detectChanges();
+    // });
+    const menuSubscr = this._service.LoadMenu(this._service.rt_loadmenu).subscribe(res => {
+      this.menuConfig = res.data;
+      console.log('menu load data',res.data);
       this.cdr.detectChanges();
     });
     this.subscriptions.push(menuSubscr);

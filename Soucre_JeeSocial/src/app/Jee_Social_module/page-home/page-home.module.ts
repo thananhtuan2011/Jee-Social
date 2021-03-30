@@ -1,4 +1,4 @@
-import { PortletModule } from './../../_metronic/partials/content/general/portlet/portlet.module';
+import { ActionNotificationComponent } from './../../_metronic/partials/content/crud/action-natification/action-notification.component';
 import { ThongdiepService } from './thong-diep/_service_TD/thongdiep.service';
 import { LayoutUtilsService } from './../../_metronic/core/utils/layout-utils.service';
 import { DeleteEntityDialogComponent } from './../../_metronic/partials/content/crud/delete-entity-dialog/delete-entity-dialog.component';
@@ -77,6 +77,14 @@ import { VaiTroGroupComponent } from './Group/vai-tro-group/vai-tro-group.compon
 import { ChooseUserInGroupComponent } from './Group/choose-user-in-group/choose-user-in-group.component';
 import { QuanlygroupComponent } from './Group/quanlygroup/quanlygroup.component';
 import { EditQuyenComponent } from './Group/edit-quyen/edit-quyen.component';
+import { DanhSachThanhVienComponent } from './Group/danh-sach-thanh-vien/danh-sach-thanh-vien.component';
+import { PopoverTriggerDirective } from './trang-ca-nhan/popover-trigger.directive';
+import { TrangCaNhanComponent } from './trang-ca-nhan/trang-ca-nhan/trang-ca-nhan.component';
+import { BaidangTrangcanhanComponent } from './trang-ca-nhan/baidang-trangcanhan/baidang-trangcanhan.component';
+import { GioithieuComponent } from './trang-ca-nhan/gioithieu/gioithieu.component';
+import { EditTieusuComponent } from './trang-ca-nhan/edit-tieusu/edit-tieusu.component';
+import { UpdateAvtarComponent } from './trang-ca-nhan/update-avtar/update-avtar.component';
+import { TrangCaNhanService } from './_services/trang-ca-nhan.service';
 
 
 
@@ -96,6 +104,14 @@ const MY_FORMATS_EDIT: any = {
 }
 @NgModule({
   declarations: [
+    UpdateAvtarComponent,
+    EditTieusuComponent,
+    TrangCaNhanComponent,
+    BaidangTrangcanhanComponent,
+    GioithieuComponent,
+    PopoverTriggerDirective,
+    DanhSachThanhVienComponent,
+    ActionNotificationComponent,
     InsertThanhvienComponent,
     VaiTroGroupComponent,
     ChooseUserInGroupComponent,
@@ -126,6 +142,9 @@ const MY_FORMATS_EDIT: any = {
   ],
   entryComponents: [TypePostComponent,  TinNhanhComponent, KhenThuongComponent,MediaComponent,MediaTinvanbanComponent,
     EditGroupComponent,
+    UpdateAvtarComponent,
+    EditTieusuComponent,
+    ActionNotificationComponent,
     EditQuyenComponent,
     InsertThanhvienComponent,
     VaiTroGroupComponent,
@@ -156,12 +175,13 @@ const MY_FORMATS_EDIT: any = {
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_DATE_FORMATS, useValue:MY_FORMATS_EDIT},
     LayoutUtilsService ,
-    ThongdiepService 
+    ThongdiepService ,
+    TrangCaNhanService
     // {provide: PERFECT_SCROLLBAR_CONFIG},
     //  {useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG},
   ],
   imports: [
-    PortletModule,
+    MatPaginatorModule,
     CommonModule,
     PageHomeRoutingModule,
     FlexLayoutModule,

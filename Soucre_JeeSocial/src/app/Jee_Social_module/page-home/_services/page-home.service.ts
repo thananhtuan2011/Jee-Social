@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PageHomeService extends TableService<BaiDangModel> implements OnDestroy {
   API_URL = `/baidang`;
+  API_Menu=`/menu`
+  public rt_loadmenu: string = this.API_Menu;
   public rt_loadbaidang: string = this.API_URL + '/getDSBaiDang';
   public rt_addbaidang: string = this.API_URL + '/addBaiDang'
   public rt_deletebaidang: string = this.API_URL;

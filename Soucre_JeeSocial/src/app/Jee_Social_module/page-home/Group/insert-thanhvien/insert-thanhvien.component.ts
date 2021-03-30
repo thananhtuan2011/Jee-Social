@@ -1,3 +1,4 @@
+import { GroupService } from './../../_services/group.service';
 import { GroupMemberService } from './../../_services/group-member.service';
 import { GroupMemberModel } from './../../_model/group_Member.model';
 import { LayoutUtilsService, MessageType } from './../../../../_metronic/core/utils/layout-utils.service';
@@ -27,6 +28,7 @@ export class InsertThanhvienComponent implements OnInit {
 		private changeDetectorRefs: ChangeDetectorRef,
 		private auth:AuthService,
 		private _services:GroupMemberService,
+		private _services_gr:GroupService,
     private layoutUtilsService: LayoutUtilsService,
     private fb: FormBuilder,
     // private sharedService:SharedService,
@@ -99,10 +101,13 @@ export class InsertThanhvienComponent implements OnInit {
     
       this._services.InsertUserGroup(this.id_g,this.id_user,item,this._services.rt_insert_MemberGroup).subscribe(res=>{
         if (res && res.status === 1) {
-          
+			this.layoutUtilsService.showActionNotification('Thêm thành công', MessageType.Create, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+			});
              }
              else {
-               this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 999999999, true, false, 3000, 'top', );
+				this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+				});
+            //    this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 999999999, true, false, 3000, 'top', );
              }
       })
     }
@@ -131,8 +136,10 @@ export class InsertThanhvienComponent implements OnInit {
 
   getData(){
 			
-    // this.sharedService.id_group.subscribe(sharedata => this.id_g = sharedata)
-	// this.changeDetectorRefs.detectChanges();
+		this._services_gr.id_group$.subscribe(res=>
+			{
+				this.id_g=res;
+			})
 
   }
 

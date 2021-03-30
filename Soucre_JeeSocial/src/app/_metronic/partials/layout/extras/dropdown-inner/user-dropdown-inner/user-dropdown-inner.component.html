@@ -10,7 +10,7 @@
 
       <!--begin::Text-->
       <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">
-        {{ _user.firstname }} {{ _user.lastname }}
+        {{ _user.username }} {{ _user.lastname }}
       </div>
       <span
         class="label label-light-success label-lg font-weight-bold label-inline"
@@ -40,7 +40,7 @@
 
         <!--begin::Text-->
         <div class="text-white m-0 flex-grow-1 mr-3 font-size-h5">
-          {{ _user.firstname }} {{ _user.lastname }}
+          {{ _user.username }} {{ _user.lastname }}
         </div>
         <!--end::Text-->
       </div>
@@ -54,14 +54,14 @@
   <!--begin::Nav-->
   <div class="navi navi-spacer-x-0 pt-5">
     <!--begin::Item-->
-    <a class="navi-item px-8 cursor-pointer" routerLink="/user-profile">
+    <a class="navi-item px-8 cursor-pointer" [routerLink]="['/Home/page_personal',_user.Id]">
       <div class="navi-link">
         <div class="navi-icon mr-2">
           <i class="flaticon2-calendar-3 text-success"></i>
         </div>
         <div class="navi-text">
           <div class="font-weight-bold">
-            My Profile
+           Trang Cá Nhân
           </div>
           <div class="text-muted">
             Account settings and more
