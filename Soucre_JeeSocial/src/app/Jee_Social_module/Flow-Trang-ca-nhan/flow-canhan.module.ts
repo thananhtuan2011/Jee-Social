@@ -1,3 +1,4 @@
+import { LayoutUtilsService } from './../../_metronic/core/utils/layout-utils.service';
 import { PageHomeService } from './../page-home/_services/page-home.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,6 +34,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TrangCaNhanService } from '../page-home/_services/trang-ca-nhan.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -51,6 +54,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     CommentService,
     GroupService,
     FlowCaNhanService,
+	TrangCaNhanService,
+	LayoutUtilsService 
     
     
   
@@ -83,7 +88,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 		// MatSortModule,
 		// MatCheckboxModule,
 		// MatProgressSpinnerModule,
-		// MatSnackBarModule,
+		MatSnackBarModule,
 		// MatTabsModule,
 		MatTooltipModule,
 		MatDialogModule,

@@ -235,7 +235,7 @@ export class GroupViewComponent implements OnInit {
 
   }
 Item_cmt(): CommentModel {
-	//debugger
+	
 	const item = new CommentModel();
 
 			item.ID_BaiDang=this.id_bd_cmt;
@@ -721,12 +721,7 @@ creaFormDelete(id_baidang:number)
 				if (!res) {
 					return;
 		}
-		//debugger
-		// xóa cmt trong bài đăng
-		// this.delete_cmt_BaiDang(id_baidang)
-		// //xóa like  trong bài đăng
-		
-		// this.delete_like_BaiDang(id_baidang)
+	
 		this._services.DeleteBaidang(id_baidang,this._services.rt_deletebaidang).subscribe(res => {
 					//this.loadDataList();
 
@@ -791,10 +786,7 @@ creaFormDelete(id_baidang:number)
 				}
 				else
 				{
-					var tam=Object.assign(res[0]);
-					// let vi=this.list_baidang.findIndex(x=>x.Id_BaiDang==item.Id_BaiDang);
-					this.list_baidang.splice(index, 1,tam);
-					this.changeDetectorRefs.detectChanges();
+					this.layoutUtilsService.showActionNotification('Cập nhật thất bại !', MessageType.Read, 3000, true, false, 3000, 'top' );
 				}
 			});
 		}
@@ -820,9 +812,7 @@ creaFormDelete(id_baidang:number)
 						}
 						else
 						{
-							var tam=Object.assign(res[0]);
-							this.list_baidang.splice(index, 1,tam);
-							this.changeDetectorRefs.detectChanges();
+							this.layoutUtilsService.showActionNotification('Cập nhật thất bại !', MessageType.Read, 3000, true, false, 3000, 'top' );
 							
 						}
 					});
@@ -846,9 +836,7 @@ creaFormDelete(id_baidang:number)
 						}
 						else
 						{
-							var tam=Object.assign(res[0]);
-							this.list_baidang.splice(index, 1,tam);
-							this.changeDetectorRefs.detectChanges();
+							this.layoutUtilsService.showActionNotification('Cập nhật thất bại !', MessageType.Read, 3000, true, false, 3000, 'top' );
 							
 						}
 					});
@@ -1083,7 +1071,7 @@ GetCurrentUser() {
 				  window.location.href ='/Home'
 			  }
 			  else {
-				  this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 9999999999, true, false, 3000, 'top' );
+				  this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 3000, true, false, 3000, 'top' );
 			  }
 		  
 			  
@@ -1530,11 +1518,22 @@ GetCurrentUser() {
   Share(id_bd:number)
 
   {
-		//   this._services_canhan.ChiaSeBaiDang(this.id_user,id_bd).subscribe(res=>{
-		// 	  const _messageType = this.translate.instant('Chia Sẻ Thành Công !');
-		// 		  this.layoutUtilsService.showActionNotification(_messageType, MessageType.Update, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
-		// 		  });
-		//   })
+		  this._services.ChiaSeBaiDang(id_bd,this._services.rt_share_baidang).subscribe(res=>{
+			  if(res)
+			  {
+				const _messageType = this.translate.instant('Chia Sẻ Thành Công !');
+				this.layoutUtilsService.showActionNotification(_messageType, MessageType.Update, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+				});
+			  }
+			  else
+
+			  {
+				const _messageType = this.translate.instant('Thất Bại !');
+				this.layoutUtilsService.showActionNotification(_messageType, MessageType.Update, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+				});
+			  }
+			
+		  })
   }
 
   
@@ -1607,6 +1606,15 @@ GetCurrentUser() {
 
 
 }
+Open = function () {
+   
+	const interaction = document.querySelector('.c-interaction');
+	const toggleButton = document.querySelector('.c-interaction__toggle')
+	
+	  interaction.classList.toggle('c-interaction__options')
+  
+  }
+  
 }
 
 

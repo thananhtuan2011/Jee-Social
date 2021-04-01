@@ -1456,11 +1456,22 @@ GetCurrentUser() {
 	Share(id_bd:number)
 
 	{
-			// this._services_canhan.ChiaSeBaiDang(this.id_user,id_bd).subscribe(res=>{
-			// 	const _messageType = this.translate.instant('Chia Sẻ Thành Công !');
-			// 		this.layoutUtilsService.showActionNotification(_messageType, MessageType.Update, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
-			// 		});
-			// })
+			this._services.ChiaSeBaiDang(id_bd,this._services.rt_share_baidang).subscribe(res=>{
+				if(res)
+				{
+					const _messageType = this.translate.instant('Chia Sẻ Thành Công !');
+					this.layoutUtilsService.showActionNotification(_messageType, MessageType.Update, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+					});
+				}
+				else
+
+				{
+					const _messageType = this.translate.instant('Thất Bại!');
+					this.layoutUtilsService.showActionNotification(_messageType, MessageType.Update, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+					});
+				}
+				
+			})
 	}
 
 

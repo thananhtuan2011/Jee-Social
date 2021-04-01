@@ -19,7 +19,7 @@ export class FlowGioithieuCanhanComponent implements OnInit {
   constructor(
     private _service:FlowCaNhanService,
     private service_canhan:TrangCaNhanService,
-
+    private _service_flow:FlowCaNhanService,
     private changeDetectorRefs: ChangeDetectorRef,
     private route:ActivatedRoute,
 
@@ -50,7 +50,7 @@ export class FlowGioithieuCanhanComponent implements OnInit {
   }
   LoadGioiThieu()
   {
-        this._service.getGioiThieuFlow(this.id_user_canhan).subscribe(res =>{
+        this._service_flow.getGioiThieuFlow(this.id_user_canhan,this._service_flow.rt_flow).subscribe(res =>{
           this.listGioiThieu=res.data;
           this.changeDetectorRefs.detectChanges();
         })

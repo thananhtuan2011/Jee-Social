@@ -12,9 +12,11 @@ export class GroupService extends  TableService<GroupModel> implements OnDestroy
   lastFilter$: BehaviorSubject<QueryParamsModel> = new BehaviorSubject(new QueryParamsModel({}, 'asc', '', 0, 10));
   API_URL = `/Group`;
   API_URL_user = `/user`;
+  id_gr:number
   constructor(@Inject(HttpClient) http) {
     super(http);
   }
+ 
   public rt_getlist_group: string = this.API_URL + '/getDSGroup';
   public rt_random_user: string = this.API_URL_user + '/GetrandomDSUser';
   public rt_insert_group: string = this.API_URL;
@@ -23,7 +25,7 @@ export class GroupService extends  TableService<GroupModel> implements OnDestroy
   public rt_findData_BaiDangGroup: string = this.API_URL;
   public rt_getlist_Usergroup: string = this.API_URL;
   public rt_DeleteGroup: string = this.API_URL;
-  
+ 
   
 
   ngOnDestroy() {

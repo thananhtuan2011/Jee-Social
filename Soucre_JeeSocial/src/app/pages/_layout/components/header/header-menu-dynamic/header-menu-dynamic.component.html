@@ -22,7 +22,7 @@
         <!-- <mat-icon>{{item.icon_menu}}</mat-icon> -->
         <i style="margin-right: 5px;" class="{{item.icon_menu}}"></i>
         <!-- <i>flaticon-home</i> -->
-        <span class="menu-text" [translate]="item.translate">{{
+        <span (click)=refresh(item.title) class="menu-text" [translate]="item.translate">{{
           item.title
         }}</span>
         <!-- <i style="padding:5px; font-size:12px" class="la la-angle-down"></i> -->

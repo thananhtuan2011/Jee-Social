@@ -33,6 +33,7 @@ export class SortIconComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    debugger
     const parent = this.el.nativeElement.parentElement as Element;
     if (!parent) {
       return;

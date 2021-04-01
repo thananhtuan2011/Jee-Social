@@ -12,6 +12,8 @@ export class GroupMemberService  extends  TableService<GroupMemberModel> impleme
     super(http);
   }
   API_URL = `/GroupMember`;
+  
+  public rt_loadDS_thanhvien: string = this.API_URL +`/DS_ThanhVien_Group`;
   public rt_getAllUsser_filter_Group: string = this.API_URL;
   public rt_getAllChooseUsser_In_Group: string = this.API_URL;
   public rt_insert_MemberGroup: string = this.API_URL;

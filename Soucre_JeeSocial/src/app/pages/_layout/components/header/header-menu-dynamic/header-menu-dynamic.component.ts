@@ -57,6 +57,24 @@ export class HeaderMenuDynamicComponent implements OnInit, OnDestroy {
     this.subscriptions.push(menuSubscr);
   }
 
+  scrollToTop() 
+    { 
+      (function smoothscroll() 
+      { var currentScroll = document.documentElement.scrollTop || document.body.scrollTop; 
+        if (currentScroll > 0) 
+        {
+          window.requestAnimationFrame(smoothscroll);
+          window.scrollTo(0, currentScroll - (currentScroll / 3));
+        }
+      })();
+    }
+	refresh(tieude:string):void {
+		if(tieude=='Trang Chủ')
+		{
+			this.scrollToTop();
+	
+		}
+	  }
   isMenuItemActive(path) {
     if (!this.currentUrl || !path) {
       return false;

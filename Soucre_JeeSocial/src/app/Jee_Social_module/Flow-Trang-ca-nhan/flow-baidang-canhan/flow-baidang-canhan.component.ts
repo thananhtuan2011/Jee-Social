@@ -49,6 +49,7 @@ export class FlowBaidangCanhanComponent implements OnInit {
 	  example: string = `<div>this is another div <br/> Đây là inser</div>`
 	  // Public properties
 	  ItemData: any = {};
+	  @Input() id_canhan:any;
 	  nameimg:any;
 	  FormControls: FormGroup;
 	  hasFormErrors: boolean = false;
@@ -123,11 +124,13 @@ export class FlowBaidangCanhanComponent implements OnInit {
 	  private changeDetectorRefs: ChangeDetectorRef,
 	  
 	  public _services_canhan: TrangCaNhanService,
+	  public _services_flow :FlowCaNhanService,
 	   public _services: PageHomeService,
 	  private _service_cmt:CommentService,
 	  private sanitized: DomSanitizer,
 	  public dialog: MatDialog,
 	  // private tokenStore:TokenStorage,
+	  private route:ActivatedRoute,
 	  private layoutUtilsService: LayoutUtilsService,
 	  private translate: TranslateService,
 	  // private _service_thongbao:ThongbaoService,
@@ -861,7 +864,7 @@ export class FlowBaidangCanhanComponent implements OnInit {
 		  // more: boolean;
 		  
 	  );
-  this._services_canhan.getBaiDangTrangCaNhan(queryParams1,this._services_canhan.rt_API_TrangCaNhan).subscribe((res) => {
+  this._services_flow.getBaiDangFlowTrangCaNhan(this.id_canhan,queryParams1,this._services_flow.rt_flow).subscribe((res) => {
 	  
 			  this.data= res.data;
 			  console.log('Page',this.pageSize);
@@ -889,7 +892,7 @@ export class FlowBaidangCanhanComponent implements OnInit {
 		  // more: boolean;
 		  
 	  );
-	  this._services_canhan.getBaiDangTrangCaNhan(queryParams1,this._services_canhan.rt_API_TrangCaNhan).subscribe((res) => {
+	  this._services_flow.getBaiDangFlowTrangCaNhan(this.id_canhan,queryParams1,this._services_flow.rt_flow).subscribe((res) => {
 			  //this.data.push(res.data);
 			  if(res.data!=null){
 				  for(let i = 0; i < res.data.length; i++)
@@ -949,6 +952,14 @@ export class FlowBaidangCanhanComponent implements OnInit {
 		})
 	}
 	ngOnInit() {
+		this.route.params.subscribe(params => {
+			this.id_canhan =+params.id_canhan;
+		});
+			// this.user=+params.user;
+		
+		 
+		//   this.LoadTrangCaNhan(this.id_canhan);
+
 	  this.GetCurrentUser();
 	  this.LoadData();
 	  this.LoadTrangCaNhan();
@@ -964,6 +975,7 @@ export class FlowBaidangCanhanComponent implements OnInit {
   
   //    this.loadInitPost();
 	//  this.loadcmt();
+	
 	
 	}
   

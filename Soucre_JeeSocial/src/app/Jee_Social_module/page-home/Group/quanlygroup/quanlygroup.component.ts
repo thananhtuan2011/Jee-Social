@@ -6,7 +6,6 @@ import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { GroupDataSource } from '../group.datasource';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { EditQuyenComponent } from '../edit-quyen/edit-quyen.component';
@@ -25,7 +24,6 @@ import { GroupService } from '../../_services/group.service';
 export class QuanlygroupComponent implements OnInit {
 
  
-  dataSource: GroupDataSource;
   displayedColumns: string[] = ['Username','create_date','quyen_group','actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 	@ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -99,33 +97,12 @@ export class QuanlygroupComponent implements OnInit {
       this.id_g =+params.id_group;
       this.changeDetectorRefs.detectChanges();
     });
-    this.LoadData();
-		this.service.getPageSize().subscribe(res => {
-			this.pageSize = +res;
-		});
-		// If the user changes the sort order, reset back to the first page.
-		this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
-		/* Data load will be triggered in two cases:
-		- when a pagination event occurs => this.paginator.page
-		- when a sort event occurs => this.sort.sortChange
-		**/
-		merge(this.sort.sortChange, this.paginator.page)
-			.pipe(
-				tap(() => {
-					this.loadDataList();
-				})
-			)
-			.subscribe();
-		// Init DataSource
-		this.dataSource = new GroupDataSource(this.service);
-		this.dataSource.entitySubject.subscribe(res =>{});
-		this.loadDataList();
+   
 	}
 
 	ngOnChanges() {
-		if (this.dataSource)
-			this.loadDataList();
+		// if (this.dataSource)
+		// 	this.loadDataList();
 	}
 
 	loadDataList() {
@@ -136,40 +113,13 @@ export class QuanlygroupComponent implements OnInit {
 			this.paginator.pageIndex,
 			this.paginator.pageSize
 		);
-		this.dataSource.loadList_User(this.id_g ,queryParams);
+		// this.dataSource.loadList_User(this.id_g ,queryParams);
 		// setTimeout(x => {
 		// 	this.loadPage();
 		// }, 500)
 	}
 	loadPage() {
-		debugger
-		var arrayData = [];
-		this.dataSource.entitySubject.subscribe(res => arrayData = res);
-		if (arrayData !== undefined && arrayData.length == 0) {
-			var totalRecord = 0;
-		
-			this.dataSource.paginatorTotal$.subscribe(tt => totalRecord = tt)
-			if (totalRecord > 0) {
-				const queryParams1 = new QueryParamsModelNew(
-					this.filterConfiguration(),
-					this.sort.direction,
-					this.sort.active,
-					this.paginator.pageIndex = this.paginator.pageIndex - 1,
-					this.paginator.pageSize
-				);
-        this.dataSource.loadList_User(this.id_g,queryParams1);
-			}
-			else {
-				const queryParams1 = new QueryParamsModelNew(
-					this.filterConfiguration(),
-					this.sort.direction,
-					this.sort.active,
-					this.paginator.pageIndex = 0,
-					this.paginator.pageSize
-				);
-				this.dataSource.loadList_User(this.id_g,queryParams1);
-			}
-		}
+	
 	}
 	
 	filterConfiguration(): any {

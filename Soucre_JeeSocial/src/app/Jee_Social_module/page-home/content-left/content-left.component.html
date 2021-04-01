@@ -228,7 +228,7 @@
             <mat-menu #menu="matMenu">
             
               <button [routerLink]="['/mymessenger/chat',us.ID_user]" mat-menu-item> 	<mat-icon style="color: lightseagreen;"> chat_bubble</mat-icon><span>Chat với {{name_user}}</span></button>
-              <button [routerLink]="['/FlowCaNhan/canhan',us.ID_user]" mat-menu-item> <mat-icon style="color: lightcoral;"> contact_mail</mat-icon> <span>Trang Cá Nhân</span></button>
+              <button [routerLink]="['/page_personal/my_page',us.Username,us.ID_user]" mat-menu-item> <mat-icon style="color: lightcoral;"> contact_mail</mat-icon> <span>Trang Cá Nhân</span></button>
             </mat-menu>
   
                

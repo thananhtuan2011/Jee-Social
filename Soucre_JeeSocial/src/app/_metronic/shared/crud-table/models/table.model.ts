@@ -135,4 +135,38 @@ export interface IUpdateStatusForSelectedAction {
   ngOnInit(): void;
   updateStatusForSelected(): void;
 }
+export interface JS_Panigator{
+  //total items
+  total: number;
+  totalpage: number;//total page
+  TotalCount: number;
+  page: number;//page index
+  pageSize: number;//page size, row per page
+}
+
+export interface JS_ErrorModel{
+  code: number;
+  msg: string;
+}
+
+export interface TableResponseModel_JeeSocial<T> {
+  status: number;
+  data: T[];
+  panigator: JS_Panigator;
+  error: JS_ErrorModel;
+}
+
+export interface LP_BaseModel<T> {
+  status: number;
+  data: T[];
+  panigator: JS_Panigator;
+  error: JS_ErrorModel;
+}
+
+export interface LP_BaseModel_Single<T> {
+  status: number;
+  data: T;
+  panigator: JS_Panigator;
+  error: JS_ErrorModel;
+}
 

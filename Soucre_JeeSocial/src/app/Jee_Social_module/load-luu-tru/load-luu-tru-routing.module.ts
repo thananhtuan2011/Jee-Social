@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoadLuutruComponent } from './load-luutru/load-luutru.component';
 
 const routes: Routes = [
-{path:'luutru',component:LoadLuutruComponent}
+{path:'',component:LoadLuutruComponent}
 ];
 
 @NgModule({

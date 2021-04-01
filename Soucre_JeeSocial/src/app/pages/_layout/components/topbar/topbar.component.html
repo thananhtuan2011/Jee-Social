@@ -1,3 +1,13 @@
+<style>
+  i {
+    color:#FFF;
+}
+.btn-hover-transparent:hover
+{background-color: rgba(255, 255, 255, 0.1);
+    border-color: transparent;
+
+}
+</style>
 <!--begin::Topbar-->
 <ng-container *ngIf="extraSearchDisplay">
   <ng-container *ngIf="extrasSearchLayout === 'offcanvas'">
@@ -34,7 +44,7 @@
 <ng-container *ngIf="extrasNotificationsDisplay">
   <ng-container *ngIf="extrasNotificationsLayout === 'offcanvas'">
     <div class="topbar-item">
-      <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1 pulse pulse-primary"
+      <div class="btn btn-icon btn-hover-transparent btn-dropdown btn-lg mr-1 pulse pulse-primary"
         id="kt_quick_notifications_toggle">
         <span matBadge="4" matBadgeOverlap="false">
           <i class="flaticon-chat"></i>
@@ -52,9 +62,9 @@
     <div class="dropdown" ngbDropdown placement="bottom">
       <!--begin::Toggle-->
       <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" ngbDropdownToggle>
-        <div class="btn btn-icon btn-hover-transparent-white btn-dropdown btn-lg mr-1 pulse pulse-primary">
+        <div class="btn btn-icon btn-hover-transparent btn-dropdown btn-lg mr-1 pulse pulse-primary">
           <span matBadge="4" matBadgeOverlap="false">
-            <i class="flaticon-chat"></i>
+            <i  class="flaticon-chat"></i>
           </span>
           <!-- <span [inlineSVG]="'./assets/media/svg/icons/Communication/Chat-check.svg'" cacheSVG="true"
             class="svg-icon svg-icon-xl"></span> -->

@@ -92,7 +92,7 @@
 {
     display: inline-block;
     vertical-align: middle;
-    margin-left: 400px;
+    margin-left: 380px;
 }
       .example-card{
           margin-top:15px
@@ -185,18 +185,18 @@
               </ng-template>
 
               <ng-template #ck2>
-                <button (click)="addFlow()" matTooltip="Follow"   style="float: right; margin-right:15px;background:rgb(235, 233, 233) ;margin-top: -50px;" mat-raised-button >Theo Dõi</button>
+                <button (click)="addFlow()" matTooltip="Follow"   style="float: right; margin-right:15px;background:rgb(235, 233, 233) ;" mat-raised-button >Theo Dõi</button>
               </ng-template>
                   
                  
                
               
          
-                <span style="font-size:20px;font-weight:bold;">{{canhan.user_name}}
+                <span style="font-size:20px;font-weight:bold; margin: 0 150px auto;">{{canhan.user_name}}
                   
                 </span>
                 <!--  -->
-                <p >  {{canhan.tieusu}}</p>
+                <p style="    margin: 0 150px auto;" >  {{canhan.tieusu}}</p>
                 
     
     
@@ -341,11 +341,11 @@
     
     <div class="container">
       <div class="row">
-        <div  class="col-lg-4">
+        <div  class="col-lg-5">
          <kt-flow-gioithieu-canhan></kt-flow-gioithieu-canhan>
        
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-7">
               <kt-flow-baidang-canhan></kt-flow-baidang-canhan>
       
         </div>

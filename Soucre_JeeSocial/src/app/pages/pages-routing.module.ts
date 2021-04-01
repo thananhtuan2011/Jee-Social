@@ -17,7 +17,7 @@ const routes: Routes = [
           import('./../Jee_Social_module/page-home/page-home.module').then((m) => m.PageHomeModule),
       },
       {
-        path: 'page_personal/:username/:id',
+        path: 'page_personal',
         loadChildren: () =>
           import('./../Jee_Social_module/Flow-Trang-ca-nhan/flow-canhan.module').then((m) => m.FlowCanhanModule),
       },

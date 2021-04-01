@@ -36,7 +36,7 @@ export class GioithieuComponent implements OnInit {
 
   LoadGioiThieu()
   {
-        this._service.getGioiThieu(this.id_user_current,this._service.rt_API_TrangCaNhan).subscribe(res =>{
+        this._service.getGioiThieu(this._service.rt_API_TrangCaNhan).subscribe(res =>{
           this.listGioiThieu=res.data;
           this.changeDetectorRefs.detectChanges();
         })

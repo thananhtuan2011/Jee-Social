@@ -33,6 +33,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class DisplayTrangCaNhanComponent implements OnInit {
   @Input() id_user_canhan: any;
+  
+  @Input() user: any;
   item_11:any[]=[];
   data: any[] = [];
   base64Image: string;
@@ -172,8 +174,8 @@ export class DisplayTrangCaNhanComponent implements OnInit {
  
   ngOnInit() {
     this.route.params.subscribe(params => {
-    
       this.id_user_canhan =+params.id_canhan;
+	  this.user=+params.user;
    
     this.LoadTrangCaNhan(this.id_user_canhan);
  

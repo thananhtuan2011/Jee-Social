@@ -36,7 +36,7 @@
   
     .example-card {
       max-width: 565px;
-      margin: 15px auto;
+      margin: 5px auto;
       width: 600px;
   
   
@@ -190,40 +190,7 @@
   
     </div>
   
-    <div class="home__body__contentMiddle__center" *ngFor="let items of listTT_user">
-      <mat-card class="post-message">
-  
-        <mat-card-header class="post-message-header" style="padding-bottom: 20px; border-bottom: 1px solid lightgray;">
-          <!-- hinh  ảnh user   nơi post bài -->
-  
-          <span *ngIf="items.hinhanh===null;then e1; else e2"></span>
-          <ng-template #e2>
-            <img alt="" mat-card-avatar class="avatar" src="{{items.Avatar}}">
-          </ng-template>
-  
-          <ng-template #e1>
-            <img alt="" mat-card-avatar class="avatar" src="../../assets/media/users/avatar_macdinh.jpg">
-          </ng-template>
-  
-          <form>
-            <a href="javascript:;">
-            <span>
-         
-        
-            </span>
-          </a>
-           
-  
-  
-          </form>
-  
-        </mat-card-header>
-  
-      </mat-card>
-  
-  
-  
-    </div>
+   
     <!-- load ds bài đăng  -->
   
     <!-- <kt-bai-dang-view [ID_QuyTrinh]="ID" style="margin-top:10px"></kt-bai-dang-view>

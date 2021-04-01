@@ -78,8 +78,6 @@ export class QuanLyBaiDangGroupComponent implements OnInit {
 			this.loadDataList();
 
           this.changeDetectorRefs.detectChanges();
-
-						
 					if (res && res.status === 1) {
 						this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete, 4000, true, false, 3000, 'top');
 					}

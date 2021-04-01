@@ -1,3 +1,4 @@
+import { CRUDTableModule } from './../../_metronic/shared/crud-table/crud-table.module';
 import { ActionNotificationComponent } from './../../_metronic/partials/content/crud/action-natification/action-notification.component';
 import { ThongdiepService } from './thong-diep/_service_TD/thongdiep.service';
 import { LayoutUtilsService } from './../../_metronic/core/utils/layout-utils.service';
@@ -181,6 +182,7 @@ const MY_FORMATS_EDIT: any = {
     //  {useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG},
   ],
   imports: [
+    CRUDTableModule,
     MatPaginatorModule,
     CommonModule,
     PageHomeRoutingModule,

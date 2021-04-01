@@ -10,7 +10,7 @@ const routes: Routes = [
           children: [
         {
         
-          path: '/:user/:id_canhan',
+          path: 'my_page/:user/:id_canhan',
            component: DisplayTrangCaNhanComponent
         
         },

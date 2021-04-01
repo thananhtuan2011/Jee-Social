@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { PaginatorState } from '../models/paginator.model';
-import { ITableState, QueryParamsModelNew, QueryParamsModelNewLazy, QueryResultsModel, TableResponseModel } from '../models/table.model';
+import { ITableState, QueryParamsModelNew, QueryParamsModelNewLazy, QueryResultsModel, TableResponseModel, TableResponseModel_JeeSocial } from '../models/table.model';
 import { BaseModel } from '../models/base.model';
 import { SortState } from '../models/sort.model';
 import { GroupingState } from '../models/grouping.model';
@@ -24,6 +24,16 @@ const DEFAULT_STATE: ITableState = {
   grouping: new GroupingState(),
   entityId: undefined
 };
+const DEFAULT_RESPONSE: TableResponseModel_JeeSocial<any> = {
+  status: 1,
+  data: [],
+  error: {
+    code: 0,
+    msg: ""
+  },
+  panigator: null
+};
+
 
 export abstract class TableService<T> {
   // Private fields
@@ -33,6 +43,7 @@ export abstract class TableService<T> {
   private _tableState$ = new BehaviorSubject<ITableState>(DEFAULT_STATE);
   private _errorMessage = new BehaviorSubject<string>('');
   private _subscriptions: Subscription[] = [];
+  private __responseData$ = new BehaviorSubject<any>(DEFAULT_RESPONSE);
   public currentUserSubject = new BehaviorSubject<any>(undefined);
   currentUser$: Observable<any>;
   // isLoading$: Observable<boolean>;
@@ -48,6 +59,73 @@ export abstract class TableService<T> {
   //   const httpHeaders = this.httpUtils.getHTTPHeaders();
   //   return this.http.post<any>(API + '/addComment', item, { headers: httpHeaders });
   // }
+
+  find_JeeSocial(tableState: ITableState, routeFind: string = ''): Observable<any> {
+    const url = this.API_Social + routeFind;
+    const httpHeader = this.getHttpHeaders();
+    this._errorMessage.next('');
+    return this.http.post<any>(url, tableState, { headers: httpHeader }).pipe(
+      catchError(err => {
+        this._errorMessage.next(err);
+        console.error('FIND ITEMS', err);
+        return of({ status: 0, data: [], panigator: null, error: null });
+      })
+    );
+  }
+
+  // Base Methods
+  public patchStateJeeSocial(patch: Partial<ITableState>, apiRoute: string = '') {
+    this.patchStateWithoutFetch(patch);
+    this.fetch_JeeSocial(apiRoute);
+  }
+
+  public fetch_JeeSocial(apiRoute: string = '', nameKey: string = 'id') {
+    var resItems: any = [];
+    var resTotalRow: number = 0;
+    this._isLoading$.next(true);
+    this._errorMessage.next('');
+    const request = this.find_JeeSocial(this._tableState$.value, apiRoute)
+      .pipe(
+        tap((res:any) => {
+
+          if (res && res.status == 1) {
+            resItems = res.data;
+            resTotalRow = res.panigator.total;
+          }
+          debugger
+          this._items$.next(resItems);
+          this.__responseData$.next(res);
+          this.patchStateWithoutFetch({
+            paginator: this._tableState$.value.paginator.recalculatePaginator(
+              resTotalRow
+            ),
+          });
+
+        }),
+        catchError((err) => {
+          this._errorMessage.next(err);
+          return of({
+            status: 0,
+            data: [],
+            panigator: null,
+            error: null,
+          });
+        }),
+        finalize(() => {
+          debugger
+          this._isLoading$.next(false);
+          const itemIds = this._items$.value.map((el: T) => {
+            const item = (el as unknown) as BaseModel;
+            return item[nameKey];
+          });
+          this.patchStateWithoutFetch({
+            grouping: this._tableState$.value.grouping.clearRows(itemIds),
+          });
+        })
+      )
+      .subscribe();
+    this._subscriptions.push(request);
+  }
 
   CheckFlow(id_canhan:number,routespst:string): any {
     const httpHeaders = this.getHttpHeaders();
@@ -81,18 +159,22 @@ export abstract class TableService<T> {
     const url = this.API_Social+routespst;
     return this.http.get<any>(url + `/getTrangCaNhanFlow?id_user=${id_}`, { headers: httpHeaders });
   }
-  getBaiDangFlowTrangCaNhan(routespst:string): any {
+  getBaiDangFlowTrangCaNhan(id:number,queryParams: QueryParamsModelNewLazy,routespst:string): any {
+
     const httpHeaders = this.getHttpHeaders();
+    const httpParams = this.getFindHTTPParams(queryParams);
     const url = this.API_Social+routespst;
-    return this.http.get<any>(url + `/getDSBaiDangFlowTrangCaNhan`, { headers: httpHeaders });
+    return this.http.get<any>(url + `/getDSBaiDangFlowTrangCaNhan?id=${id}`, { headers: httpHeaders,params:  httpParams  });
   }
 
-  getGioiThieuFlow(routespst:string): any {
+  getGioiThieuFlow(id:number,routespst:string): any {
     
     const httpHeaders = this.getHttpHeaders();
     const url = this.API_Social+routespst;
-    return this.http.get<any>(url + `/getGioiThieuFlow`, { headers: httpHeaders });
+    return this.http.get<any>(url + `/getGioiThieuFlow?id=${id}`, { headers: httpHeaders });
   }
+
+
   // begin serive trang cá nhân
   
   getdataEdit(id_:number,routespst:string): any {
@@ -112,10 +194,10 @@ export abstract class TableService<T> {
     return this.http.get<any>(url + `/getDSBaiDangTrangCaNhan`, { headers: httpHeaders,params:  httpParams });
   }
 
-  getGioiThieu(id_:number,routespst:string): any {
+  getGioiThieu(routespst:string): any {
     const httpHeaders = this.getHttpHeaders();
     const url = this.API_Social+routespst;
-    return this.http.get<any>(url + `/getGioiThieu?id_user=${id_}`, { headers: httpHeaders });
+    return this.http.get<any>(url + `/getGioiThieu`, { headers: httpHeaders });
   }
   getRanDomAnh(routespst:string): any {
     const httpHeaders = this.getHttpHeaders();
@@ -129,10 +211,10 @@ export abstract class TableService<T> {
       return this.http.post<any>(url+`/UpdateAnhBia?id_canhan=${id_}`, _item,{ headers: httpHeaders });
   }
 
-  ChiaSeBaiDang(id_user:number,id_bd:number,routespst:string): Observable<boolean> {
+  ChiaSeBaiDang(id_bd:number,routespst:string): Observable<boolean> {
     const httpHeaders = this.getHttpHeaders();
     const url = this.API_Social+routespst;
-    return this.http.post<any>(url+`/ShareBaiDang?id_user=${id_user}&id_baidang=${id_bd}`,{ headers: httpHeaders });
+    return this.http.post<any>(url+`/ShareBaiDang?id_baidang=${id_bd}`,null,{ headers: httpHeaders });
     
 }
 
