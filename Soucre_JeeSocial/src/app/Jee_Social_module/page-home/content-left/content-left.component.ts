@@ -60,7 +60,6 @@ export class ContentLeftComponent implements OnInit {
    GetCurrentUser() {
     this._service.getUserData().subscribe(res =>{
     //   this.item= res;
-    console.log('Crursss',res);
       this.id_user=res.Id
     });
      

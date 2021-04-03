@@ -213,7 +213,6 @@ export class BaidangTrangcanhanComponent implements OnInit {
   layIDBaiDang(id_baidang_cmt:number){
 	 
 		this.id_bd_cmt=id_baidang_cmt;
-	console.log('id_baidangcmt',id_baidang_cmt);
 
   }
 Item_cmt(): CommentModel {
@@ -239,7 +238,6 @@ AddComment(item:CommentModel,withBack:boolean,id_baidang:number){
 	this._service_cmt.Insert(item,this._service_cmt.rt_insert_cmt).subscribe(res=>{
 		if (res && res.status === 1) {
 			this.dulieu_cmt.setValue("");
-			console.log(res.data);
 			let index_tam=this.list_baidang.findIndex(x=>x.Id_baidang_canhan===id_baidang)
 			let index=this.list_baidang[index_tam].DataBaiDang.findIndex(x=>x.Id_BaiDang===id_baidang)
 		
@@ -1058,9 +1056,7 @@ pageSize:number;
 this._services_canhan.getBaiDangTrangCaNhan(queryParams1,this._services_canhan.rt_API_TrangCaNhan).subscribe((res) => {
 	
 			this.data= res.data;
-			console.log('Page',this.pageSize);
 			this.list_baidang=this.data.slice();
-	console.log('Dữ liệu bài đăng trang ca nhan',this.list_baidang);
 	
 			
 		     this.changeDetectorRefs.detectChanges();
@@ -1239,7 +1235,6 @@ GetCurrentUser() {
 			//a.style.display = "none";
 			//b.style.display = "block";
 		}
-		console.log('ind:',ind);
 		return x.style.display;
 	}
 	
@@ -1284,7 +1279,6 @@ GetCurrentUser() {
 				this.base64Image = ''+event.target["result"];
 				this.nameimg=filesAmount.name;
 				this.base64Image = this.base64Image.split(',')[1];
-				console.log(this.image);
 					this.changeDetectorRefs.detectChanges();
 			  
 				  }

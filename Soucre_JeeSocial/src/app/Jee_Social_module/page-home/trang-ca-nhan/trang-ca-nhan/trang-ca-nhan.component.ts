@@ -166,7 +166,6 @@ export class TrangCaNhanComponent implements OnInit {
   layIDBaiDang(id_baidang_cmt:number){
 	 
 		this.id_bd_cmt=id_baidang_cmt;
-	console.log('id_baidangcmt',id_baidang_cmt);
 
   }
 

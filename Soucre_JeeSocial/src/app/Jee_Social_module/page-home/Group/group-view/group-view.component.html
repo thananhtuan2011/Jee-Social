@@ -655,7 +655,7 @@
                             </div>
                           </div> -->
                           <!--  nơi hiển thi số like  like  comment -->
-                          <div class="row" style="margin-left: 15px;">
+                          <div class="row" >
                             <div class="col-md-12 comment-like" style="display: flex;
                          flex-direction: row;margin-left: 20px;">
     
@@ -740,11 +740,11 @@
                                                <span
                                                  style="font-size: 12px;color: darkmagenta;font-weight: bold;">{{user.Username}}</span>
                                              </div>
-                                      <div style="display:flex;    line-height: 27px; height: 100%;">
+                                      <div style="display:flex;line-height: 27px; height: 100%; width: 100%;">
                                         <div class="comment">
                                           <div class="comment-string" style="display:flex;">
                                             <!-- <span class="m-card-user__name">{{child.NguoiTao.hoten}}</span> -->
-                                            <span style="width: 200px;" class="content_cmt" [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
+                                            <span class="content_cmt_child" [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
                                            
                                           </div>
                                         
@@ -765,7 +765,7 @@
                                    </div>
                                  </div>
                                </div> -->
-                                      <div class="row">
+                                      <div style=" margin-left: 60px;" class="row">
                                         <div class="comment-like" >
                                           <span [popover]="myPopover" [popoverOnHover]="true"
                                             [popoverCloseOnMouseOutside]="true">
@@ -841,7 +841,7 @@
                             </div>
                             <!--  noi add_cmt_child -->
                             <div class="row">
-                              <div id="inputtext1{{vi}}" class="col-md-12 kt-margin-bottom-10-mobile">
+                              <div id="inputtext1{{vi}}{{bd}}" class="col-md-12 kt-margin-bottom-10-mobile">
                                 <mat-form-field style="display: inline-flex;
                          align-items: baseline;
                          box-sizing: border-box;
@@ -851,7 +851,7 @@
                            margin-left: 50px;
                            margin-bottom: 15px;" class="mat-form-field-fluid">
                                   <input matInput placeholder="Nhập nội dung và nhấn phím Enter để gửi"
-                                    id="CommentRep1{{vi}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
+                                    id="CommentRep1{{vi}}{{bd}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
                                     [(ngModel)]="dulieu_cmt_child">
                                   <!-- <button matSuffix mat-icon-button color="primary" type="button"
                                     (click)="selectFile_PDF(vi)" matTooltip="Upload File">
@@ -961,7 +961,7 @@
               <input placeholder="Type something">
                <button id="erase">X</button>
              </div> -->
-            <div class='c-interaction buttonInside'> 
+            <!-- <div class='c-interaction buttonInside'> 
           
              
             <input  (click)="layIDBaiDang(item.Id_BaiDang)" (keydown.enter)="CommentInsert(item.Id_BaiDang)"  [formControl]="dulieu_cmt" style="color:rgb(32, 31, 31);outline: none; background-color: #F0F2F5;" class='c-interaction__input' type='text'  placeholder='Nhập nội dung bình luận...'
@@ -969,7 +969,7 @@
             >
             <button class="ipbutton">X</button>    
             
-            </div>
+            </div> -->
            <!-- <div class='c-interaction__menu'>
             <ul>
               <li><button aria-label="Record a Video." class='c-interaction__button'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-video"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></button></li>
@@ -986,21 +986,12 @@
                 </ul>
               </div> -->
             <!-- </div> -->
-            <!-- <mat-form-field class="mat-form-field-fluid" style="width:100%" (click)="layIDBaiDang(item.Id_BaiDang)">
+           <mat-form-field class="mat-form-field-fluid" style="width:100%" (click)="layIDBaiDang(item.Id_BaiDang)">
               <textarea #matInput matInput placeholder="Nhập nội dung và nhấn phím Enter để gửi"
                 [formControl]="dulieu_cmt" (keydown.enter)="CommentInsert(item.Id_BaiDang)" rows="2">
            </textarea>
-             <div class='c-interaction'> 
-                <button (click)="Open()" aria-label="Toggle more options." class='c-interaction__toggle c-interaction__button'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><path d="M12 5v14M5 12h14"/></svg></button>
-                <div class='c-interaction__menu'>
-                  <ul>
-                    <li><button aria-label="Record a Video." class='c-interaction__button'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-video"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></button></li>
-                    <li><button aria-label="Take a Picture." class='c-interaction__button'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button></li>
-                 
-                  </ul>
-                </div>
-              </div>
-            </mat-form-field> -->
+            
+            </mat-form-field> 
           
 
           </mat-card-actions>
@@ -1319,7 +1310,7 @@
                             </div>
                           </div> -->
                           <!--  nơi hiển thi số like  like  comment -->
-                          <div class="row" style="margin-left: 15px;">
+                          <div class="row" >
                             <div class="col-md-12 comment-like" style="display: flex;
                          flex-direction: row;margin-left: 20px;">
     
@@ -1404,7 +1395,7 @@
                                     <div class="comment">
                                       <div class="comment-string" style="display:flex;">
                                         <!-- <span class="m-card-user__name">{{child.NguoiTao.hoten}}</span> -->
-                                        <span [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
+                                        <span class="content_cmt_child" [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
                                        
                                       </div>
                                       <div class="css_action_cmt_child">
@@ -1489,7 +1480,7 @@
                             </div>
                             <!--  noi add_cmt_child -->
                             <div class="row">
-                              <div id="inputtext1{{vi}}" class="col-md-12 kt-margin-bottom-10-mobile">
+                              <div id="inputtext2{{vi}}{{bd}}" class="col-md-12 kt-margin-bottom-10-mobile">
                                 <mat-form-field style="display: inline-flex;
                          align-items: baseline;
                          box-sizing: border-box;
@@ -1499,7 +1490,7 @@
                            margin-left: 50px;
                            margin-bottom: 15px;" class="mat-form-field-fluid">
                                   <input matInput placeholder="Nhập nội dung và nhấn phím Enter để gửi"
-                                    id="CommentRep1{{vi}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
+                                    id="CommentRep2{{vi}}{{bd}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
                                     [(ngModel)]="dulieu_cmt_child">
                                   <!-- <button matSuffix mat-icon-button color="primary" type="button"
                                     (click)="selectFile_PDF(vi)" matTooltip="Upload File">
@@ -1886,7 +1877,7 @@
                             </div>
                           </div> -->
                           <!--  nơi hiển thi số like  like  comment -->
-                          <div class="row" style="margin-left: 15px;">
+                          <div class="row" >
                             <div class="col-md-12 comment-like" style="display: flex;
                          flex-direction: row;margin-left: 20px;">
     
@@ -1971,7 +1962,7 @@
                                     <div class="comment">
                                       <div class="comment-string" style="display:flex;">
                                         <!-- <span class="m-card-user__name">{{child.NguoiTao.hoten}}</span> -->
-                                        <span [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
+                                        <span class="content_cmt_child" [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
                                        
                                       </div>
                                       <div class="css_action_cmt_child">
@@ -2056,7 +2047,7 @@
                             </div>
                             <!--  noi add_cmt_child -->
                             <div class="row">
-                              <div id="inputtext1{{vi}}" class="col-md-12 kt-margin-bottom-10-mobile">
+                              <div id="inputtext3{{vi}}{{bd}}" class="col-md-12 kt-margin-bottom-10-mobile">
                                 <mat-form-field style="display: inline-flex;
                          align-items: baseline;
                          box-sizing: border-box;
@@ -2066,7 +2057,7 @@
                            margin-left: 50px;
                            margin-bottom: 15px;" class="mat-form-field-fluid">
                                   <input matInput placeholder="Nhập nội dung và nhấn phím Enter để gửi"
-                                    id="CommentRep1{{vi}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
+                                    id="CommentRep3{{vi}}{{bd}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
                                     [(ngModel)]="dulieu_cmt_child">
                                   <!-- <button matSuffix mat-icon-button color="primary" type="button"
                                     (click)="selectFile_PDF(vi)" matTooltip="Upload File">
@@ -2463,7 +2454,7 @@
                             </div>
                           </div> -->
                           <!--  nơi hiển thi số like  like  comment -->
-                          <div class="row" style="margin-left: 15px;">
+                          <div class="row">
                             <div class="col-md-12 comment-like" style="display: flex;
                          flex-direction: row;margin-left: 20px;">
     
@@ -2548,7 +2539,7 @@
                                     <div class="comment">
                                       <div class="comment-string" style="display:flex;">
                                         <!-- <span class="m-card-user__name">{{child.NguoiTao.hoten}}</span> -->
-                                        <span [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
+                                        <span class="content_cmt_child" [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
                                        
                                       </div>
                                       <div class="css_action_cmt_child">
@@ -2633,7 +2624,7 @@
                             </div>
                             <!--  noi add_cmt_child -->
                             <div class="row">
-                              <div id="inputtext1{{vi}}" class="col-md-12 kt-margin-bottom-10-mobile">
+                              <div id="inputtext4{{vi}}{{bd}}" class="col-md-12 kt-margin-bottom-10-mobile">
                                 <mat-form-field style="display: inline-flex;
                          align-items: baseline;
                          box-sizing: border-box;
@@ -2643,7 +2634,7 @@
                            margin-left: 50px;
                            margin-bottom: 15px;" class="mat-form-field-fluid">
                                   <input matInput placeholder="Nhập nội dung và nhấn phím Enter để gửi"
-                                    id="CommentRep1{{vi}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
+                                    id="CommentRep4{{vi}}{{bd}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
                                     [(ngModel)]="dulieu_cmt_child">
                                   <!-- <button matSuffix mat-icon-button color="primary" type="button"
                                     (click)="selectFile_PDF(vi)" matTooltip="Upload File">
@@ -3030,7 +3021,7 @@
                             </div>
                           </div> -->
                           <!--  nơi hiển thi số like  like  comment -->
-                          <div class="row" style="margin-left: 15px;">
+                          <div class="row">
                             <div class="col-md-12 comment-like" style="display: flex;
                          flex-direction: row;margin-left: 20px;">
     
@@ -3115,7 +3106,7 @@
                                     <div class="comment">
                                       <div class="comment-string" style="display:flex;">
                                         <!-- <span class="m-card-user__name">{{child.NguoiTao.hoten}}</span> -->
-                                        <span [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
+                                        <span class="content_cmt_child" [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
                                        
                                       </div>
                                       <div class="css_action_cmt_child">
@@ -3200,7 +3191,7 @@
                             </div>
                             <!--  noi add_cmt_child -->
                             <div class="row">
-                              <div id="inputtext1{{vi}}" class="col-md-12 kt-margin-bottom-10-mobile">
+                              <div id="inputtext5{{vi}}{{bd}}" class="col-md-12 kt-margin-bottom-10-mobile">
                                 <mat-form-field style="display: inline-flex;
                          align-items: baseline;
                          box-sizing: border-box;
@@ -3210,7 +3201,7 @@
                            margin-left: 50px;
                            margin-bottom: 15px;" class="mat-form-field-fluid">
                                   <input matInput placeholder="Nhập nội dung và nhấn phím Enter để gửi"
-                                    id="CommentRep1{{vi}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
+                                    id="CommentRep5{{vi}}{{bd}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
                                     [(ngModel)]="dulieu_cmt_child">
                                   <!-- <button matSuffix mat-icon-button color="primary" type="button"
                                     (click)="selectFile_PDF(vi)" matTooltip="Upload File">
@@ -3591,7 +3582,7 @@
                             </div>
                           </div> -->
                           <!--  nơi hiển thi số like  like  comment -->
-                          <div class="row" style="margin-left: 15px;">
+                          <div class="row">
                             <div class="col-md-12 comment-like" style="display: flex;
                          flex-direction: row;margin-left: 20px;">
     
@@ -3677,7 +3668,7 @@
                                     <div class="comment">
                                       <div class="comment-string" style="display:flex;">
                                         <!-- <span class="m-card-user__name">{{child.NguoiTao.hoten}}</span> -->
-                                        <span [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
+                                        <span class="content_cmt_child" [innerHtml]="parseHtml(child.NoiDung_cmt)"></span>
                                        
                                       </div>
                                         <div class="css_action_cmt_child">
@@ -3762,7 +3753,7 @@
                             </div>
                             <!--  noi add_cmt_child -->
                             <div class="row">
-                              <div id="inputtext1{{vi}}" class="col-md-12 kt-margin-bottom-10-mobile">
+                              <div id="inputtext6{{vi}}{{bd}}" class="col-md-12 kt-margin-bottom-10-mobile">
                                 <mat-form-field style="display: inline-flex;
                          align-items: baseline;
                          box-sizing: border-box;
@@ -3772,7 +3763,7 @@
                            margin-left: 50px;
                            margin-bottom: 15px;" class="mat-form-field-fluid">
                                   <input matInput placeholder="Nhập nội dung và nhấn phím Enter để gửi"
-                                    id="CommentRep1{{vi}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
+                                    id="CommentRep6{{vi}}{{bd}}" (keydown.enter)="CommentInsert_chill(quyen.id_cmt)" type="text"
                                     [(ngModel)]="dulieu_cmt_child">
                                   <!-- <button matSuffix mat-icon-button color="primary" type="button"
                                     (click)="selectFile_PDF(vi)" matTooltip="Upload File">

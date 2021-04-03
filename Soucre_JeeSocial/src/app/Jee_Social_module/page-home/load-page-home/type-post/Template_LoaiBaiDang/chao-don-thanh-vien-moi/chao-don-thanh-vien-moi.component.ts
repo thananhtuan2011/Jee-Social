@@ -143,7 +143,6 @@ selected(event: MatAutocompleteSelectedEvent): void {
 				hoten:event.option.viewValue,
     })
 
-    console.log('user_tam:',this.user_tam);
 
   this.userInput.nativeElement.value = '';
   this.userCtrl.setValue(null);

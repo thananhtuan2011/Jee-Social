@@ -867,9 +867,8 @@ export class FlowBaidangCanhanComponent implements OnInit {
   this._services_flow.getBaiDangFlowTrangCaNhan(this.id_canhan,queryParams1,this._services_flow.rt_flow).subscribe((res) => {
 	  
 			  this.data= res.data;
-			  console.log('Page',this.pageSize);
+			  console.log('bài đăng trang  flow cá nhân ',this.data)
 			  this.list_baidang=this.data.slice();
-	  console.log('Dữ liệu bài đăng trang ca nhan',this.list_baidang);
 	  
 			  
 			   this.changeDetectorRefs.detectChanges();
@@ -929,12 +928,7 @@ export class FlowBaidangCanhanComponent implements OnInit {
   
   
   
-	change() {
-	  this.loadDataList();
-	  //get user current
-	  
-	  this.changeDetectorRefs.detectChanges();
-	}
+
 	loadTTuser()
 	{
 		this.auth.getProFileUsers_change().subscribe(res =>{	
@@ -1057,7 +1051,6 @@ export class FlowBaidangCanhanComponent implements OnInit {
 			  //a.style.display = "none";
 			  //b.style.display = "block";
 		  }
-		  console.log('ind:',ind);
 		  return x.style.display;
 	  }
 	  
@@ -1102,7 +1095,6 @@ export class FlowBaidangCanhanComponent implements OnInit {
 				  this.base64Image = ''+event.target["result"];
 				  this.nameimg=filesAmount.name;
 				  this.base64Image = this.base64Image.split(',')[1];
-				  console.log(this.image);
 					  this.changeDetectorRefs.detectChanges();
 				
 					}
@@ -1248,4 +1240,25 @@ export class FlowBaidangCanhanComponent implements OnInit {
 		  this.pageSize+=1;
 		  this.loadDataListLayzy(this.pageSize);
 	  }
+	  
+  Share(id_bd:number)
+
+  {
+		  this._services.ChiaSeBaiDang(id_bd,this._services.rt_share_baidang).subscribe(res=>{
+			  if(res)
+			  {
+				const _messageType = this.translate.instant('Chia Sẻ Thành Công !');
+				this.layoutUtilsService.showActionNotification(_messageType, MessageType.Update, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+				});
+			  }
+			  else
+
+			  {
+				const _messageType = this.translate.instant('Thất Bại !');
+				this.layoutUtilsService.showActionNotification(_messageType, MessageType.Update, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
+				});
+			  }
+			
+		  })
+  }
 }

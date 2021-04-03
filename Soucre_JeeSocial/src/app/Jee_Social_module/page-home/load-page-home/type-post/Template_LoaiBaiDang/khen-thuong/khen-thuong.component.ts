@@ -186,7 +186,6 @@ selected(event: MatAutocompleteSelectedEvent): void {
 				hoten:event.option.viewValue,
     })
 
-    console.log(this.user_tam);
 
     this.removeuser(event.option.value);
   // this.userInput.nativeElement.value = '';
@@ -215,7 +214,6 @@ selected(event: MatAutocompleteSelectedEvent): void {
   loadListKhenThuong(){
   this._services.GetDSKhenThuong(this._services.rt_load_idKhenThuong).subscribe(res=>{
       this.listkt=res.data;
-      console.log('khen thuong',res.Data);
   }
   
   )

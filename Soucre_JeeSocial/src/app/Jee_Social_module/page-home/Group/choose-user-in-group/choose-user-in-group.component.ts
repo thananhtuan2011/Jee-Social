@@ -60,7 +60,6 @@ export class ChooseUserInGroupComponent implements OnInit {
 				this.filterUsers();
       });
       
-   console.log('User:',this.filteredUsers)
 	}
 	ngOnChanges() {
     	this.getData();

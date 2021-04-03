@@ -142,7 +142,6 @@ onSelectFile_PDF(event) {
     this.getCurrentUser();
     this.loadTTuser();
     this.tinnhanh = this.data;
-    console.log('data tin nhanh',this.tinnhanh);
     this.changeDetectorRefs.detectChanges();
     
   }

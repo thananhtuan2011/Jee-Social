@@ -20,6 +20,8 @@ export class PageHomeService extends TableService<BaiDangModel> implements OnDes
   public rt_update_file_image: string = this.API_URL;
   public rt_getBaiDang_Group: string = this.API_URL;
   public rt_share_baidang: string = this.API_URL;
+  public rt_load_comment: string = this.API_URL;
+  
   constructor(@Inject(HttpClient) http) {
     super(http);
   }

@@ -131,7 +131,6 @@ active = 1;
 		this._service.getAllUsers().subscribe(res => {
 			//  console.log(res);
 			this.itemuser = res.data;
-		console.log('user',this.itemuser );
 				this.listUser= this.userControl.valueChanges
 				.pipe(
 				  startWith(''),

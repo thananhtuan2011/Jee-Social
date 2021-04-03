@@ -45,7 +45,6 @@ export class FlowGioithieuCanhanComponent implements OnInit {
         this._service.getFlow(this.id_user_canhan,this._service.rt_flow).subscribe(res=>{
           this.list_Flow=res.data;
               this.changeDetectorRefs.detectChanges();
-              console.log('Flow_GiiThieu',this.list_Flow);
         })
   }
   LoadGioiThieu()

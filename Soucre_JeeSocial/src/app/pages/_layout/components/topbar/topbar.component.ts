@@ -52,7 +52,6 @@ export class TopbarComponent implements OnInit, AfterViewInit {
      
        this.auth.getProFileUsers_change().subscribe(res=>{
         this.listTTUser=res.data[0];
-        console.log('listTTUsser',res.data);
        })
      }
 

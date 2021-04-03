@@ -56,7 +56,6 @@ export class GioithieuComponent implements OnInit {
       this._service.gettrangCaNhan(this._service.rt_API_TrangCaNhan).subscribe(res=>{
 		this.listTrangCaNhan=res.data;
     this.id_canhan=this.listTrangCaNhan[0].id_canhan;
-    console.log('id-canhan',this.id_canhan)
     this.LoadFlow(this.id_canhan);
         this.changeDetectorRefs.detectChanges();
       })

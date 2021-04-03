@@ -247,6 +247,14 @@ return this.http.post<any>(url+`/UpdateAvatarUser`,_item,{ headers: httpHeaders 
 		
 		
 	}
+  GetLoad_Comment(id_baidang:number,queryParams: QueryParamsModelNewLazy,routespst:string):any {
+    const httpHeaders = this.getHttpHeaders();
+    const url = this.API_Social+routespst;
+		const httpParams = this.getFindHTTPParams(queryParams);
+		return this.http.get<any>(url+`/Load_Comment?id_user&id_baidang=${id_baidang}`,{ headers: httpHeaders,params:  httpParams });
+		
+		
+	}
   DeleteGroup(id_group:number,routespst:string):Observable<any>{
     const httpHeaders = this.getHttpHeaders();
     const url = this.API_Social+routespst;
@@ -639,7 +647,6 @@ UpdateWithFile(id_:number,_item: ImageModel,routerpst:string): Observable<boolea
     .pipe(
       tap((res) => {localStorage.setItem(this.authLocalStorageToken, JSON.stringify(res));
      
-        console.log('data',res)
         // this.currentUserSubject = new BehaviorSubject<any>(res.dât);
       }),
       catchError(err => {
@@ -686,7 +693,6 @@ UpdateWithFile(id_:number,_item: ImageModel,routerpst:string): Observable<boolea
     const url = this.API_IDENTITY + routeFind;
     // const httpHeader = this.getHttpHeaders(); 
     const auth = this.getAuthFromLocalStorage();
-    console.log('logou',auth.access_token);
     const httpHeader = new HttpHeaders({
       'Content-Type': 'application/json',
       "Authorization": auth.access_token 

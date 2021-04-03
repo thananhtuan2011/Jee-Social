@@ -8,7 +8,7 @@ export const environment = {
   USERDATA_KEY: 'authf649fc9a5f55',
   isMockEnabled: true,
   apiUrl: 'api',
-  apiUrl_Social: 'https://localhost:44365/api',
+  apiUrl_Social: 'https://localhost:5001/api',
   ApiIdentity: 'https://identityserver.jee.vn',
   redirectUrl:'https://portal.jee.vn/?redirectUrl=',
   sso:'sso_token'

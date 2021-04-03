@@ -162,7 +162,6 @@ searchGroup: FormGroup;
 	this.filterForm();
     this.searchForm();
     this.loadList();
-    console.log('dataTest_TABLE',this.service_group_member.items$);
     this.grouping = this.service_group_member.grouping;
     this.paginator = this.service_group_member.paginator;
     this.sorting = this.service_group_member.sorting;

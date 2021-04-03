@@ -183,36 +183,10 @@ export class CreateGroupComponent implements OnInit {
 		this.changeDetectorRefs.detectChanges();
 		return item;
 	}
-	Adduser_admin(item:GroupMemberModel,withBack:boolean){
-		for(let i=0;i<this.list_id_user.length;i++)
-		{
-			//debugger
-			this.id_user=this.list_id_user[i].id;
-		
 	
-		this._services.InsertUserGroup(0,this.id_user,item,this._services.rt_insert_MemberGroup).subscribe(res=>{
-			if (res && res.status === 1) {
-				
-					 }
-					 else {
-						 this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 999999999, true, false, 3000, 'top', );
-					 }
-		})
-	}
-}
 
 
-				Group_user_Insert()
-				{
-					
-
-					
-					let it_gr_u=this.item_user_group_admin();
-					this.Adduser_admin(it_gr_u,false);
-					
-
-					
-				}
+			
 
 
 
@@ -225,10 +199,8 @@ export class CreateGroupComponent implements OnInit {
 		
 				item.ten_group= controls['tengroup'].value;
 				item.CreatedBy=this.id_user;
-				 item.avatar_group='';
-				 item.CreatedDate=null;
-				 item.UpdatedBy=null;
-				 item.UpdatedDate=null;
+				//  item.avatar_group='';
+			
 		
 	
 
@@ -257,11 +229,11 @@ export class CreateGroupComponent implements OnInit {
 					// this.loadDataList();
 					// this.dialogRef.close();
 				   //  this.dataSource.loadListBaiDang();
-				   		 window.location.href ='/home'
-					
+				   		 window.location.href ='/Home'
+							this.layoutUtilsService.showActionNotification('Thành Công !', MessageType.Read, 3000, true, false, 3000, 'top', );
 						 }
 						 else {
-							 this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 999999999, true, false, 3000, 'top', );
+							 this.layoutUtilsService.showActionNotification(res.error.message, MessageType.Read, 3000, true, false, 3000, 'top', );
 						 }
 			})
 	}
@@ -302,7 +274,6 @@ export class CreateGroupComponent implements OnInit {
 			return;
 		}
 			this.GroupInsert();
-			this.Group_user_Insert()
 	
 			// window.location.href ='/home'
 

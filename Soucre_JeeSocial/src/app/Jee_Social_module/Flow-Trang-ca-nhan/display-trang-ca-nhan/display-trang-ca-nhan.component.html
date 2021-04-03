@@ -104,10 +104,10 @@
      }
     
       </style>
-      <div style="width:100%;text-align:center;margin-left: 200px;" *ngFor="let canhan of listTrangCaNhan;let vi=index;">
+      <div style="text-align:center;margin: 0 200px 0 200px;" *ngFor="let canhan of listTrangCaNhan;let vi=index;">
     
       
-      <mat-card style="padding: 0px;margin:0px; width: 70%;
+      <mat-card style="padding: 0px;margin:0px; width: 100%;
       ">
       
       <!-- *ngFor="let item of list_user_group;let gr=index;" -->
@@ -175,7 +175,7 @@
               <span *ngIf="checkflow===true;then ck1;else ck2"></span>
 
               <ng-template #ck1>
-                <button [matMenuTriggerFor]="menu" matTooltip="Delete Follow"   style="float: right; margin-right:15px;background:rgb(235, 233, 233) ;margin-top: -50px;" mat-raised-button ><mat-icon style="margin-right: 5px; font-size: 25px;">check</mat-icon>Đang Theo Dõi</button>
+                <button [matMenuTriggerFor]="menu" matTooltip="Delete Follow"   style="float: right; margin-right:15px;background:rgb(235, 233, 233)" mat-raised-button ><mat-icon style="margin-right: 5px; font-size: 25px;">check</mat-icon>Đang Theo Dõi</button>
               
           <mat-menu #menu="matMenu">
             <button (click)="XoaFlow()" mat-menu-item> 	<mat-icon style="font-size: 25px;">block</mat-icon>Hủy Theo Dõi</button>

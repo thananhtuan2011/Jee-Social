@@ -166,7 +166,6 @@ export class DisplayTrangCaNhanComponent implements OnInit {
   {
       this._services_Flow.getTrangCaNhanFlow(id,this._services_Flow.rt_flow).subscribe(res=>{
 		this.listTrangCaNhan=res.data;
-		console.log('list trang ca nhan',this.listTrangCaNhan)
 		this.id_canhan=this.listTrangCaNhan[0].id_canhan;
         this.changeDetectorRefs.detectChanges();
       })
@@ -333,7 +332,6 @@ export class DisplayTrangCaNhanComponent implements OnInit {
 				this.base64Image = ''+event.target["result"];
 				this.nameimg=filesAmount.name;
 				this.base64Image = this.base64Image.split(',')[1];
-				console.log(this.image);
 					this.changeDetectorRefs.detectChanges();
 			  
 				  }

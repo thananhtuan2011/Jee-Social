@@ -35,7 +35,6 @@ onSubmit() {
 
   ngOnInit() {
     this.comment = this.data;
-    console.log('comment edit ',this.comment);
     this.changeDetectorRefs.detectChanges();
     
   }

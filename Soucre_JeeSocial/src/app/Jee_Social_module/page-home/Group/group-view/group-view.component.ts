@@ -180,7 +180,6 @@ export class GroupViewComponent implements OnInit {
 			this.base64Image = ''+event.target["result"];
 			this.nameimg=filesAmount.name;
 			this.base64Image = this.base64Image.split(',')[1];
-			console.log(this.image);
 				this.changeDetectorRefs.detectChanges();
 		  
 			  }
@@ -231,7 +230,6 @@ export class GroupViewComponent implements OnInit {
   layIDBaiDang(id_baidang_cmt:number){
 	 
 		this.id_bd_cmt=id_baidang_cmt;
-	console.log('id_baidangcmt',id_baidang_cmt);
 
   }
 Item_cmt(): CommentModel {
@@ -262,7 +260,6 @@ AddComment(item:CommentModel,withBack:boolean,id_baidang:number){
 	this._service_cmt.Insert(item,this._service_cmt.rt_insert_cmt).subscribe(res=>{
 		if (res&&res.status==1) {
 			this.dulieu_cmt.setValue("");
-			console.log(res.data);
 			let index=this.list_baidang.findIndex(x=>x.Id_BaiDang===id_baidang)
 		
 			// this.loadDataList();
@@ -1203,7 +1200,6 @@ GetCurrentUser() {
 		
     
     this.id_g =+params.id_group;
-	console.log('id_group', this.id_g);
 	this.binData();
 	// this.changeDetectorRefs.detectChanges();
 	this.GetCurrentUser();
@@ -1342,7 +1338,6 @@ GetCurrentUser() {
 			//a.style.display = "none";
 			//b.style.display = "block";
 		}
-		console.log('ind:',ind);
 		return x.style.display;
 	}
 	
@@ -1371,12 +1366,10 @@ GetCurrentUser() {
 
 		this.it = this.listUser.find(x => x.username == anchor.getAttribute('data-username'));
 		this.changeDetectorRefs.detectChanges();
-		console.log('on user');
 		this.myPopoverU.show();
 		
 	}
 	clickonbox($event) {
-		console.log('on box');
 		this.myPopoverU.hide();
 	}
 
@@ -1476,7 +1469,6 @@ GetCurrentUser() {
 		if (this.options.keyword) {
 			let el = $event.currentTarget;
 			let rect = el.getBoundingClientRect();
-			console.log(rect);
 			var w = this.textEl.nativeElement.offsetWidth + 25;
 			var h = 0;
 			this.myPopover.show();

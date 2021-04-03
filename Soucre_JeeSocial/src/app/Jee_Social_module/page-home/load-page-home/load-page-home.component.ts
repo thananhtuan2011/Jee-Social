@@ -35,7 +35,7 @@ import { MediaDetailComponent } from './media/media-detail/media-detail.componen
 })
 export class LoadPageHomeComponent implements OnInit {
 
-
+	show_xemthem:boolean=false;
   pageSize:number=0;
 
   
@@ -168,7 +168,6 @@ LoadMedia()
 		this._services_media.getlistMedia().subscribe(res=>{
 			this.ListMedia=res.data;
 			this.changeDetectorRefs.detectChanges();
-			console.log('Media',this.ListMedia);
 		})
 }
 
@@ -278,7 +277,6 @@ TaoTin() {
   layIDBaiDang(id_baidang_cmt:number){
 	 
 		this.id_bd_cmt=id_baidang_cmt;
-	console.log('id_baidangcmt',id_baidang_cmt);
 
   }
 Item_cmt(): CommentModel {
@@ -306,7 +304,6 @@ AddComment(item:CommentModel,withBack:boolean,id_baidang:number){
 		this._service_cmt.Insert(item,this._service_cmt.rt_insert_cmt).subscribe(res=>{
 			if (res && res.status === 1) {
 				this.dulieu_cmt.setValue("");
-				console.log(res.data);
 				let index=this.list_baidang.findIndex(x=>x.Id_BaiDang===id_baidang)
 			
 				// this.loadDataList();
@@ -611,7 +608,6 @@ AddComment_Child(item:CommentModel,withBack:boolean){
 				this._service_cmt.like_cmt_child(id_cmt,type).subscribe(res =>{
 				
 					if (res) {
-						console.log('commt child',res);
 						for(let j=0;j<this.list_baidang.length;j++)
 						{
 							for(let i = 0; i<this.list_baidang[j].Coment.length; i++)
@@ -892,7 +888,6 @@ creaFormDelete(id_baidang:number)
 							item.tinnhanh = res.tinnhanh
 							// this.loadDataList();
 							var tam=Object.assign(res[0]);
-							console.log('data tra ve',tam);
 							// let vi=this.list_baidang.findIndex(x=>x.Id_BaiDang==item.Id_BaiDang);
 							this.list_baidang.splice(index, 1,tam);
 							this.changeDetectorRefs.detectChanges();
@@ -1083,8 +1078,64 @@ creaFormDelete(id_baidang:number)
 
 			})
 		}
+		pageSize_cmt:number;
+		loadDataList_Comment(id_baidang:number) {
+			const queryParams1 = new QueryParamsModelNewLazy(
+			
+				'',
+				'',
+				'',
+				this.pageSize_cmt=0,
+				2,
+				false,
+			
+				// pageNumber: number;
+				// pageSize: number;
+				// more: boolean;
+				
+			);
+			let vitri=this.list_baidang.findIndex(x=>x.Id_BaiDang===id_baidang)
+			this._services.GetLoad_Comment(id_baidang,queryParams1,this._services.rt_load_comment).subscribe((res) => {
+			
+			
+				// if(res.status===1&&res)
+				// {
+				// 	for(let j=0;j<res.data.length;j++)
+				// 	{
+				// 		this.list_baidang[vitri].Coment.push(res.data[j])
+				// 	}
+					
+					
+					
+				// 		if(this.list_baidang[vitri].Coment.length==res.page.TotalCount){
+				// 			this.show_xemthem = false;
+				// 			this.changeDetectorRefs.detectChanges();
+				// 			console.log('lenghtt_cmt',this.list_baidang[vitri].Coment.length )
+				// 			console.log('res.page.TotalCount',res.page.TotalCount)
+				// 		}
+				// 		else
 
-
+				// 		{
+				// 			console.log('lenghtt_cmt trả về flase',this.list_baidang[vitri].Coment.length )
+				// 			console.log('res.page.TotalCount flase',res.page.TotalCount)
+				// 			this.show_xemthem = false;
+				// 			console.log('but thêm',	this.show_xemthem )
+				// 			this.changeDetectorRefs.detectChanges();
+				// 		}
+					
+					
+				
+				
+				
+				// }
+				// else
+				// {
+				// 	return;
+				// }
+					
+			})
+		  }
+		
 
 	
 // load  dữ liệu bài đăng (cmt,like) bằng datasource để realtime
@@ -1106,10 +1157,17 @@ creaFormDelete(id_baidang:number)
 	this._services.getlistBaiDang(queryParams1,this._services.rt_loadbaidang).subscribe((res) => {
 	
 			this.data= res.data;
-			console.log('Page',this.pageSize);
 			this.list_baidang=this.data.slice();
-	console.log('Dữ liệu bài đăng',this.list_baidang);
-	
+		
+		// for(let i = 0; i <this.list_baidang.length; i++)
+		// {
+		
+		// 	this.loadDataList_Comment(this.list_baidang[i].Id_BaiDang);
+			
+			
+		
+		// }	
+		
 			
 		     this.changeDetectorRefs.detectChanges();
 	})
@@ -1142,21 +1200,33 @@ creaFormDelete(id_baidang:number)
 				this.list_baidang.push(res.data[i]);
 				 this.changeDetectorRefs.detectChanges();
 				}
+
+				// 	let k=this.list_baidang.length-2;
+				// 	console.log('k',k);
+				// for(let i=k; i <this.list_baidang.length; i++)
+				// {
+				
+				// 	this.loadDataList_Comment(this.list_baidang[i].Id_BaiDang);
+					
+					
+				
+				// }	
 			}
 			else
 
 			{
 				
-				// const _messageType = this.translate.instant('No Data');
-				// 	this.layoutUtilsService.showActionNotification(_messageType, MessageType.Create, 3000, true, false, 3000, 'top').afterDismissed().subscribe(tt => {
-				// 	});
+			
 					return;
 			}
 			
 	})
   }
 
-
+		xemthem_cmt()
+		{
+			
+		}
   
 GetCurrentUser() {
 	// debugger
@@ -1311,7 +1381,6 @@ GetCurrentUser() {
 			//a.style.display = "none";
 			//b.style.display = "block";
 		}
-		console.log('ind:',ind);
 		return x.style.display;
 	}
 	
@@ -1352,7 +1421,6 @@ GetCurrentUser() {
 				this.base64Image = ''+event.target["result"];
 				this.nameimg=filesAmount.name;
 				this.base64Image = this.base64Image.split(',')[1];
-				console.log(this.image);
 					this.changeDetectorRefs.detectChanges();
 			  
 				  }
